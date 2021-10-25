@@ -73,10 +73,11 @@ namespace DockerAPIEntity.Controllers
         }
 
         // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
