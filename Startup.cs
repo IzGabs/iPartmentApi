@@ -31,13 +31,19 @@ namespace DockerAPIEntity
 
             services.AddMvc();
 
-            string mySqlConnection = Configuration.GetConnectionString("db");
+
+            string server = Configuration["DB_HOST"];
+            string mySqlConnection = $"server={server}; {Configuration.GetConnectionString("db")}";
+
+
+            Console.WriteLine("--------------->" + mySqlConnection);
+
 
             services.AddDbContextPool<BuildContext>(
              options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
-            services.AddScoped<BuildContext>();
-            
+
+            services.AddDbContext<DbContext, BuildContext>();
 
             services.AddSwaggerGen(c =>
             {
@@ -46,20 +52,26 @@ namespace DockerAPIEntity
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BuildContext context)
         {
-           
+
+            context.Database.Migrate();
+
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DockerAPIEntity v1"));
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DockerAPIEntity v1");
+                c.RoutePrefix = "api";
+            });
 
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
-           app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
-        });
+            app.UseEndpoints(endpoints =>
+         {
+             endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}");
+         });
         }
     }
 }

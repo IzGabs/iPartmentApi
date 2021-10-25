@@ -10,8 +10,6 @@ WORKDIR /src
 COPY ["DockerAPIEntity.csproj", "./"]
 RUN dotnet restore "DockerAPIEntity.csproj"
 
-#
-
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "DockerAPIEntity.csproj" -c Release -o /app/build

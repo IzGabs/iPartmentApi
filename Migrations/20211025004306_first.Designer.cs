@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DockerAPIEntity.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20211016204754_inicio")]
-    partial class inicio
+    [Migration("20211025004306_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
