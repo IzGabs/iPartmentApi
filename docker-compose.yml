@@ -31,10 +31,9 @@ services:
      - project_network
 
 
-  dockerapientity:
+  ipartment_container:
     image: ${DOCKER_REGISTRY-}dockerapientity
-    container_name: project_container
-    # restart: on-failure
+    container_name: ipartment_container
     volumes:
       - iPartmentVolume:/var/lib/api 
     build:

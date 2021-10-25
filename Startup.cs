@@ -35,10 +35,6 @@ namespace DockerAPIEntity
             string server = Configuration["DB_HOST"];
             string mySqlConnection = $"server={server}; {Configuration.GetConnectionString("db")}";
 
-
-            Console.WriteLine("--------------->" + mySqlConnection);
-
-
             services.AddDbContextPool<BuildContext>(
              options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
