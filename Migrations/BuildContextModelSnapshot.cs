@@ -24,13 +24,10 @@ namespace DockerAPIEntity.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -39,13 +36,6 @@ namespace DockerAPIEntity.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("ID");

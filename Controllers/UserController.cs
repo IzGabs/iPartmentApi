@@ -11,11 +11,11 @@ namespace DockerAPIEntity.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly BuildContext _context;
 
-        public UsersController(BuildContext context)
+        public UserController(BuildContext context)
         {
             _context = context;
         }
