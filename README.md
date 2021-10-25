@@ -1,3 +1,11 @@
+# Estudos em .NET Core + EntityFramework + Docker + MYSQL
+
+ - .NET Core 5.0
+ - EntityFramework Core
+ - Docker 
+ - Docker-compose 3.4
+ - Mysql 
+
 
 ## Requisitos:
 	- Ter o docker instalado na máquina
