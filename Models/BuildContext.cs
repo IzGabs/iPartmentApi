@@ -11,7 +11,7 @@ namespace DockerAPIEntity.Models
 
         public BuildContext(DbContextOptions<BuildContext> options): base(options){ }
 
-        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
 }

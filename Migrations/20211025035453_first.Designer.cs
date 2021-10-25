@@ -2,14 +2,16 @@
 using DockerAPIEntity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DockerAPIEntity.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    partial class BuildContextModelSnapshot : ModelSnapshot
+    [Migration("20211025035453_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
