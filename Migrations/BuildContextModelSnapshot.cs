@@ -40,7 +40,7 @@ namespace DockerAPIEntity.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DockerAPIEntity.Migrations
 {
-    public partial class newMigration : Migration
+    public partial class secondmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace DockerAPIEntity.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -27,7 +27,7 @@ namespace DockerAPIEntity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.ID);
+                    table.PrimaryKey("PK_User", x => x.ID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -35,7 +35,7 @@ namespace DockerAPIEntity.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }

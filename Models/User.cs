@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DockerAPIEntity.Models
 {
-    [Table("Users")]
+    [Table("User")]
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

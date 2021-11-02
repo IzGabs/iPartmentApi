@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DockerAPIEntity.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20211025085340_newMigration")]
-    partial class newMigration
+    [Migration("20211102093134_second-migration")]
+    partial class secondmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace DockerAPIEntity.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }
