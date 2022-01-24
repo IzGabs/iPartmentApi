@@ -1,4 +1,5 @@
-﻿using DockerAPIEntity.Models;
+﻿using API.Domain.User;
+using DockerAPIEntity.Models;
 using iPartmentApi;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Tests.Service
         public void GenerateToken_test()
         {
             var result = TokenService.GenerateToken(_thisUser);
+
+           
 
             Assert.IsType<string>(result);
         }

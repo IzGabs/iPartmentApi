@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DockerAPIEntity.Models
+namespace API.Domain.User
 {
-    [Table("User")]
+    [Table("Usuarios")]
     public class User
     {
 
@@ -37,13 +37,14 @@ namespace DockerAPIEntity.Models
         public string Phone { get; set; }
 
 
-        public UserResponsesEnum? IsEqual(User? other) {
+        public UserResponsesEnum? IsEqual(User other)
+        {
 
-            if (other == null) return null; 
-            if (this.Email == other.Email) return UserResponsesEnum.SAME_EMAIL;
-            if (this.Phone == other.Phone) return UserResponsesEnum.SAME_PHONE_NUMBER;
+            if (other == null) return null;
+            if (Email == other.Email) return UserResponsesEnum.SAME_EMAIL;
+            if (Phone == other.Phone) return UserResponsesEnum.SAME_PHONE_NUMBER;
 
-            return null; 
+            return null;
         }
     }
 }

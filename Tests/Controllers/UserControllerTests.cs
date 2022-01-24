@@ -1,4 +1,5 @@
 ﻿using API.Domain;
+using API.Domain.User;
 using DockerAPIEntity.Controllers;
 using DockerAPIEntity.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -82,7 +83,7 @@ namespace Tests.Controllers
 
             _user.ID = null;
             var _postWithoutID = await controller.PostUser(_user);
-           
+
             _user.ID = null;
             var _trySameEmailRegister = await controller.PostUser(_user);
 
@@ -95,7 +96,7 @@ namespace Tests.Controllers
 
             //ASSERT
             Assert.IsType<BadRequestObjectResult>(_postWithID.Result);
-            Assert.IsType<CreatedAtActionResult>(_postWithoutID.Result); 
+            Assert.IsType<CreatedAtActionResult>(_postWithoutID.Result);
             Assert.IsType<ConflictObjectResult>(_trySameEmailRegister.Result);
             Assert.IsType<ConflictObjectResult>(_trySamePhoneRegister.Result);
 

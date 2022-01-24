@@ -9,6 +9,8 @@ using DockerAPIEntity.Models;
 using Microsoft.AspNetCore.Authorization;
 using iPartmentApi;
 using API.Domain;
+using iPartmentApi.Domain.RealState.RealStateSubTypes;
+using API.Domain.User;
 
 namespace DockerAPIEntity.Controllers
 {
@@ -44,6 +46,7 @@ namespace DockerAPIEntity.Controllers
             {
                 return BadRequest(ex);
             }
+
 
         }
 
