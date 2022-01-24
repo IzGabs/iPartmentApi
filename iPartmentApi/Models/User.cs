@@ -10,6 +10,16 @@ namespace DockerAPIEntity.Models
     [Table("User")]
     public class User
     {
+
+        public User(int? iD, string name, string email, string password, string phone)
+        {
+            ID = iD;
+            Name = name;
+            Email = email;
+            Password = password;
+            Phone = phone;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int? ID { get; set; }

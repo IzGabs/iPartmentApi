@@ -69,7 +69,6 @@ namespace DockerAPIEntity.Controllers
         }
 
         // PUT: api/Users/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> PutUser(int id, User user)
@@ -105,6 +104,7 @@ namespace DockerAPIEntity.Controllers
         [Authorize]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            //Do Not provide a ID
             if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
 
             _context.Users.Add(user);
