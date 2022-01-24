@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,5 +35,15 @@ namespace DockerAPIEntity.Models
         public string Password { get; set; }
 
         public string Phone { get; set; }
+
+
+        public UserResponsesEnum? IsEqual(User? other) {
+
+            if (other == null) return null; 
+            if (this.Email == other.Email) return UserResponsesEnum.SAME_EMAIL;
+            if (this.Phone == other.Phone) return UserResponsesEnum.SAME_PHONE_NUMBER;
+
+            return null; 
+        }
     }
 }

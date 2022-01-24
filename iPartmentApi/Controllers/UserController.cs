@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DockerAPIEntity.Models;
 using Microsoft.AspNetCore.Authorization;
 using iPartmentApi;
+using API.Domain;
 
 namespace DockerAPIEntity.Controllers
 {
@@ -25,18 +26,19 @@ namespace DockerAPIEntity.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate( String email, String password) {
+        public async Task<ActionResult<dynamic>> Authenticate(String email, String password)
+        {
             try
             {
-                var user = await _context.Users.FirstAsync(x => x.Email == email && x.Password == password) ;
-                
-                if (user == null){ return Unauthorized( new { message ="Usuario e/ou senha invalidos" }); }
+                var user = await _context.Users.FirstAsync(x => x.Email == email && x.Password == password);
+
+                if (user == null) { return Unauthorized(new { message = "Usuario e/ou senha invalidos" }); }
 
                 var token = TokenService.GenerateToken(user);
 
                 user.Password = "";
 
-                return new {user,token};
+                return new { user, token };
             }
             catch (Exception ex)
             {
@@ -86,7 +88,7 @@ namespace DockerAPIEntity.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserExists(user))
                 {
                     return NotFound();
                 }
@@ -106,6 +108,14 @@ namespace DockerAPIEntity.Controllers
         {
             //Do Not provide a ID
             if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
+
+            var validateRegister = await validateUser(user);
+
+            if(validateRegister != null)
+            {
+                return Conflict(validateRegister.ToString());
+
+            }
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -130,9 +140,26 @@ namespace DockerAPIEntity.Controllers
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(User user)
         {
-            return _context.Users.Any(e => e.ID == id);
+            return _context.Users.Any(e =>
+             e.ID == user.ID ||
+             e.Email == user.Email ||
+             e.Phone == user.Phone
+             );
         }
+
+        private async Task<UserResponsesEnum?> validateUser(User user) {
+            var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
+             e.ID == user.ID ||
+             e.Email == user.Email ||
+             e.Phone == user.Phone
+             );
+
+            var returns =  user.IsEqual(searchUser);
+
+            return returns; 
+        }
+
     }
 }
