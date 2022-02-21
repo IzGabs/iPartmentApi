@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using iPartmentApi;
-using API.Domain;
+using API.Application;
 using API.Domain.User;
 using API.Domain.Models;
 
@@ -48,7 +47,7 @@ namespace API.Controllers
 
         }
 
-        
+
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<IEnumerable<UserObject>>> GetUsers()
@@ -56,7 +55,7 @@ namespace API.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        
+
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<UserObject>> GetUser(int id)
@@ -80,7 +79,7 @@ namespace API.Controllers
 
             var validateRegister = await validateUser(user);
 
-            if(validateRegister != null)
+            if (validateRegister != null)
             {
                 return Conflict(validateRegister.ToString());
 
@@ -147,16 +146,17 @@ namespace API.Controllers
              );
         }
 
-        private async Task<UserResponsesEnum?> validateUser(UserObject user) {
+        private async Task<UserResponsesEnum?> validateUser(UserObject user)
+        {
             var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
              e.ID == user.ID ||
              e.Email == user.Email ||
              e.Phone == user.Phone
              );
 
-            var returns =  user.IsEqual(searchUser);
+            var returns = user.IsEqual(searchUser);
 
-            return returns; 
+            return returns;
         }
 
     }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using API.Domain.RealState;
-using API.Domain.User;
+﻿using API.Domain.User;
 using iPartmentApi.Domain.Location;
-using iPartmentApi.Domain.RealState;
+using API.Domain.RealState.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Domain.Models

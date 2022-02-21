@@ -1,13 +1,14 @@
 
-using API.Domain.Models;
+
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using API.Domain.User;
+using iPartmentApi;
 
-namespace iPartmentApi
+namespace API.Application
 {
     public class TokenService
     {
@@ -19,13 +20,13 @@ namespace iPartmentApi
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { 
-                
+                Subject = new ClaimsIdentity(new Claim[] {
+
                     new Claim(ClaimTypes.Name, user.Name.ToString()),
                     new Claim(ClaimTypes.Email, user.Email.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(250),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -33,7 +34,7 @@ namespace iPartmentApi
             return tokenHandler.WriteToken(token);
         }
 
-       
+
 
     }
 }

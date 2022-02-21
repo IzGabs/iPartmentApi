@@ -2,14 +2,14 @@ using iPartmentApi.Domain.Location;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iPartmentApi.Domain.RealState
+namespace API.Domain.RealState.Models
 {
 
     [Table("Condominios")]
     public class Condominium
     {
 
-        public Condominium(){}
+        public Condominium() { }
 
         public Condominium(int iD, Adress endereco, bool academia)
         {

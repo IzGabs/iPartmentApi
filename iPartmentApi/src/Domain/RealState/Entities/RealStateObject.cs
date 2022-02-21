@@ -4,7 +4,7 @@ using iPartmentApi.Domain.Location;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Domain.RealState
+namespace API.Domain.RealState.Models
 {
 
     [Table("Imoveis")]
@@ -12,7 +12,7 @@ namespace API.Domain.RealState
     {
 
 
-       public RealStateObject() { }
+        public RealStateObject() { }
 
         public RealStateObject(int? iD, RealStateTypes tipo, string tamanho, int numeroSalas, int numeroBanheiros, int suites, bool mobiliado, bool aceitaPets, UserObject moradorAtual, Adress localicazao, double valor)
         {
@@ -51,7 +51,7 @@ namespace API.Domain.RealState
 
         public override bool Equals(object obj)
         {
-            if(obj == null) return false;
+            if (obj == null) return false;
 
             if (!(obj is RealStateObject)) return false;
 

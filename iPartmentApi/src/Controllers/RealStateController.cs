@@ -1,13 +1,9 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using iPartmentApi.Domain.RealState;
-using API.Domain.RealState;
+using API.Domain.RealState.Models;
 using API.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -72,6 +68,6 @@ namespace API.Controllers.RealState
             return null;
         }
 
-       
+
     }
 }

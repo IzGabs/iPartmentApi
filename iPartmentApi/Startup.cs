@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.dependencyInjection;
 using API.Domain.Models;
 using iPartmentApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,24 +28,28 @@ namespace DockerAPIEntity
 
         public IConfiguration Configuration { get; }
 
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddMvc();
             services.AddCors();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(x => 
+                .AddJwtBearer(x =>
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters {
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
@@ -65,6 +70,11 @@ namespace DockerAPIEntity
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IPartmentrAPi", Version = "v1" });
             });
+
+
+            InjectorModule injection = new InjectorModule();
+            injection.InjectModules(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +83,7 @@ namespace DockerAPIEntity
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DockerAPIEntity v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ipartment v1");
                 c.RoutePrefix = "api";
             });
 

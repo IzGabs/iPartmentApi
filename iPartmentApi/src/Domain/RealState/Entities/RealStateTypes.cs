@@ -1,4 +1,4 @@
-namespace API.Domain.RealState
+namespace API.Domain.RealState.Models
 {
     public enum RealStateTypes
     {
