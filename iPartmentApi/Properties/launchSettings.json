@@ -24,6 +24,17 @@
       "environmentVariables": {
         "DB_HOST": "172.17.0.1"
       }
+    },
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchServiceName": "ipartment_container",
+      "serviceActions": {
+        "db": "StartWithoutDebugging",
+        "ipartment_container": "StartDebugging"
+      },
+      "composeLaunchAction": "LaunchBrowser",
+      "commandVersion": "1.0",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/api"
     }
   }
 }

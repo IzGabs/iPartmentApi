@@ -447,3 +447,4 @@ iPartmentApi/docker-compose.dcproj
 iPartmentApi/docker-compose.yml
 iPartmentApi/Dockerfile
 iPartmentApi/.dockerignore
+iPartmentApi/launchSettings.json
