@@ -446,9 +446,4 @@ iPartmentApi/docker-compose.dcproj.user
 iPartmentApi/docker-compose.dcproj
 iPartmentApi/docker-compose.yml
 iPartmentApi/Dockerfile
-iPartmentApi/
-iPartmentApi/
-iPartmentApi/
-iPartmentApi/
-iPartmentApi/
-iPartmentApi/
+iPartmentApi/.dockerignore
