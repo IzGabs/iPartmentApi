@@ -1,7 +1,6 @@
 ﻿using API.Domain;
 using API.Domain.User;
-using DockerAPIEntity.Controllers;
-using DockerAPIEntity.Models;
+using API.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -11,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using API.Controllers;
 
 namespace Tests.Controllers
 {
@@ -53,7 +53,7 @@ namespace Tests.Controllers
             using var context = new BuildContext(options);
             var controller = new UserController(context);
 
-            var _user = new User(iD: 1,
+            var _user = new UserObject(iD: 1,
                 name: "Gabriel M", email: "gubs@gmail.com",
                 password: "123", phone: "");
 
@@ -74,7 +74,7 @@ namespace Tests.Controllers
             using var context = new BuildContext(options);
             var controller = new UserController(context);
 
-            var _user = new User(iD: 1,
+            var _user = new UserObject(iD: 1,
                 name: "Gabriel M", email: "gubs2@gmail.com",
                 password: "123", phone: "41995116689");
 
@@ -88,7 +88,7 @@ namespace Tests.Controllers
             var _trySameEmailRegister = await controller.PostUser(_user);
 
 
-            var _user2 = new User(iD: null,
+            var _user2 = new UserObject(iD: null,
               name: "Gabriel M", email: "diferent@gmail.com",
               password: "123", phone: "41995116689");
 
@@ -114,11 +114,11 @@ namespace Tests.Controllers
             using var context = new BuildContext(options);
             var controller = new UserController(context);
 
-            var _userOne = new User(iD: null,
+            var _userOne = new UserObject(iD: null,
                 name: "Gabriel", email: "gubs@gmail.com",
                 password: "123", phone: "1");
 
-            var _userTwo = new User(iD: null,
+            var _userTwo = new UserObject(iD: null,
                 name: "Bruno", email: "brulim@gmail.com",
                 password: "123", phone: "2");
 

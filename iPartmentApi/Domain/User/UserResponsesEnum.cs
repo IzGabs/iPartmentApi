@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Domain
+namespace API.Domain.User
 {
 
   public  enum UserResponsesEnum {

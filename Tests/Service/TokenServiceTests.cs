@@ -1,11 +1,6 @@
 ﻿using API.Domain.User;
-using DockerAPIEntity.Models;
+
 using iPartmentApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Tests.Service
@@ -13,7 +8,7 @@ namespace Tests.Service
     public class TokenServiceTests
     {
 
-        private User _thisUser = new User(
+        private UserObject _thisUser = new UserObject(
             iD: 1,
             name: "",
             email: "",

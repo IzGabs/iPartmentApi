@@ -30,9 +30,8 @@ services:
     networks:
      - project_network
 
-
   ipartment_container:
-    image: ${DOCKER_REGISTRY-}dockerapientity
+    image: ${DOCKER_REGISTRY-}api
     container_name: ipartment_container
     volumes:
       - iPartmentVolume:/var/lib/api 

@@ -1,4 +1,4 @@
-namespace iPartmentApi.Domain.RealState
+namespace API.Domain.RealState
 {
     public enum RealStateTypes
     {

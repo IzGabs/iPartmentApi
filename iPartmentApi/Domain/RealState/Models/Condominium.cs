@@ -8,10 +8,13 @@ namespace iPartmentApi.Domain.RealState
     [Table("Condominios")]
     public class Condominium
     {
-        public Condominium(int iD, Adress localicazao, bool academia)
+
+        public Condominium(){}
+
+        public Condominium(int iD, Adress endereco, bool academia)
         {
             ID = iD;
-            this.localicazao = localicazao;
+            this.localizacao = endereco;
             Academia = academia;
         }
 
@@ -19,7 +22,7 @@ namespace iPartmentApi.Domain.RealState
         [Key]
         public int ID { get; set; }
 
-        public Adress localicazao { get; set; }
+        public Adress localizacao { get; set; }
 
         public bool Academia { get; set; }
 

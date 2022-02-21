@@ -1,18 +1,14 @@
-﻿using API.Domain;
-using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Domain.User
 {
     [Table("Usuarios")]
-    public class User
+    public class UserObject
     {
 
-        public User(int? iD, string name, string email, string password, string phone)
+        public UserObject(int? iD, string name, string email, string password, string phone)
         {
             ID = iD;
             Name = name;
@@ -37,7 +33,7 @@ namespace API.Domain.User
         public string Phone { get; set; }
 
 
-        public UserResponsesEnum? IsEqual(User other)
+        public UserResponsesEnum? IsEqual(UserObject other)
         {
 
             if (other == null) return null;

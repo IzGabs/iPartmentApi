@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DockerAPIEntity.Models;
 using Microsoft.AspNetCore.Authorization;
 using iPartmentApi;
 using API.Domain;
-using iPartmentApi.Domain.RealState.RealStateSubTypes;
 using API.Domain.User;
+using API.Domain.Models;
 
-namespace DockerAPIEntity.Controllers
+namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -50,18 +48,18 @@ namespace DockerAPIEntity.Controllers
 
         }
 
-        // GET: api/Users
+        
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserObject>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Users/5
+        
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserObject>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -73,10 +71,30 @@ namespace DockerAPIEntity.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<UserObject>> PostUser(UserObject user)
+        {
+            //Do Not provide a ID
+            if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
+
+            var validateRegister = await validateUser(user);
+
+            if(validateRegister != null)
+            {
+                return Conflict(validateRegister.ToString());
+
+            }
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.ID }, user);
+        }
+
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, UserObject user)
         {
             if (id != user.ID)
             {
@@ -104,29 +122,6 @@ namespace DockerAPIEntity.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            //Do Not provide a ID
-            if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
-
-            var validateRegister = await validateUser(user);
-
-            if(validateRegister != null)
-            {
-                return Conflict(validateRegister.ToString());
-
-            }
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.ID }, user);
-        }
-
-        // DELETE: api/Users/5
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
@@ -143,7 +138,7 @@ namespace DockerAPIEntity.Controllers
             return NoContent();
         }
 
-        private bool UserExists(User user)
+        private bool UserExists(UserObject user)
         {
             return _context.Users.Any(e =>
              e.ID == user.ID ||
@@ -152,7 +147,7 @@ namespace DockerAPIEntity.Controllers
              );
         }
 
-        private async Task<UserResponsesEnum?> validateUser(User user) {
+        private async Task<UserResponsesEnum?> validateUser(UserObject user) {
             var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
              e.ID == user.ID ||
              e.Email == user.Email ||

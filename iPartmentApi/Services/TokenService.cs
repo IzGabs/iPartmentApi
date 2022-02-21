@@ -1,6 +1,5 @@
 
-
-using DockerAPIEntity.Models;
+using API.Domain.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,7 +12,7 @@ namespace iPartmentApi
     public class TokenService
     {
 
-        public static string GenerateToken(User user)
+        public static string GenerateToken(UserObject user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
