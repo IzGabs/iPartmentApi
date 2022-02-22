@@ -21,7 +21,9 @@ namespace API
                     catch (Exception ex)
                     {
                         //Log errors or do anything you think it's needed
-                        throw;
+                       Console.ForegroundColor = ConsoleColor.Red;
+                       Console.WriteLine(ex.Message);
+                       Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
             }

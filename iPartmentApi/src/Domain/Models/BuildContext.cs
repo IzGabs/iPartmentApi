@@ -1,5 +1,5 @@
 ﻿using API.Domain.User;
-using iPartmentApi.Domain.Location;
+using API.Domain.Location;
 using API.Domain.RealState.Models;
 using Microsoft.EntityFrameworkCore;
 

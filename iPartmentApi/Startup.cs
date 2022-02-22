@@ -93,6 +93,10 @@ namespace DockerAPIEntity
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
+            
+
+            // app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

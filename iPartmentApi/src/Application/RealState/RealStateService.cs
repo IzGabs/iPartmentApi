@@ -1,4 +1,4 @@
-﻿using iPartmentApi.src.Domain.RealState.repository;
+﻿using API.src.Domain.RealState.repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace API.Application
     {
          private readonly IRealStateRepository _repository;
 
-        RealStateService(IRealStateRepository repo) {
+       public RealStateService(IRealStateRepository repo) {
             _repository = repo;
         }
 

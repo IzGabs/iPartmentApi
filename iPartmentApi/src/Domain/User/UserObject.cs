@@ -21,7 +21,7 @@ namespace API.Domain.User
         [Key]
         public int? ID { get; set; }
 
-        [Required]
+         [Required]
         public string Name { get; set; }
 
         [Required]

@@ -1,4 +1,4 @@
-using iPartmentApi.Domain.Location;
+using API.Domain.Location;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,8 +9,7 @@ namespace API.Domain.RealState.Models
     public class Condominium
     {
 
-        public Condominium() { }
-
+        private Condominium() { }
         public Condominium(int iD, Adress endereco, bool academia)
         {
             ID = iD;

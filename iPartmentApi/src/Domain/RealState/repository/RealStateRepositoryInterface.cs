@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace iPartmentApi.src.Domain.RealState.repository
+namespace API.src.Domain.RealState.repository
 {
-    public interface IRealStateRepository 
+    public interface IRealStateRepository
     {
 
-        Task<bool> IsRealStateValid();
-        Task<int> Create();
-        Task<bool> Update();
-        Task<bool> Delete();
+        Task<int?> Create(RealStateObject body);
+        Task<bool> Update(RealStateObject body);
+        Task<bool> Delete(RealStateObject body);
         Task<List<RealStateObject>> Getall();
-        Task<RealStateObject> Get(int id);
+        Task<RealStateObject> Get(int? id);
 
     }
 }

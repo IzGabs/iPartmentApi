@@ -1,4 +1,5 @@
-﻿using API.Domain.User;
+﻿using API.Application;
+using API.Domain.User;
 
 using iPartmentApi;
 using Xunit;

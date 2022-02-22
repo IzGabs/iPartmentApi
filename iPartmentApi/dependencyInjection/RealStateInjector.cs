@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using API.Application;
-using iPartmentApi.src.Application.RealState;
-using iPartmentApi.src.Domain.RealState.repository;
+using API.src.Application.RealState;
+using API.src.Domain.RealState.repository;
 
 namespace API.dependencyInjection
 {
