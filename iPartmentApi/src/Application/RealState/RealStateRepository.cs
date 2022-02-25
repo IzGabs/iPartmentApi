@@ -13,15 +13,14 @@ namespace API.src.Application.RealState
 
         private readonly BuildContext _context;
 
-       public RealStateRepository(BuildContext context)
+        public RealStateRepository(BuildContext context)
         {
             _context = context;
         }
 
 
-        public async Task<RealStateObject> Get(int? id)
+        public async Task<RealStateObject> Get(int id)
         {
-            if (id == null) throw null;
             return await _context.RealState.FindAsync(id);
         }
 
@@ -32,10 +31,22 @@ namespace API.src.Application.RealState
         }
 
 
-        public async Task<int?> Create(RealStateObject body)
+        public async Task<RealStateObject> Create(RealStateObject body)
         {
-            await _context.RealState.AddAsync(body);
-            return body.ID;
+            try
+            {
+                var request = await _context.RealState.AddAsync(body);
+                await _context.SaveChangesAsync();
+
+                return request.Entity;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return null;
+
         }
 
         public async Task<bool> Delete(RealStateObject body)
@@ -44,7 +55,7 @@ namespace API.src.Application.RealState
             {
                 var returnRemove = _context.RealState.Remove(body);
 
-                return returnRemove.State == EntityState.Deleted ;
+                return returnRemove.State == EntityState.Deleted;
             }
             catch (Exception ex)
             {
@@ -58,7 +69,7 @@ namespace API.src.Application.RealState
         {
             try
             {
-               var updateReturn =  _context.RealState.Update(body);
+                var updateReturn = _context.RealState.Update(body);
 
                 return updateReturn.State == EntityState.Modified;
             }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220221221337_firstMigration")]
-    partial class firstMigration
+    [Migration("20220224165647_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.11");
 
-            modelBuilder.Entity("API.Domain.Location.Adress", b =>
+            modelBuilder.Entity("API.Domain.Location.Address", b =>
                 {
                     b.Property<int?>("ID")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace API.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("localicazaoID")
+                    b.Property<int?>("localizacaoID")
                         .HasColumnType("int");
 
                     b.Property<double>("valor")
@@ -101,7 +101,7 @@ namespace API.Migrations
 
                     b.HasIndex("MoradorAtualID");
 
-                    b.HasIndex("localicazaoID");
+                    b.HasIndex("localizacaoID");
 
                     b.ToTable("Imoveis");
                 });
@@ -134,7 +134,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Domain.RealState.Models.Condominium", b =>
                 {
-                    b.HasOne("API.Domain.Location.Adress", "localizacao")
+                    b.HasOne("API.Domain.Location.Address", "localizacao")
                         .WithMany()
                         .HasForeignKey("localizacaoID");
 
@@ -147,11 +147,11 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("MoradorAtualID");
 
-                    b.HasOne("API.Domain.Location.Adress", "localicazao")
+                    b.HasOne("API.Domain.Location.Address", "localizacao")
                         .WithMany()
-                        .HasForeignKey("localicazaoID");
+                        .HasForeignKey("localizacaoID");
 
-                    b.Navigation("localicazao");
+                    b.Navigation("localizacao");
 
                     b.Navigation("MoradorAtual");
                 });

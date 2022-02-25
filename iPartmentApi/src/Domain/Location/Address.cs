@@ -6,12 +6,12 @@ namespace API.Domain.Location
 {
 
     [Table("Enderecos")]
-    public class Adress
+    public class Address
     {
 
-        private Adress() { }
+        private Address() { }
 
-        public Adress(int? ID, string cep, string numero, string complemento) {
+        public Address(int? ID, string cep, string numero, string complemento) {
             this.ID = ID;
             this.Cep = cep;
             this.Numero = numero;

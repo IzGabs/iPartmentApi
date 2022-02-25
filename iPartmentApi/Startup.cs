@@ -60,11 +60,10 @@ namespace DockerAPIEntity
             string server = Configuration["DB_HOST"];
             string mySqlConnection = $"server={server}; {Configuration.GetConnectionString("db")}";
 
-            services.AddDbContextPool<BuildContext>(
-             options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
-
-
-            services.AddDbContext<DbContext, BuildContext>();
+            services.AddDbContext<BuildContext>(
+                options =>
+                    options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection))
+                );
 
             services.AddSwaggerGen(c =>
             {
@@ -93,7 +92,7 @@ namespace DockerAPIEntity
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
-            
+
 
             // app.UseRouting();
 

@@ -11,10 +11,11 @@ namespace API.Domain.RealState.Models
     public class RealStateObject
     {
 
-        private RealStateObject() { }
+        public RealStateObject() { }
 
-        public RealStateObject(int? iD, RealStateTypes tipo, string tamanho, int numeroSalas, int numeroBanheiros, int suites, bool mobiliado, bool aceitaPets, UserObject moradorAtual, Adress localicazao, double valor)
+        public RealStateObject(int? iD, RealStateTypes tipo, string tamanho, int numeroSalas, int numeroBanheiros, int suites, bool mobiliado, bool aceitaPets, UserObject? moradorAtual, Address localicazao, double valor)
         {
+
             ID = iD;
             Tipo = tipo;
             Tamanho = tamanho;
@@ -24,7 +25,7 @@ namespace API.Domain.RealState.Models
             Mobiliado = mobiliado;
             AceitaPets = aceitaPets;
             MoradorAtual = moradorAtual;
-            this.localicazao = localicazao;
+            this.localizacao = localicazao;
             this.valor = valor;
         }
 
@@ -32,9 +33,10 @@ namespace API.Domain.RealState.Models
         [Key]
         public int? ID { get; set; }
 
-        [Required]
+        [Required] 
         public RealStateTypes Tipo { get; set; }
         public string Tamanho { get; set; }
+
         [Required]
         public int NumeroSalas { get; set; }
 
@@ -48,8 +50,9 @@ namespace API.Domain.RealState.Models
         public bool Garagem { get; set; }
 
         public UserObject? MoradorAtual { get; set; }
+
         [Required]
-        public Adress localicazao { get; set; }
+        public Address localizacao { get; set; }
 
         //De repente, fazer uma lista so de valores
         public double valor { get; set; }
@@ -74,7 +77,7 @@ namespace API.Domain.RealState.Models
                 (this.Mobiliado == thisObj.Mobiliado) &&
                 (this.AceitaPets == thisObj.AceitaPets) &&
                 (this.Garagem == thisObj.Garagem) &&
-                (this.localicazao == thisObj.localicazao);
+                (this.localizacao == thisObj.localizacao);
         }
 
 

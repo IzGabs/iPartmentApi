@@ -2,6 +2,7 @@
 using API.Application;
 using API.src.Application.RealState;
 using API.src.Domain.RealState.repository;
+using API.src.Domain.RealState;
 
 namespace API.dependencyInjection
 {
@@ -11,8 +12,8 @@ namespace API.dependencyInjection
 
         public void Inject(IServiceCollection services)
         {
-            services.AddScoped<IRealStateRepository, RealStateRepository>();
-            services.AddTransient<RealStateService, RealStateService>();
+            services.AddTransient<IRealStateRepository, RealStateRepository>();
+            services.AddTransient<IRealStateService, RealStateService>();
         }
     }
 }

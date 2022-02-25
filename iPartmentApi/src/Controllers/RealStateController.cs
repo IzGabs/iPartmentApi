@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Domain.RealState.Models;
-using API.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+using API.src.Domain.RealState;
 
 namespace API.Controllers.RealState
 {
@@ -14,11 +13,11 @@ namespace API.Controllers.RealState
     public class RealStateController : ControllerBase
     {
 
-        private readonly BuildContext _context;
+        private readonly IRealStateService _service;
 
-        public RealStateController(BuildContext context)
+        public RealStateController(IRealStateService service)
         {
-            _context = context;
+            _service = service;
         }
 
 
@@ -26,28 +25,26 @@ namespace API.Controllers.RealState
         [Authorize]
         public async Task<ActionResult<RealStateObject>> Details(int id)
         {
-            var realStateSearch = await _context.RealState.FindAsync(id);
-
-            if (realStateSearch == null) return NotFound();
-
-            return realStateSearch;
+            var request = await _service.GetByID(id);
+            return request == null ? NotFound() : request;
         }
 
         [HttpGet]
         [Authorize]
         [Route("realStates")]
-        public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL() => await _context.RealState.ToListAsync();
+        public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL() => await _service.GetList();
 
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(RealStateObject body)
+        public async Task<ActionResult> Create(RealStateObject body)
         {
-            if (body.ID != null) return BadRequest("A ID é gerada automaticamente");
+            if (body.ID != null || body.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
+            RealStateObject createdObject = await _service.Create(body);
 
-            // var _validateRealState = 
+            if (createdObject == null) return BadRequest();
 
-            return null;
+            return Created("CreateRealState", new { id = createdObject.ID }); 
         }
 
 
@@ -56,7 +53,13 @@ namespace API.Controllers.RealState
         [Authorize]
         public async Task<IActionResult> Update(int id, RealStateObject body)
         {
-            return null;
+            var _findInDB = await _service.GetByID(id);
+            if (_findInDB == null) return NoContent(); 
+
+            var _request = await _service.Update(body);
+            if(_request)return Ok();
+
+            return StatusCode(500);
         }
 
 
@@ -65,7 +68,13 @@ namespace API.Controllers.RealState
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            return null;
+            var _findInDB = await _service.GetByID(id);
+            if (_findInDB == null) return NoContent();
+
+            var _request = await _service.Delete(_findInDB);
+            if (_request) return Ok();
+
+            return StatusCode(500);
         }
 
 

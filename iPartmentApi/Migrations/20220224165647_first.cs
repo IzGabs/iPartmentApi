@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,15 +87,15 @@ namespace API.Migrations
                     AceitaPets = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Garagem = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     MoradorAtualID = table.Column<int>(type: "int", nullable: true),
-                    localicazaoID = table.Column<int>(type: "int", nullable: true),
+                    localizacaoID = table.Column<int>(type: "int", nullable: true),
                     valor = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Imoveis", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Imoveis_Enderecos_localicazaoID",
-                        column: x => x.localicazaoID,
+                        name: "FK_Imoveis_Enderecos_localizacaoID",
+                        column: x => x.localizacaoID,
                         principalTable: "Enderecos",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -114,9 +114,9 @@ namespace API.Migrations
                 column: "localizacaoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Imoveis_localicazaoID",
+                name: "IX_Imoveis_localizacaoID",
                 table: "Imoveis",
-                column: "localicazaoID");
+                column: "localizacaoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Imoveis_MoradorAtualID",

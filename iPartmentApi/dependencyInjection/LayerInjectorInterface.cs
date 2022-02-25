@@ -8,8 +8,6 @@ namespace API.dependencyInjection
 {
     public interface ILayerInjector
     {
-
-
         void Inject(IServiceCollection services);
     }
 }

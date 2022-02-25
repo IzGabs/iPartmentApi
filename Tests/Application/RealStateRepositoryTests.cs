@@ -31,6 +31,7 @@ namespace Tests.Application
 
             //ACT
             var responseId = await repository.Create(realStateObjectExample);
+            var getAgain = await  repository.Getall();
 
             //ASSERT
             Assert.NotNull(responseId);
@@ -44,16 +45,13 @@ namespace Tests.Application
 
             //ACT
             await Seed();
-            var responseId = await repository.Getall();
             var response = await repository.Get(2);
             var responseUnknowID = await repository.Get(112097);
-            Func<Task> responseWithNull = async () => await repository.Get(null);
 
             //ASSERT
             Assert.Null(responseUnknowID);
             Assert.NotNull(response);
             Assert.IsType<RealStateObject>(response);
-            await Assert.ThrowsAsync<NullReferenceException>(responseWithNull);
         }
 
         [Fact]
@@ -94,7 +92,7 @@ namespace Tests.Application
 
         private RealStateObject getExampleObj()
         {
-            var adress = new Adress(ID: null, cep: "23", numero: "2", complemento: "123");
+            var adress = new Address(ID: null, cep: "23", numero: "2", complemento: "123");
 
             return new RealStateObject(
                    iD: null, tipo: RealStateTypes.HOUSE,

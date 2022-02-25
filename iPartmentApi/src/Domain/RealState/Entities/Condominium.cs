@@ -10,7 +10,7 @@ namespace API.Domain.RealState.Models
     {
 
         private Condominium() { }
-        public Condominium(int iD, Adress endereco, bool academia)
+        public Condominium(int iD, Address endereco, bool academia)
         {
             ID = iD;
             this.localizacao = endereco;
@@ -21,7 +21,7 @@ namespace API.Domain.RealState.Models
         [Key]
         public int ID { get; set; }
 
-        public Adress localizacao { get; set; }
+        public Address localizacao { get; set; }
 
         public bool Academia { get; set; }
 

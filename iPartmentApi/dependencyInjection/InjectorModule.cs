@@ -14,6 +14,7 @@ namespace API.dependencyInjection
         public InjectorModule()
         {
             listInjectors.Add(new RealStateInjector());
+            listInjectors.Add(new LocationInjector());
         }
 
         public void InjectModules(IServiceCollection services)

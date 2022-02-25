@@ -8,12 +8,13 @@ namespace API.Domain.Models
     public class BuildContext : DbContext
     {
 
-        public BuildContext(DbContextOptions<BuildContext> options) : base(options) { }
+        public BuildContext(DbContextOptions<BuildContext> options) : base(options) { 
+        }
 
         public DbSet<UserObject> Users { get; set; }
         public DbSet<Condominium> Condominium { get; set; }
         public DbSet<RealStateObject> RealState { get; set; }
-        public DbSet<Adress> Addresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
     }
 

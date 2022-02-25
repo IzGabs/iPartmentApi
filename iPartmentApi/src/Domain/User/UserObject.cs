@@ -8,7 +8,7 @@ namespace API.Domain.User
     public class UserObject
     {
 
-        public UserObject(int? iD, string name, string email, string password, string phone)
+        public UserObject(int? iD, string name, string email, string? password, string phone)
         {
             ID = iD;
             Name = name;
