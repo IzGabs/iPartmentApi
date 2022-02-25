@@ -54,11 +54,13 @@ namespace API.src.Application.RealState
             try
             {
                 var returnRemove = _context.RealState.Remove(body);
+                await _context.SaveChangesAsync();
 
                 return returnRemove.State == EntityState.Deleted;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
