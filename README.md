@@ -10,6 +10,10 @@
  * Atualizar REadme da API 
  * Adicionar documentacao do banco de dados
 
-
-Como o banco esta atualmente
+.
+.
+.
+.
+.
+## Como o banco esta atualmente
 ![alt text](https://github.com/IzGabs/iPartmentApi/blob/master/Documents/Como%20o%20banco%20esta%20agora.PNG?raw=true)
