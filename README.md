@@ -1,6 +1,6 @@
 #iPartmentApi
 
-* O Readme da api [foi movido pra ca](https://github.com/IzGabs/iPartmentApi/blob/master/iPartmentApi/README.md)
+* O Readme da api [foi movido pra ca](https://github.com/IzGabs/iPartmentApi/tree/master/iPartmentApi)
 
 
 //TODO 
