@@ -16,14 +16,23 @@
 
 ### Padrões
 
-- Ter certeza que adicionou uma migration.
+- Ter certeza que adicionou ao menos uma migration.
+- Tente manter um código limpo e desacoplado.
 - Escrever testes quando possível e se quiser testar camadas funcionando.
+- Sempre que for feita uma mudança nas entidades e feita uma nova migration:
+
+		- Atualizar o documento de como está o banco, lá em /iPartmentApi/Documents, é só abrir o Workbench
+		  e fazer engenharia reversa.
+		
+		- Avisar o time de que deve ser feita uma nova migration.
+
 - O projeto deve ser estruturado utilizando DDD, assim mantemos ele escalável e limpo.
 
 		- Utilizar o basico do DDD de Controller->Service->Repository.
 		- Dentro da Domain não deve haver implementação concreta de Services e Repositórios, apenas interfaces e Entidades.
 
-- Tente manter um código limpo e desacoplado.
+- **Vamos tentar manter um padrão de utilizar PullRequest para atualizar as branches.**
+
 
 P.S. O módulo de usuário foi feito utilizando uma métodologia antiga, use como padrão o modo como foi feito o CREATE do RealState.
 
