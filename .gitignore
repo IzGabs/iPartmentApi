@@ -442,14 +442,14 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 
-iPartmentApi/Migrations/*
+API/Migrations/*
 
 #Docker related
-iPartmentApi/docker-compose.dcproj.user
-iPartmentApi/docker-compose.dcproj
-iPartmentApi/docker-compose.yml
-iPartmentApi/Dockerfile
-iPartmentApi/.dockerignore
-iPartmentApi/launchSettings.json
-iPartmentApi/DockerAPIEntity.sln
-iPartmentApi/Dockerfile.original
+API/docker-compose.dcproj.user
+API/docker-compose.dcproj
+API/docker-compose.yml
+API/Dockerfile
+API/.dockerignore
+API/launchSettings.json
+API/DockerAPIEntity.sln
+API/Dockerfile.original
