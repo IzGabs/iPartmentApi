@@ -1,8 +1,8 @@
 # iPartmentApi
 
 * As tarefas podem ser acompanhadas [pelo trello do projeto.](https://trello.com/b/d2rBujd4/tcc)
-* O Readme da api [está aqui.](https://github.com/IzGabs/iPartmentApi/tree/master/API)
-* O Readme de como utilizar o docker na api [está aqui.](https://github.com/IzGabs/iPartmentApi/tree/master/API/docker)
+* Como executar, inicio, padrões, etc. Estão no [Readme da api.](https://github.com/IzGabs/iPartmentApi/tree/master/API) 
+* Como configurar o docker, comandos, etc. Está no [Readme do docker no projeto.](https://github.com/IzGabs/iPartmentApi/tree/master/API/docker)
 
 
 
