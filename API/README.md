@@ -1,41 +1,34 @@
 # iPartmentAPI em .NET Core + EntityFramework + Docker + MYSQL
 
- - .NET Core 5.0
- - EntityFramework Core
- - Docker 
- - Docker-compose 3.4
- - Mysql 
+	*** Após o container ser iniciado
+
+	http://localhost:5001/api/  <---- Documentacao
+
+	http://localhost:5001/api/Produto <---------- /api/{Nome_Controller} trás os endpoints
+	
+#### Configuração 
+- Comece sempre fazendo a instalação do docker e de tudo que for preciso para executar o projeto.
+- Pegue os arquivos dentro da pasta /docker e jogue para /api.
+- Realizar um **add-migration** first quando for rodar pela primeira vez.
+- Executar o projeto uma primeira vez para ver se está tudo funcionando.
+
+# Padrão de desenvolvimento
+
+### Padrões
+
+- Ter certeza que adicionou uma migration.
+- Escrever testes quando possível e se quiser testar camadas funcionando.
+- O projeto deve ser estruturado utilizando DDD, assim mantemos ele escalável e limpo.
+
+		- Utilizar o basico do DDD de Controller->Service->Repository.
+		- Dentro da Domain não deve haver implementação concreta de Services e Repositórios, apenas interfaces e Entidades.
+
+- Tente manter um código limpo e desacoplado.
+
+P.S. O módulo de usuário foi feito utilizando uma métodologia antiga, use como padrão o modo como foi feito o CREATE do RealState.
 
 
-## Docker:
-	- Instale o docker na máquina
-  #### Comandos: 
-   Execução:
-     - docker-compose build
-     - docker-compose up
-    
-     util:
-    	docker-compose build && docker-compose up
-
-   Uteis:
-    - docker network inspect bridge 
-    - Informações sobre a rede dos containers
-    -	**Ver se o container do mysql está para 172.17.0.1, caso não, trocar dentro do docker-compose.yml**
-    - docker container ls (Lista os containers).
-
-  #### Execução no VisualStudio
-
-    Para executar no VisualStudio com o Docker, você vai precisar pegar todos os arquivos dentro da pasta /docker
-    para a raiz do projeto da api. 
-      Depois, é só atualizar o projeto que já vai aparecer para dar run com docker-compose.
-
-	* Se acontecer de dar erro de build no add migration, limpa todo o projeto e compila as solucoes separadamente
+	
 
 
-## URL's
 
- *Após o container ser iniciado
-
-http://localhost:5001/api/  <---- Documentacao
-
-http://localhost:5001/api/Produto <---------- /api/{Nome_Controller} trás os endpoints
