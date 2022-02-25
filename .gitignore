@@ -441,6 +441,9 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+
+iPartmentApi/Migrations/*
+
 #Docker related
 iPartmentApi/docker-compose.dcproj.user
 iPartmentApi/docker-compose.dcproj
