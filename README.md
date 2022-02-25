@@ -1,6 +1,7 @@
 # iPartmentApi
 
 * O Readme da api [foi movido pra ca](https://github.com/IzGabs/iPartmentApi/tree/master/API)
+* As tarefas podem ser acompanhadas [pelo trello do proejeto](https://trello.com/b/d2rBujd4/tcc)
 
 
 //TODO 
@@ -8,3 +9,7 @@
  * Adicionar Documentacao das camadas do projeto
  * Atualizar REadme da API 
  * Adicionar documentacao do banco de dados
+
+
+Como o banco esta atualmente
+![alt text](https://github.com/IzGabs/iPartmentApi/blob/master/Documents/Como%20o%20banco%20esta%20agora.PNG?raw=true)
