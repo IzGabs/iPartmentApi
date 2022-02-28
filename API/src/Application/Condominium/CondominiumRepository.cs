@@ -15,8 +15,14 @@ namespace API.src.Application.Condominium
 
         public CondominiumRepository(BuildContext context) { _context = context; }
 
-        public async Task<CondominiumObject> Get(int id) => await _context.Condominium.Include(l => l.Location).FirstOrDefaultAsync(x => x.ID == id);
         public async Task<List<CondominiumObject>> GetAll() => await _context.Condominium.Include(l => l.Location).ToListAsync();
+        public async Task<CondominiumObject> Get(int id) => await _context.Condominium
+            .Include(l => l.Location)
+            .Include(
+                l => l.realStates
+            )
+            .FirstOrDefaultAsync(x => x.ID == id);
+
         public async Task<CondominiumObject> Create(CondominiumObject obj)
         {
             try

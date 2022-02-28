@@ -104,8 +104,6 @@ namespace API.Domain.RealState.Models
                 (this.localizacao == thisObj.localizacao);
         }
 
-        public bool needToProvideCondominium() => this.Tipo == RealStateTypes.APARTMENT && this.Condominio == null;
-
-
+        public bool isCondoRequired() => this.Tipo == RealStateTypes.APARTMENT;
     }
 }

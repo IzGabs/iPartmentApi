@@ -1,5 +1,7 @@
 ﻿using API.Domain.Location;
 using API.Domain.RealState.Models;
+using API.src.Core.Errors;
+using API.src.Domain.Condominium;
 using API.src.Domain.Location;
 using API.src.Domain.RealState;
 using API.src.Domain.RealState.repository;
@@ -11,20 +13,25 @@ namespace API.Application
     public class RealStateService : IRealStateService
     {
         private readonly IRealStateRepository _repository;
-        private readonly ILocationService locationService; 
+        private readonly ILocationService locationService;
+        private readonly ICondominiumService condominiumService;
 
-        public RealStateService(IRealStateRepository repo, ILocationService _locationService)
+        public RealStateService(IRealStateRepository repo, ILocationService _locationService, ICondominiumService condominiumService)
         {
-            _repository = repo;
-            locationService = _locationService;
+            this._repository = repo;
+            this.locationService = _locationService;
+            this.condominiumService = condominiumService;
         }
 
-        public async Task<RealStateObject> Create(RealStateObject body)
+        public async Task<RealStateObject> Create(RealStateObject body, int? condoID)
         {
-            Address _newLocation = await locationService.Create(body.localizacao);
-            if (_newLocation == null) return null; 
+            if (condoID != null)
+            {
+                body.Condominio = await condominiumService.Get((int)condoID) ?? throw CondoNotFoundException.Default();
+            }
 
-            body.localizacao = _newLocation;
+            body.localizacao = await locationService.Create(body.localizacao) ?? throw CouldNotCreateLocationException.Default();
+
             return await _repository.Create(body);
         }
 

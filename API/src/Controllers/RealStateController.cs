@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Domain.RealState.Models;
 using API.src.Domain.RealState;
+using API.src.Controllers.ViewModels;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers.RealState
 {
@@ -34,34 +37,15 @@ namespace API.Controllers.RealState
         [Route("list")]
         public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL() => await _service.GetList();
 
-
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult> Create(RealStateObject body)
-        {
-            if (body.ID != null || body.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
-            
-
-            if(body.needToProvideCondominium()) return BadRequest("Informe um condominio");
-
-            RealStateObject createdObject = await _service.Create(body);
-
-            if (createdObject == null) return BadRequest();
-
-            return Created("CreateRealState", new { id = createdObject.ID }); 
-        }
-
-
-
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> Update(int id, RealStateObject body)
         {
             var _findInDB = await _service.GetByID(id);
-            if (_findInDB == null) return NoContent(); 
+            if (_findInDB == null) return NoContent();
 
             var _request = await _service.Update(body);
-            if(_request)return Ok();
+            if (_request) return Ok();
 
             return StatusCode(500);
         }
@@ -81,8 +65,35 @@ namespace API.Controllers.RealState
             return StatusCode(500);
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> Create(RealStateObject body, int? condoID)
+        {
+
+            if (body.isCondoRequired() && condoID == null) return BadRequest("Informe a ID do condominio");
+
+            if (body.ID != null || body.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
+
+            try
+            {
+                RealStateObject createdObject = await _service.Create(body, condoID);
+
+                if (createdObject == null) return BadRequest();
+
+                return Created("CreateRealState", new { id = createdObject.ID });
+
+            }
+            catch (Exception e) { return BadRequest(e.Message); }
+        }
+
+
+
+
+
+
+
 
     }
- 
+
 }
 

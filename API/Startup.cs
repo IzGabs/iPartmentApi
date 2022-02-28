@@ -12,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
+
 using API.src.Core.Swagger;
+using Newtonsoft.Json.Serialization;
 
 namespace DockerAPIEntity
 {
@@ -35,6 +37,12 @@ namespace DockerAPIEntity
             services.AddCors();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
+            services.AddControllers().AddNewtonsoftJson(
+                options => {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             services.AddAuthentication(x =>
             {
