@@ -19,17 +19,16 @@ namespace API.src.Application.RealState
         }
 
 
-        public async Task<RealStateObject> Get(int id)
-        {
-            return await _context.RealState.FindAsync(id);
-        }
+        public async Task<RealStateObject> Get(int id) => await _context.RealState
+              .Include(l => l.localizacao)
+              .Include(l => l.Condominio)
+              .FirstAsync((x) => x.ID == id);
 
 
-        public async Task<List<RealStateObject>> Getall()
-        {
-            return await _context.RealState.ToListAsync();
-        }
-
+        public async Task<List<RealStateObject>> Getall() => await _context.RealState
+                     .Include(l => l.localizacao)
+                     .Include(l => l.Condominio)
+                     .ToListAsync();
 
         public async Task<RealStateObject> Create(RealStateObject body)
         {
@@ -72,6 +71,7 @@ namespace API.src.Application.RealState
             try
             {
                 var updateReturn = _context.RealState.Update(body);
+                await _context.SaveChangesAsync();
 
                 return updateReturn.State == EntityState.Modified;
             }

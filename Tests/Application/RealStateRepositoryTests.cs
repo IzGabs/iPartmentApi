@@ -1,13 +1,10 @@
-﻿using API.Domain.Models;
+﻿using API.Domain.Location;
 using API.Domain.RealState.Models;
 using API.src.Application.RealState;
-using Microsoft.EntityFrameworkCore;
-using System;
+using API.src.Domain.RealState.repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Domain.Location;
 using Xunit;
-using API.src.Domain.RealState.repository;
 
 
 namespace Tests.Application
@@ -98,6 +95,7 @@ namespace Tests.Application
                    iD: null, tipo: RealStateTypes.HOUSE,
                      tamanho: "1000x500", numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,
+                     condominium: null,
                      aceitaPets: true, moradorAtual: null, localicazao: adress, valor: 2000
                     );
         }

@@ -12,7 +12,7 @@ namespace API.Domain.Models
         }
 
         public DbSet<UserObject> Users { get; set; }
-        public DbSet<Condominium> Condominium { get; set; }
+        public DbSet<CondominiumObject> Condominium { get; set; }
         public DbSet<RealStateObject> RealState { get; set; }
         public DbSet<Address> Addresses { get; set; }
 

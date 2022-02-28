@@ -31,7 +31,7 @@ namespace API.Controllers.RealState
 
         [HttpGet]
         [Authorize]
-        [Route("realStates")]
+        [Route("list")]
         public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL() => await _service.GetList();
 
 
@@ -40,6 +40,10 @@ namespace API.Controllers.RealState
         public async Task<ActionResult> Create(RealStateObject body)
         {
             if (body.ID != null || body.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
+            
+
+            if(body.needToProvideCondominium()) return BadRequest("Informe um condominio");
+
             RealStateObject createdObject = await _service.Create(body);
 
             if (createdObject == null) return BadRequest();
@@ -79,4 +83,6 @@ namespace API.Controllers.RealState
 
 
     }
+ 
 }
+

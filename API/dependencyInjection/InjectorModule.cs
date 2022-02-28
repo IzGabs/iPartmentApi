@@ -1,9 +1,8 @@
 ﻿
+using API.dependencyInjection.LayerInjectors;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.dependencyInjection
 {
@@ -15,6 +14,7 @@ namespace API.dependencyInjection
         {
             listInjectors.Add(new RealStateInjector());
             listInjectors.Add(new LocationInjector());
+            listInjectors.Add(new CondominiumInjector());
         }
 
         public void InjectModules(IServiceCollection services)
