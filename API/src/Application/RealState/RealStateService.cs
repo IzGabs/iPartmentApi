@@ -3,9 +3,7 @@ using API.Domain.RealState.Models;
 using API.src.Domain.Location;
 using API.src.Domain.RealState;
 using API.src.Domain.RealState.repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Application

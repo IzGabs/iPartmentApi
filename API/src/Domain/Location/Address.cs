@@ -1,3 +1,4 @@
+using API.src.Core.Swagger;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
  
@@ -19,14 +20,30 @@ namespace API.Domain.Location
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [SwaggerIgnore]
         [Key]
         public int? ID { get; set; }
 
+        [Required]
         public string Cep { get; set; }
 
+        [Required]
         public string Numero { get; set; }
 
         public string Complemento { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is Address)) return false;
+
+            var thisObj = obj as Address;
+            if (this.ID == thisObj.ID) return true;
+
+            return thisObj.Cep == this.Cep &&
+                thisObj.Numero == this.Numero &&
+                thisObj.Complemento == this.Complemento;
+        }
 
     }
 }
