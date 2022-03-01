@@ -1,5 +1,5 @@
-﻿using API.src.Domain.RealState;
-using API.src.Domain.RealState.repository;
+﻿using API.src.Domain.RealState.Application;
+using API.src.Domain.RealState.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace Tests.Controllers
 {
     class RealStateControllerTests
     {
-        private IRealStateRepository repository;
-        private IRealStateService service;
+        private IRealStateRepository<RealStateObject> repository;
+        private IRealStateService<RealStateObject> service;
 
     }
 }

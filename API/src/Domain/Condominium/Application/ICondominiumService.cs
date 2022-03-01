@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.Condominium
 {
-    public interface ICondominiumRepository
+    public interface ICondominiumService
     {
-        Task<CondominiumObject> Create(CondominiumObject obj);
+        Task<bool> Create(CondominiumObject obj);
         Task<CondominiumObject> Get(int id);
         Task<List<CondominiumObject>> GetAll();
-        Task<List<RealStateObject>> realStatesFromCondominium(int id);
     }
 }

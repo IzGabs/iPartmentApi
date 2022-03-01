@@ -1,38 +1,41 @@
+﻿using API.Domain.RealState.Models;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
 using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
 {
-    public class RealStateRepository : IRealStateRepository<RealStateObject>
+    public class RealStateWithCondoRepository : IRealStateRepository<RealStateWithCondo>
     {
-
         private readonly BuildContext _context;
 
-        public RealStateRepository(BuildContext context)
+        public RealStateWithCondoRepository(BuildContext context)
         {
             _context = context;
         }
 
 
-        public async Task<RealStateObject> Get(int id) => await _context.RealState
-              .Include(l => l.localizacao)
-              .FirstAsync((x) => x.ID == id);
+        public async Task<RealStateWithCondo> Get(int id) => await _context.RealStateWithCondo
+            .Include(l => l.localizacao)
+            .Include(l => l.Condominio)
+            .FirstAsync((x) => x.ID == id);
 
 
-        public async Task<List<RealStateObject>> Getall() => await _context.RealState
+        public async Task<List<RealStateWithCondo>> Getall() => await _context.RealStateWithCondo
                      .Include(l => l.localizacao)
+                     .Include(l => l.Condominio)
                      .ToListAsync();
 
-        public async Task<RealStateObject> Create(RealStateObject body)
+        public async Task<RealStateWithCondo> Create(RealStateWithCondo body)
         {
             try
             {
-                var request = await _context.RealState.AddAsync(body);
+                var request = await _context.RealStateWithCondo.AddAsync(body);
                 await _context.SaveChangesAsync();
 
                 return request.Entity;
@@ -47,11 +50,11 @@ namespace API.src.Application.RealState
         }
 
 
-        public async Task<bool> Delete(RealStateObject body)
+        public async Task<bool> Delete(RealStateWithCondo body)
         {
             try
             {
-                var returnRemove = _context.RealState.Remove(body);
+                var returnRemove = _context.RealStateWithCondo.Remove(body);
                 await _context.SaveChangesAsync();
 
                 return returnRemove.State == EntityState.Deleted;
@@ -65,11 +68,11 @@ namespace API.src.Application.RealState
 
 
 
-        public async Task<bool> Update(RealStateObject body)
+        public async Task<bool> Update(RealStateWithCondo body)
         {
             try
             {
-                var updateReturn = _context.RealState.Update(body);
+                var updateReturn = _context.RealStateWithCondo.Update(body);
                 await _context.SaveChangesAsync();
 
                 return updateReturn.State == EntityState.Modified;

@@ -1,7 +1,9 @@
 ﻿using API.Domain.Location;
 using API.Domain.RealState.Models;
 using API.src.Application.RealState;
-using API.src.Domain.RealState.repository;
+using API.src.Domain.Monetary.Entities;
+using API.src.Domain.RealState.Application;
+using API.src.Domain.RealState.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -12,7 +14,7 @@ namespace Tests.Application
     public class RealStateRepositoryTests : IClassFixture<ContextTestClass>
     {
         private RealStateObject realStateObjectExample;
-        private IRealStateRepository repository;
+        private IRealStateRepository<RealStateObject> repository;
 
 
         public RealStateRepositoryTests(ContextTestClass seed)
@@ -95,8 +97,8 @@ namespace Tests.Application
                    iD: null, tipo: RealStateTypes.HOUSE,
                      tamanho: "1000x500", numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,
-                     condominium: null,
-                     aceitaPets: true, moradorAtual: null, localicazao: adress, valor: 2000
+                     aceitaPets: true, moradorAtual: null, localicazao: adress, 
+                     valores: new RealStateMonetary(valorFixo: 2000)
                     );
         }
     }

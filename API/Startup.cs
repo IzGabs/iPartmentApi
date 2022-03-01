@@ -1,6 +1,5 @@
 using System.Text;
 using API.dependencyInjection;
-using API.Domain.Models;
 using iPartmentApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +14,7 @@ using Microsoft.OpenApi.Models;
 
 using API.src.Core.Swagger;
 using Newtonsoft.Json.Serialization;
+using API.src.Infra.EntityFramework;
 
 namespace DockerAPIEntity
 {

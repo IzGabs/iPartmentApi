@@ -3,53 +3,20 @@ using API.Domain.User;
 using API.Domain.Location;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-using System;
 using API.src.Core.Swagger;
+using API.Domain.RealState.Models;
+using API.src.Domain.Monetary.Entities;
 
-namespace API.Domain.RealState.Models
+namespace API.src.Domain.RealState.Entities
 {
 
     [Table("Imoveis")]
     public class RealStateObject
     {
-
-        public RealStateObject() { }
-
-        public RealStateObject(
-            int? iD,
-            RealStateTypes tipo,
-            string tamanho,
-            int numeroSalas,
-            int numeroBanheiros,
-            int suites,
-            bool mobiliado,
-            bool aceitaPets,
-            UserObject? moradorAtual,
-            CondominiumObject? condominium,
-            Address localicazao,
-            double valor)
-        {
-
-            ID = iD;
-            Tipo = tipo;
-            Tamanho = tamanho;
-            NumeroSalas = numeroSalas;
-            NumeroBanheiros = numeroBanheiros;
-            Suites = suites;
-            Mobiliado = mobiliado;
-            AceitaPets = aceitaPets;
-            MoradorAtual = moradorAtual;
-            this.localizacao = localicazao;
-            this.valor = valor;
-            this.Condominio = condominium;
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [SwaggerIgnore]
         [Key]
-        public  int? ID { get; set; }
+        public int? ID { get; set; }
 
         [Required]
         public RealStateTypes Tipo { get; set; }
@@ -67,19 +34,42 @@ namespace API.Domain.RealState.Models
         [Required]
         public bool Garagem { get; set; }
 
-#pragma warning disable CS8632
         [SwaggerIgnore]
-        public UserObject? MoradorAtual { get; set; }
-
-        [SwaggerIgnore]
-        public CondominiumObject? Condominio { get; set; } 
+        public UserObject MoradorAtual { get; set; }
 
         [Required]
         public Address localizacao { get; set; }
 
-        //De repente, fazer uma lista so de valores
         [Required]
-        public double valor { get; set; }
+        public RealStateMonetary valores { get; set; }
+
+        public RealStateObject() { }
+        public RealStateObject(
+            int? iD,
+            RealStateTypes tipo,
+            string tamanho,
+            int numeroSalas,
+            int numeroBanheiros,
+            int suites,
+            bool mobiliado,
+            bool aceitaPets,
+            UserObject moradorAtual,
+            Address localicazao,
+            RealStateMonetary valores)
+        {
+
+            this.ID = iD;
+            this.Tipo = tipo;
+            this.Tamanho = tamanho;
+            this.NumeroSalas = numeroSalas;
+            this.NumeroBanheiros = numeroBanheiros;
+            this.Suites = suites;
+            this.Mobiliado = mobiliado;
+            this.AceitaPets = aceitaPets;
+            this.MoradorAtual = moradorAtual;
+            this.localizacao = localicazao;
+            this.valores = valores;
+        }
 
 
         public override bool Equals(object obj)
@@ -90,20 +80,20 @@ namespace API.Domain.RealState.Models
 
             var thisObj = obj as RealStateObject;
 
-            if (this.ID == thisObj.ID) return true;
+            if (ID == thisObj.ID) return true;
 
-            return (this.ID == thisObj.ID) &&
-                (this.Tipo == thisObj.Tipo) &&
-                (this.Tamanho == thisObj.Tamanho) &&
-                (this.NumeroSalas == thisObj.NumeroSalas) &&
-                (this.NumeroBanheiros == thisObj.NumeroBanheiros) &&
-                (this.Suites == thisObj.Suites) &&
-                (this.Mobiliado == thisObj.Mobiliado) &&
-                (this.AceitaPets == thisObj.AceitaPets) &&
-                (this.Garagem == thisObj.Garagem) &&
-                (this.localizacao == thisObj.localizacao);
+            return ID == thisObj.ID &&
+                Tipo == thisObj.Tipo &&
+                Tamanho == thisObj.Tamanho &&
+                NumeroSalas == thisObj.NumeroSalas &&
+                NumeroBanheiros == thisObj.NumeroBanheiros &&
+                Suites == thisObj.Suites &&
+                Mobiliado == thisObj.Mobiliado &&
+                AceitaPets == thisObj.AceitaPets &&
+                Garagem == thisObj.Garagem &&
+                localizacao == thisObj.localizacao;
         }
 
-        public bool isCondoRequired() => this.Tipo == RealStateTypes.APARTMENT;
+        public bool isCondoRequired() => Tipo == RealStateTypes.APARTMENT;
     }
 }

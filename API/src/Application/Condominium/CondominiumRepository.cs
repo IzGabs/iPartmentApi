@@ -1,4 +1,4 @@
-﻿using API.Domain.Models;
+﻿using API.src.Infra.EntityFramework;
 using API.Domain.RealState.Models;
 using API.src.Domain.Condominium;
 using Microsoft.EntityFrameworkCore;
@@ -43,9 +43,6 @@ namespace API.src.Application.Condominium
             return null;
         }
 
-        public async Task<List<RealStateObject>> realStatesFromCondominium(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

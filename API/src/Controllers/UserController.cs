@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using API.Application;
 using API.Domain.User;
-using API.Domain.Models;
+using API.src.Infra.EntityFramework;
 
 namespace API.Controllers
 {

@@ -1,6 +1,5 @@
 ﻿using API.Domain;
 using API.Domain.User;
-using API.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -11,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using API.Controllers;
+using API.src.Infra.EntityFramework;
 
 namespace Tests.Controllers
 {

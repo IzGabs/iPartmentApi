@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using API.Application;
 using API.src.Application.RealState;
-using API.src.Domain.RealState.repository;
-using API.src.Domain.RealState;
+using API.src.Domain.RealState.Application;
+using API.src.Domain.RealState.Entities;
 
 namespace API.dependencyInjection
 {
@@ -12,8 +12,12 @@ namespace API.dependencyInjection
 
         public void Inject(IServiceCollection services)
         {
-            services.AddTransient<IRealStateRepository, RealStateRepository>();
-            services.AddTransient<IRealStateService, RealStateService>();
+            services.AddTransient<IRealStateRepository<RealStateObject>, RealStateRepository>();
+            services.AddTransient<IRealStateService<RealStateObject>, RealStateService>();
+
+            services.AddTransient<IRealStateRepository<RealStateWithCondo>, RealStateWithCondoRepository>();
+            services.AddTransient<IRealStateService<RealStateWithCondo>, RealStateWithCondoService>();
+
         }
     }
 }

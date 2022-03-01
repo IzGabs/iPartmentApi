@@ -1,5 +1,5 @@
-﻿using API.Domain.Location;
-using API.Domain.Models;
+﻿using API.src.Infra.EntityFramework;
+using API.Domain.Location;
 using API.src.Domain.Location;
 using Microsoft.EntityFrameworkCore;
 using System;
