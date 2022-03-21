@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using API.Application;
 using API.Domain.User;
 using API.src.Infra.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers
 {
@@ -25,26 +26,21 @@ namespace API.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate(String email, String password)
+        public async Task<ActionResult<dynamic>> Authenticate(LoginViewModel data)
         {
-            try
-            {
-                var user = await _context.Users.FirstAsync(x => x.Email == email && x.Password == password);
+            var findUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == data.email);
 
-                if (user == null) { return Unauthorized(new { message = "Usuario e/ou senha invalidos" }); }
+            if (findUser == null) return NotFound(new { message = "Esse email não está cadastrado!" });
 
-                var token = TokenService.GenerateToken(user);
+            var passawordValid = findUser.Password == data.password;
 
-                user.Password = "";
+            if (!passawordValid) { return Unauthorized(new { message = "Usuario e/ou senha invalidos" }); }
 
-                return new { user, token };
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var token = TokenService.GenerateToken(findUser);
 
+            findUser.Password = "";
 
+            return new { findUser, token };
         }
 
 
@@ -159,5 +155,18 @@ namespace API.Controllers
             return returns;
         }
 
+    }
+
+    public class LoginViewModel
+    {
+        public LoginViewModel(string email, string password) {
+            this.email = email;
+            this.password = password;
+        }
+
+        [Required]
+        public String email { get; set; }
+        [Required]
+        public String password { get; set; }
     }
 }

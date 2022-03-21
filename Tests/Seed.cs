@@ -1,5 +1,8 @@
-﻿using API.src.Infra.EntityFramework;
+﻿using API.dependencyInjection;
+using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +16,17 @@ namespace Tests
         public DbContextOptions<BuildContext> options;
         public BuildContext buildContext { get; private set; }
 
-        public ContextTestClass() {
+
+        public ContextTestClass()
+        {
             options = new DbContextOptionsBuilder<BuildContext>().
-               UseInMemoryDatabase(databaseName: "testDB").Options;
+               UseInMemoryDatabase(databaseName: "testDB")
+               .Options;
+
             buildContext = new BuildContext(options);
+
+
+           
         }
 
 

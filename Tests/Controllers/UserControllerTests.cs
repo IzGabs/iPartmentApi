@@ -34,7 +34,7 @@ namespace Tests.Controllers
             var controller = new UserController(context);
 
             //ACT   
-            var response = await controller.Authenticate(email: "gubs@gmail.com", password: "123");
+            var response = await controller.Authenticate(new LoginViewModel(email: "gubs@gmail.com", password: "123"));
 
             //ASSERT
             Assert.NotNull(response.Value);

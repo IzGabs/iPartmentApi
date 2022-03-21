@@ -34,7 +34,7 @@ namespace Tests.Application
 
             //ASSERT
             Assert.NotNull(responseId);
-            Assert.IsType<int>(responseId);
+            Assert.IsType<RealStateObject>(responseId);
         }
 
         [Fact]
