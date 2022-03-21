@@ -43,6 +43,20 @@ namespace API.src.Application.Condominium
             return null;
         }
 
-        
+        public async Task<bool> Update(CondominiumObject obj)
+        {
+            try {
+                var requestDB =  _context.Condominium.Update(obj);
+
+                if (requestDB.State == EntityState.Modified) {
+
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+            
+            } catch (Exception e) { }
+
+            return false; 
+        }
     }
 }

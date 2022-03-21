@@ -8,7 +8,7 @@ namespace API.src.Domain.Condominium
 {
     public interface ICondominiumService
     {
-        Task<bool> Create(CondominiumObject obj);
+        Task<CondominiumObject> Create(CondominiumObject obj);
         Task<CondominiumObject> Get(int id);
         Task<List<CondominiumObject>> GetAll();
     }

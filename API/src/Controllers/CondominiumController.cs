@@ -26,7 +26,7 @@ namespace API.src.Controllers
 
             var request = await service.Create(body);
 
-            return !request ? BadRequest() : Ok();
+            return !(request is CondominiumObject)? BadRequest() : Ok();
         }
 
 

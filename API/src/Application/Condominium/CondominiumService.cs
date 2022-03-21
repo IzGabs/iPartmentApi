@@ -24,7 +24,7 @@ namespace API.src.Application.Condominium
             this.condoMonetaryService = condoMonetaryService;
         } 
         
-        public async Task<bool> Create(CondominiumObject obj)
+        public async Task<CondominiumObject> Create(CondominiumObject obj)
         {
             Address _newLocation = await locationService.Create(obj.Location);
             obj.Location = _newLocation ?? throw new CouldNotCreateLocationException();
@@ -33,8 +33,7 @@ namespace API.src.Application.Condominium
             obj.Valores = regMonetaryValues ?? throw CouldNotCreateCondoValues.Default();
 
             var request = await repository.Create(obj);
-            if (request != null) return true;
-            return false; 
+            return request;
         }
 
         public async Task<CondominiumObject> Get(int id) => await repository.Get(id);
