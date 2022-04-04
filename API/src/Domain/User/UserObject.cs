@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Domain.User
 {
-    [Table("Usuarios")]
+    [Table("Users")]
     public class UserObject
     {
 

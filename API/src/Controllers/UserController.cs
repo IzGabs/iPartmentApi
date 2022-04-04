@@ -67,7 +67,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<UserObject>> PostUser(UserObject user)
         {
             //Do Not provide a ID

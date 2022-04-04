@@ -70,7 +70,7 @@ namespace API.Controllers.RealState
 
             if (body.isCondoRequired()) return BadRequest("Endpoint errado, utilize endpoint RealStateWithCondo");
 
-            if (body.ID != null || body.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
+            if (body.ID != null || body.Adress.ID != null) return BadRequest("A ID é gerada automaticamente");
 
             try
             {

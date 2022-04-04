@@ -24,7 +24,7 @@ namespace API.Application
 
         public async Task<RealStateObject> Create(RealStateObject body)
         {
-            body.localizacao = await locationService.Create(body.localizacao) ?? throw CouldNotCreateLocationException.Default();
+            body.Adress = await locationService.Create(body.Adress) ?? throw CouldNotCreateLocationException.Default();
             return await _repository.Create(body);
         }
 

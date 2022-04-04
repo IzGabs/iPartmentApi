@@ -26,16 +26,16 @@ namespace API.src.Domain.RealState.Entities
         {
 
             this.ID = iD;
-            this.Tipo = tipo;
-            this.Tamanho = tamanho;
-            this.NumeroSalas = numeroSalas;
-            this.NumeroBanheiros = numeroBanheiros;
-            this.Suites = suites;
-            this.Mobiliado = mobiliado;
-            this.AceitaPets = aceitaPets;
-            this.MoradorAtual = moradorAtual;
-            this.localizacao = localicazao;
-            this.valores = valores;
+            this.Type = tipo;
+            this.Size = tamanho;
+            this.Rooms = numeroSalas;
+            this.Bathrooms = numeroBanheiros;
+            this.RoomWithBathroom = suites;
+            this.Furnished = mobiliado;
+            this.AllowPets = aceitaPets;
+            this.CurrentResident = moradorAtual;
+            this.Adress = localicazao;
+            this.Values = valores;
             this.Condominio = condominium;
         }
     }

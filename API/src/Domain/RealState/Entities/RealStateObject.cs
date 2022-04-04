@@ -10,7 +10,7 @@ using API.src.Domain.Monetary.Entities;
 namespace API.src.Domain.RealState.Entities
 {
 
-    [Table("Imoveis")]
+    [Table("RealStates")]
     public class RealStateObject
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,29 +19,29 @@ namespace API.src.Domain.RealState.Entities
         public int? ID { get; set; }
 
         [Required]
-        public RealStateTypes Tipo { get; set; }
+        public RealStateTypes Type { get; set; }
         [Required]
-        public string Tamanho { get; set; }
+        public string Size { get; set; }
         [Required]
-        public int NumeroSalas { get; set; }
+        public int Rooms { get; set; }
         [Required]
-        public int NumeroBanheiros { get; set; }
-        public int Suites { get; set; }
+        public int Bathrooms { get; set; }
+        public int RoomWithBathroom { get; set; }
         [Required]
-        public bool Mobiliado { get; set; }
+        public bool Furnished { get; set; }
         [Required]
-        public bool AceitaPets { get; set; }
+        public bool AllowPets { get; set; }
         [Required]
-        public bool Garagem { get; set; }
+        public bool Garage { get; set; }
 
         [SwaggerIgnore]
-        public UserObject MoradorAtual { get; set; }
+        public UserObject CurrentResident { get; set; }
 
         [Required]
-        public Address localizacao { get; set; }
+        public Address Adress { get; set; }
 
         [Required]
-        public RealStateMonetary valores { get; set; }
+        public RealStateMonetary Values { get; set; }
 
         public RealStateObject() { }
         public RealStateObject(
@@ -59,16 +59,16 @@ namespace API.src.Domain.RealState.Entities
         {
 
             this.ID = iD;
-            this.Tipo = tipo;
-            this.Tamanho = tamanho;
-            this.NumeroSalas = numeroSalas;
-            this.NumeroBanheiros = numeroBanheiros;
-            this.Suites = suites;
-            this.Mobiliado = mobiliado;
-            this.AceitaPets = aceitaPets;
-            this.MoradorAtual = moradorAtual;
-            this.localizacao = localicazao;
-            this.valores = valores;
+            this.Type = tipo;
+            this.Size = tamanho;
+            this.Rooms = numeroSalas;
+            this.Bathrooms = numeroBanheiros;
+            this.RoomWithBathroom = suites;
+            this.Furnished = mobiliado;
+            this.AllowPets = aceitaPets;
+            this.CurrentResident = moradorAtual;
+            this.Adress = localicazao;
+            this.Values = valores;
         }
 
 
@@ -83,17 +83,17 @@ namespace API.src.Domain.RealState.Entities
             if (ID == thisObj.ID) return true;
 
             return ID == thisObj.ID &&
-                Tipo == thisObj.Tipo &&
-                Tamanho == thisObj.Tamanho &&
-                NumeroSalas == thisObj.NumeroSalas &&
-                NumeroBanheiros == thisObj.NumeroBanheiros &&
-                Suites == thisObj.Suites &&
-                Mobiliado == thisObj.Mobiliado &&
-                AceitaPets == thisObj.AceitaPets &&
-                Garagem == thisObj.Garagem &&
-                localizacao == thisObj.localizacao;
+                Type == thisObj.Type &&
+                Size == thisObj.Size &&
+                Rooms == thisObj.Rooms &&
+                Bathrooms == thisObj.Bathrooms &&
+                RoomWithBathroom == thisObj.RoomWithBathroom &&
+                Furnished == thisObj.Furnished &&
+                AllowPets == thisObj.AllowPets &&
+                Garage == thisObj.Garage &&
+                Adress == thisObj.Adress;
         }
 
-        public bool isCondoRequired() => Tipo == RealStateTypes.APARTMENT;
+        public bool isCondoRequired() => Type == RealStateTypes.APARTMENT;
     }
 }

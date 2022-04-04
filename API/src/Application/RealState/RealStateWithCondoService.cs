@@ -29,7 +29,7 @@ namespace API.src.Application.RealState
 
             body.Condominio = await condominiumService.Get((int)body.Condominio.ID) ?? throw CondoNotFoundException.Default();
 
-            body.localizacao = await locationService.Create(body.localizacao) ?? throw CouldNotCreateLocationException.Default();
+            body.Adress = await locationService.Create(body.Adress) ?? throw CouldNotCreateLocationException.Default();
 
             return await _repository.Create(body);
         }

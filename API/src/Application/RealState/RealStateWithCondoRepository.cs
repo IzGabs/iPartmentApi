@@ -21,13 +21,13 @@ namespace API.src.Application.RealState
 
 
         public async Task<RealStateWithCondo> Get(int id) => await _context.RealStateWithCondo
-            .Include(l => l.localizacao)
+            .Include(l => l.Adress)
             .Include(l => l.Condominio)
             .FirstAsync((x) => x.ID == id);
 
 
         public async Task<List<RealStateWithCondo>> Getall() => await _context.RealStateWithCondo
-                     .Include(l => l.localizacao)
+                     .Include(l => l.Adress)
                      .Include(l => l.Condominio)
                      .ToListAsync();
 
