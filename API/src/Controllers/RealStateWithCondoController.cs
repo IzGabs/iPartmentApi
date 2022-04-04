@@ -67,7 +67,7 @@ namespace API.src.Controllers
         [Authorize]
         public async Task<ActionResult> Create(RealStateWithCondoViewModels body)
         {
-            if (body.realState. ID != null || body.realState.localizacao.ID != null) return BadRequest("A ID é gerada automaticamente");
+            if (body.realState. ID != null || body.realState.Adress.ID != null) return BadRequest("A ID é gerada automaticamente");
 
             try
             {

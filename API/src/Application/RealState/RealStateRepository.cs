@@ -20,12 +20,12 @@ namespace API.src.Application.RealState
 
 
         public async Task<RealStateObject> Get(int id) => await _context.RealState
-              .Include(l => l.localizacao)
+              .Include(l => l.Adress)
               .FirstAsync((x) => x.ID == id);
 
 
         public async Task<List<RealStateObject>> Getall() => await _context.RealState
-                     .Include(l => l.localizacao)
+                     .Include(l => l.Adress)
                      .ToListAsync();
 
         public async Task<RealStateObject> Create(RealStateObject body)

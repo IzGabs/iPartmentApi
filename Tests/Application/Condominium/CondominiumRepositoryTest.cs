@@ -50,7 +50,7 @@ namespace Tests.Application.Condominium
             if (!(create is CondominiumObject)) throw null;
 
             var updateObject = create; 
-            updateObject.Academia = true;
+            updateObject.Gym = true;
 
              var updateRequest = await repo.Update(updateObject);
 

@@ -29,8 +29,8 @@ namespace API.src.Application.Condominium
             Address _newLocation = await locationService.Create(obj.Location);
             obj.Location = _newLocation ?? throw new CouldNotCreateLocationException();
 
-            var regMonetaryValues = await condoMonetaryService.Create(obj.Valores);
-            obj.Valores = regMonetaryValues ?? throw CouldNotCreateCondoValues.Default();
+            var regMonetaryValues = await condoMonetaryService.Create(obj.Values);
+            obj.Values = regMonetaryValues ?? throw CouldNotCreateCondoValues.Default();
 
             var request = await repository.Create(obj);
             return request;

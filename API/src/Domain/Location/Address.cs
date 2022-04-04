@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace API.Domain.Location
 {
 
-    [Table("Enderecos")]
+    [Table("Addresses")]
     public class Address
     {
 
@@ -14,9 +14,9 @@ namespace API.Domain.Location
 
         public Address(int? ID, string cep, string numero, string complemento) {
             this.ID = ID;
-            this.Cep = cep;
-            this.Numero = numero;
-            this.Complemento = complemento;
+            this.ZipCode = cep;
+            this.Number = numero;
+            this.ExtraInfo = complemento;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,12 +25,12 @@ namespace API.Domain.Location
         public int? ID { get; set; }
 
         [Required]
-        public string Cep { get; set; }
+        public string ZipCode { get; set; }
 
         [Required]
-        public string Numero { get; set; }
+        public string Number { get; set; }
 
-        public string Complemento { get; set; }
+        public string ExtraInfo { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -40,9 +40,9 @@ namespace API.Domain.Location
             var thisObj = obj as Address;
             if (this.ID == thisObj.ID) return true;
 
-            return thisObj.Cep == this.Cep &&
-                thisObj.Numero == this.Numero &&
-                thisObj.Complemento == this.Complemento;
+            return thisObj.ZipCode == this.ZipCode &&
+                thisObj.Number == this.Number &&
+                thisObj.ExtraInfo == this.ExtraInfo;
         }
 
     }

@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace API.Domain.RealState.Models
 {
 
-    [Table("Condominios")]
+    [Table("Condominiums")]
     public class CondominiumObject
     {
 
@@ -19,10 +19,10 @@ namespace API.Domain.RealState.Models
         {
             this.ID = iD;
             this.Location = location;
-            this.Academia = academia;
+            this.Gym = academia;
             this.realStates = realStates;
             this.Name = name;
-            this.Valores = Valores;
+            this.Values = Valores;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -36,10 +36,10 @@ namespace API.Domain.RealState.Models
         [Required]
         public Address Location { get; set; }
 
-        public bool Academia { get; set; }
+        public bool Gym { get; set; }
 
         [Required]
-        public CondominiumMonetary Valores { get; set; }
+        public CondominiumMonetary Values { get; set; }
 
         [SwaggerIgnore]
         public List<RealStateWithCondo>? realStates { get; set;  }

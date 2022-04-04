@@ -9,7 +9,7 @@ namespace API.src.Domain.Monetary
     public interface IMonetaryEntity
     {
         [Required]
-        public double valorFixo { get; set; }
+        public double montlyValue { get; set; }
 
         double valorTotal();
     }

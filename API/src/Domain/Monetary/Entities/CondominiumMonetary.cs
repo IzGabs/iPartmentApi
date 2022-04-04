@@ -6,15 +6,15 @@ using System.Text.Json.Serialization;
 
 namespace API.src.Domain.Values
 {
-    [Table("Valores_Condominio")]
+    [Table("CondominiumMonetary")]
     public class CondominiumMonetary : IMonetaryEntity
     {
 
         public CondominiumMonetary() { }
         public CondominiumMonetary(double fixValue, double? fireInsurance, double? serviceCharge) {
-            this.valorFixo = fixValue;
-            this.seguroIncendio = fireInsurance;
-            this.taxaDeServico = serviceCharge;
+            this.montlyValue = fixValue;
+            this.fireInsurence = fireInsurance;
+            this.serviceCharge = serviceCharge;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,11 +22,11 @@ namespace API.src.Domain.Values
         [Key]
         public int? ID { get; set; }
 
-        public double valorFixo { get; set; }
+        public double montlyValue { get; set; }
 
-        public double? seguroIncendio { get; set; }
-        public double? taxaDeServico { get; set; }
+        public double? fireInsurence { get; set; }
+        public double? serviceCharge { get; set; }
 
-        public double valorTotal() => valorFixo + seguroIncendio ?? 0 + taxaDeServico ?? 0;
+        public double valorTotal() => montlyValue + fireInsurence ?? 0 + serviceCharge ?? 0;
     }
 }

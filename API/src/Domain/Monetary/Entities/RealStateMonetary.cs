@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.Monetary.Entities
 {
-    [Table("Valores_Propriedade")]
+    [Table("RealStateMonetary")]
     public class RealStateMonetary : IMonetaryEntity
     {
         public RealStateMonetary() { }
 
         public RealStateMonetary(double valorFixo, double iptu = 0) {
-            this.valorFixo = valorFixo;
+            this.montlyValue = valorFixo;
             this.IPTU = iptu;
         }
 
@@ -24,10 +24,10 @@ namespace API.src.Domain.Monetary.Entities
         public int? ID { get; set; }
 
         [Required]
-        public double valorFixo { get ; set ; }
+        public double montlyValue { get ; set ; }
 
         public double? IPTU { get; set; }
 
-        public double valorTotal() => valorFixo + IPTU ?? 0;
+        public double valorTotal() => montlyValue + IPTU ?? 0;
     }
 }
