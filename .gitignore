@@ -442,7 +442,7 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 
-API/Migrations/*
+## API/Migrations/*
 
 #Docker related
 API/docker-compose.dcproj.user

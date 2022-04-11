@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class first : Migration
+    public partial class thirMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -127,11 +127,9 @@ namespace API.Migrations
                     AllowPets = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Garage = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CurrentResidentID = table.Column<int>(type: "int", nullable: true),
+                    CondominiumID = table.Column<int>(type: "int", nullable: true),
                     AdressID = table.Column<int>(type: "int", nullable: true),
-                    ValuesID = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CondominioID = table.Column<int>(type: "int", nullable: true)
+                    ValuesID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,8 +141,8 @@ namespace API.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RealStates_Condominiums_CondominioID",
-                        column: x => x.CondominioID,
+                        name: "FK_RealStates_Condominiums_CondominiumID",
+                        column: x => x.CondominiumID,
                         principalTable: "Condominiums",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -179,9 +177,9 @@ namespace API.Migrations
                 column: "AdressID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RealStates_CondominioID",
+                name: "IX_RealStates_CondominiumID",
                 table: "RealStates",
-                column: "CondominioID");
+                column: "CondominiumID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RealStates_CurrentResidentID",

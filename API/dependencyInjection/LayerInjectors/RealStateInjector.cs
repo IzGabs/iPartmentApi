@@ -12,11 +12,11 @@ namespace API.dependencyInjection
 
         public void Inject(IServiceCollection services)
         {
-            services.AddTransient<IRealStateRepository<RealStateObject>, RealStateRepository>();
-            services.AddTransient<IRealStateService<RealStateObject>, RealStateService>();
+            services.AddTransient<IRealStateRepository, RealStateRepository>();
+            services.AddTransient<IRealStateService, RealStateService>();
 
-            services.AddTransient<IRealStateRepository<RealStateWithCondo>, RealStateWithCondoRepository>();
-            services.AddTransient<IRealStateService<RealStateWithCondo>, RealStateWithCondoService>();
+            services.AddTransient<IRealStateCondoService, RealStateCondoService>();
+            services.AddTransient<IRealStateCondoRepository, RealStateCondoRepository>();
 
         }
     }

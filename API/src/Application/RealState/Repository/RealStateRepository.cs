@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
 {
-    public class RealStateRepository : IRealStateRepository<RealStateObject>
+    public class RealStateRepository : IRealStateRepository
     {
 
         private readonly BuildContext _context;
@@ -24,7 +24,7 @@ namespace API.src.Application.RealState
               .FirstAsync((x) => x.ID == id);
 
 
-        public async Task<List<RealStateObject>> Getall() => await _context.RealState
+        public async Task<List<RealStateObject>> GetallComplete() => await _context.RealState
                      .Include(l => l.Adress)
                      .ToListAsync();
 
@@ -79,5 +79,7 @@ namespace API.src.Application.RealState
                 return false;
             }
         }
+
+      
     }
 }

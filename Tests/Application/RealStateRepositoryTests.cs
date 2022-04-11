@@ -14,7 +14,7 @@ namespace Tests.Application
     public class RealStateRepositoryTests : IClassFixture<ContextTestClass>
     {
         private RealStateObject realStateObjectExample;
-        private IRealStateRepository<RealStateObject> repository;
+        private IRealStateRepository repository;
 
 
         public RealStateRepositoryTests(ContextTestClass seed)
@@ -30,7 +30,7 @@ namespace Tests.Application
 
             //ACT
             var responseId = await repository.Create(realStateObjectExample);
-            var getAgain = await  repository.Getall();
+            var getAgain = await  repository.GetallComplete();
 
             //ASSERT
             Assert.NotNull(responseId);
@@ -60,7 +60,7 @@ namespace Tests.Application
             await Seed();
 
             //ACT
-            var responseId = await repository.Getall();
+            var responseId = await repository.GetallComplete();
 
             //ASSERT
             Assert.NotNull(responseId);
@@ -72,7 +72,7 @@ namespace Tests.Application
         {
             //ARRANGE
             await Seed();
-            var responseId = await repository.Getall();
+            var responseId = await repository.GetallComplete();
             var exampleObj = realStateObjectExample;
             exampleObj.ID = 1;
 

@@ -5,14 +5,19 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.RealState.Application
 {
-    public interface IRealStateRepository<T> where T : RealStateObject
+    public interface IRealStateRepository
     {
 
-        Task<T> Create(T body);
-        Task<bool> Update(T body);
-        Task<bool> Delete(T body);
-        Task<List<T>> Getall();
-        Task<T> Get(int id);
+        Task<RealStateObject> Create(RealStateObject body);
+        Task<bool> Update(RealStateObject body);
+        Task<bool> Delete(RealStateObject body);
+        Task<List<RealStateObject>> GetallComplete();
+        
+        Task<RealStateObject> Get(int id);
 
+    }
+
+    public interface IRealStateCondoRepository : IRealStateRepository{
+        Task<List<RealStateObject>> GetAllSimple();
     }
 }

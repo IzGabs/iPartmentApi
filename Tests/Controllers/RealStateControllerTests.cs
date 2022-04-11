@@ -10,8 +10,8 @@ namespace Tests.Controllers
 {
     class RealStateControllerTests
     {
-        private IRealStateRepository<RealStateObject> repository;
-        private IRealStateService<RealStateObject> service;
+        private IRealStateRepository repository;
+        private IRealStateService service;
 
     }
 }

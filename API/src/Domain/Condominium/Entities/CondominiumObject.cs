@@ -5,6 +5,7 @@ using API.src.Domain.Values;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using API.src.Domain.Monetary;
 
 namespace API.Domain.RealState.Models
 {
@@ -15,7 +16,7 @@ namespace API.Domain.RealState.Models
 
         private CondominiumObject() { }
 
-        public CondominiumObject(int? iD, string name,  Address location, bool academia, CondominiumMonetary Valores, List<RealStateWithCondo>? realStates )
+        public CondominiumObject(int? iD, string name,  Address location, bool academia, CondominiumMonetary Valores, List<RealStateObject>? realStates )
         {
             this.ID = iD;
             this.Location = location;
@@ -42,6 +43,6 @@ namespace API.Domain.RealState.Models
         public CondominiumMonetary Values { get; set; }
 
         [SwaggerIgnore]
-        public List<RealStateWithCondo>? realStates { get; set;  }
+        public List<RealStateObject>? realStates { get; set;  }
     }
 }

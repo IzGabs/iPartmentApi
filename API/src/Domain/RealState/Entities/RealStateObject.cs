@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using API.src.Core.Swagger;
 using API.Domain.RealState.Models;
 using API.src.Domain.Monetary.Entities;
+using API.src.Domain.Monetary;
 
 namespace API.src.Domain.RealState.Entities
 {
@@ -34,8 +35,8 @@ namespace API.src.Domain.RealState.Entities
         [Required]
         public bool Garage { get; set; }
 
-        [SwaggerIgnore]
-        public UserObject CurrentResident { get; set; }
+        public UserObject? CurrentResident { get; set; }
+        public CondominiumObject? Condominium { get; set; }
 
         [Required]
         public Address Adress { get; set; }
@@ -53,11 +54,12 @@ namespace API.src.Domain.RealState.Entities
             int suites,
             bool mobiliado,
             bool aceitaPets,
-            UserObject moradorAtual,
             Address localicazao,
-            RealStateMonetary valores)
+            RealStateMonetary valores,
+            UserObject? moradorAtual = null,
+            CondominiumObject? condominium = null
+            )
         {
-
             this.ID = iD;
             this.Type = tipo;
             this.Size = tamanho;
@@ -69,6 +71,7 @@ namespace API.src.Domain.RealState.Entities
             this.CurrentResident = moradorAtual;
             this.Adress = localicazao;
             this.Values = valores;
+            this.Condominium = condominium;
         }
 
 

@@ -18,7 +18,6 @@ namespace API.src.Infra.EntityFramework
 
         public DbSet<RealStateObject> RealState { get; set; }
         public DbSet<RealStateMonetary> RealStateMonetary { get; set; }
-        public DbSet<RealStateWithCondo> RealStateWithCondo { get; set; }
 
         public DbSet<CondominiumObject> Condominium { get; set; }
         public DbSet<CondominiumMonetary> CondominiumValues { get; set; }
@@ -27,7 +26,7 @@ namespace API.src.Infra.EntityFramework
         {
             modelBuilder.Entity<CondominiumObject>()
                 .HasMany(c => c.realStates)
-                .WithOne(e => e.Condominio);
+                .WithOne(e => e.Condominium);
         }
     }
 

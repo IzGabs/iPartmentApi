@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
+using API.src.Controllers.ViewModels;
 
 namespace API.Controllers.RealState
 {
@@ -14,9 +15,9 @@ namespace API.Controllers.RealState
     public class RealStateController : ControllerBase
     {
 
-        private readonly IRealStateService<RealStateObject> _service;
+        private readonly IRealStateService _service;
 
-        public RealStateController(IRealStateService<RealStateObject> service)
+        public RealStateController(IRealStateService service)
         {
             this._service = service;
         }
@@ -67,14 +68,12 @@ namespace API.Controllers.RealState
         [Authorize]
         public async Task<ActionResult> Create(RealStateObject body)
         {
-
-            if (body.isCondoRequired()) return BadRequest("Endpoint errado, utilize endpoint RealStateWithCondo");
-
-            if (body.ID != null || body.Adress.ID != null) return BadRequest("A ID é gerada automaticamente");
+            if (body.isCondoRequired()) return BadRequest("Esse tipo de imóvel requer um condominio");
+            if (body.ID != null) return BadRequest("A ID é gerada automaticamente");
 
             try
             {
-                RealStateObject createdObject = await _service.Create(body);
+                var createdObject = await _service.Create(body);
 
                 if (createdObject == null) return BadRequest();
 
@@ -85,7 +84,6 @@ namespace API.Controllers.RealState
         }
 
 
-       
     }
 }
 

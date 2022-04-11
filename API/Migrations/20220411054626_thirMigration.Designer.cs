@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220404195556_first")]
-    partial class first
+    [Migration("20220411054626_thirMigration")]
+    partial class thirMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,12 +127,11 @@ namespace API.Migrations
                     b.Property<int>("Bathrooms")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrentResidentID")
+                    b.Property<int?>("CondominiumID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int?>("CurrentResidentID")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Furnished")
                         .HasColumnType("tinyint(1)");
@@ -160,13 +159,13 @@ namespace API.Migrations
 
                     b.HasIndex("AdressID");
 
+                    b.HasIndex("CondominiumID");
+
                     b.HasIndex("CurrentResidentID");
 
                     b.HasIndex("ValuesID");
 
                     b.ToTable("RealStates");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("RealStateObject");
                 });
 
             modelBuilder.Entity("API.src.Domain.Values.CondominiumMonetary", b =>
@@ -187,20 +186,6 @@ namespace API.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CondominiumMonetary");
-                });
-
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateWithCondo", b =>
-                {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.RealStateObject");
-
-                    b.Property<int?>("CondominioID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CondominioID");
-
-                    b.ToTable("RealStates");
-
-                    b.HasDiscriminator().HasValue("RealStateWithCondo");
                 });
 
             modelBuilder.Entity("API.Domain.RealState.Models.CondominiumObject", b =>
@@ -224,6 +209,10 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("AdressID");
 
+                    b.HasOne("API.Domain.RealState.Models.CondominiumObject", "Condominium")
+                        .WithMany("realStates")
+                        .HasForeignKey("CondominiumID");
+
                     b.HasOne("API.Domain.User.UserObject", "CurrentResident")
                         .WithMany()
                         .HasForeignKey("CurrentResidentID");
@@ -234,18 +223,11 @@ namespace API.Migrations
 
                     b.Navigation("Adress");
 
+                    b.Navigation("Condominium");
+
                     b.Navigation("CurrentResident");
 
                     b.Navigation("Values");
-                });
-
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateWithCondo", b =>
-                {
-                    b.HasOne("API.Domain.RealState.Models.CondominiumObject", "Condominio")
-                        .WithMany("realStates")
-                        .HasForeignKey("CondominioID");
-
-                    b.Navigation("Condominio");
                 });
 
             modelBuilder.Entity("API.Domain.RealState.Models.CondominiumObject", b =>

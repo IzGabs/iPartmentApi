@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/API",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:49489/",
       "sslPort": 44318
@@ -18,7 +22,7 @@
       }
     },
     "iPartmentDocker": {
-      "commandName": "Docker",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api",
       "environmentVariables": {
