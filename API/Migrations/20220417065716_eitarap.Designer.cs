@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220417033206_agora_ta_certo")]
-    partial class agora_ta_certo
+    [Migration("20220417065716_eitarap")]
+    partial class eitarap
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,10 +25,18 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("ExtraInfo")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -112,22 +120,16 @@ namespace API.Migrations
                     b.ToTable("RealStateMonetary");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateObject", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject", b =>
                 {
                     b.Property<int?>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AdressID")
                         .HasColumnType("int");
 
                     b.Property<bool>("AllowPets")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Bathrooms")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CurrentResidentID")
                         .HasColumnType("int");
 
                     b.Property<string>("Discriminator")
@@ -153,20 +155,11 @@ namespace API.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ValuesID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("AdressID");
-
-                    b.HasIndex("CurrentResidentID");
-
-                    b.HasIndex("ValuesID");
 
                     b.ToTable("RealStates");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("RealStateObject");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("RealStateValueObject");
                 });
 
             modelBuilder.Entity("API.src.Domain.Values.CondominiumMonetary", b =>
@@ -189,14 +182,56 @@ namespace API.Migrations
                     b.ToTable("CondominiumMonetary");
                 });
 
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateBase", b =>
+                {
+                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
+
+                    b.Property<int?>("AdressID")
+                        .HasColumnType("int")
+                        .HasColumnName("RealStateBase_AdressID");
+
+                    b.Property<int?>("CurrentResidentID")
+                        .HasColumnType("int")
+                        .HasColumnName("RealStateBase_CurrentResidentID");
+
+                    b.Property<int?>("ValuesID")
+                        .HasColumnType("int")
+                        .HasColumnName("RealStateBase_ValuesID");
+
+                    b.HasIndex("AdressID");
+
+                    b.HasIndex("CurrentResidentID");
+
+                    b.HasIndex("ValuesID");
+
+                    b.ToTable("RealStates");
+
+                    b.HasDiscriminator().HasValue("RealStateBase");
+                });
+
             modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
                 {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.RealStateObject");
+                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
+
+                    b.Property<int?>("AdressID")
+                        .HasColumnType("int");
 
                     b.Property<int>("CondominiumID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CurrentResidentID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ValuesID")
+                        .HasColumnType("int");
+
+                    b.HasIndex("AdressID");
+
                     b.HasIndex("CondominiumID");
+
+                    b.HasIndex("CurrentResidentID");
+
+                    b.HasIndex("ValuesID");
 
                     b.ToTable("RealStates");
 
@@ -218,7 +253,7 @@ namespace API.Migrations
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateObject", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateBase", b =>
                 {
                     b.HasOne("API.Domain.Location.Address", "Adress")
                         .WithMany()
@@ -241,13 +276,31 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
                 {
+                    b.HasOne("API.Domain.Location.Address", "Adress")
+                        .WithMany()
+                        .HasForeignKey("AdressID");
+
                     b.HasOne("API.Domain.RealState.Models.CondominiumObject", "Condominium")
                         .WithMany("realStates")
                         .HasForeignKey("CondominiumID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("API.Domain.User.UserObject", "CurrentResident")
+                        .WithMany()
+                        .HasForeignKey("CurrentResidentID");
+
+                    b.HasOne("API.src.Domain.Monetary.Entities.RealStateMonetary", "Values")
+                        .WithMany()
+                        .HasForeignKey("ValuesID");
+
+                    b.Navigation("Adress");
+
                     b.Navigation("Condominium");
+
+                    b.Navigation("CurrentResident");
+
+                    b.Navigation("Values");
                 });
 
             modelBuilder.Entity("API.Domain.RealState.Models.CondominiumObject", b =>

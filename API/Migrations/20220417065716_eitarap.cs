@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class agora_ta_certo : Migration
+    public partial class eitarap : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,10 @@ namespace API.Migrations
                     ZipCode = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Number = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    City = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    State = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ExtraInfo = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -126,12 +130,15 @@ namespace API.Migrations
                     Furnished = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AllowPets = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Garage = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CurrentResidentID = table.Column<int>(type: "int", nullable: true),
-                    AdressID = table.Column<int>(type: "int", nullable: true),
-                    ValuesID = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CondominiumID = table.Column<int>(type: "int", nullable: true)
+                    RealStateBase_AdressID = table.Column<int>(type: "int", nullable: true),
+                    RealStateBase_ValuesID = table.Column<int>(type: "int", nullable: true),
+                    RealStateBase_CurrentResidentID = table.Column<int>(type: "int", nullable: true),
+                    CondominiumID = table.Column<int>(type: "int", nullable: true),
+                    AdressID = table.Column<int>(type: "int", nullable: true),
+                    ValuesID = table.Column<int>(type: "int", nullable: true),
+                    CurrentResidentID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,11 +150,23 @@ namespace API.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_RealStates_Addresses_RealStateBase_AdressID",
+                        column: x => x.RealStateBase_AdressID,
+                        principalTable: "Addresses",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_RealStates_Condominiums_CondominiumID",
                         column: x => x.CondominiumID,
                         principalTable: "Condominiums",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RealStates_RealStateMonetary_RealStateBase_ValuesID",
+                        column: x => x.RealStateBase_ValuesID,
+                        principalTable: "RealStateMonetary",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RealStates_RealStateMonetary_ValuesID",
                         column: x => x.ValuesID,
@@ -157,6 +176,12 @@ namespace API.Migrations
                     table.ForeignKey(
                         name: "FK_RealStates_Users_CurrentResidentID",
                         column: x => x.CurrentResidentID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RealStates_Users_RealStateBase_CurrentResidentID",
+                        column: x => x.RealStateBase_CurrentResidentID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -187,6 +212,21 @@ namespace API.Migrations
                 name: "IX_RealStates_CurrentResidentID",
                 table: "RealStates",
                 column: "CurrentResidentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RealStates_RealStateBase_AdressID",
+                table: "RealStates",
+                column: "RealStateBase_AdressID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RealStates_RealStateBase_CurrentResidentID",
+                table: "RealStates",
+                column: "RealStateBase_CurrentResidentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RealStates_RealStateBase_ValuesID",
+                table: "RealStates",
+                column: "RealStateBase_ValuesID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RealStates_ValuesID",

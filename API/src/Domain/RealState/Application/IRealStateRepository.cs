@@ -1,4 +1,3 @@
-using API.Domain.RealState.Models;
 using API.src.Domain.RealState.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,11 @@ namespace API.src.Domain.RealState.Application
     public interface IRealStateRepository
     {
 
-        Task<RealStateObject> Create(RealStateObject body);
-        Task<bool> Update(RealStateObject body);
-        Task<bool> Delete(RealStateObject body);
-        Task<List<RealStateObject>> GetallComplete();
-        Task<RealStateObject> Get(int id);
-
+        Task<bool> Update(RealStateBase body);
+        Task<bool> Delete(RealStateBase body);
+        Task<RealStateBase> Create(RealStateBase body);
+        Task<List<RealStateBase>> GetallComplete();
+        Task<RealStateBase> Get(int id);
     }
 
     public interface IRealStateCondoRepository {

@@ -1,4 +1,3 @@
-using API.src.Domain.RealState.Entities;
 using API.Domain.Location;
 using API.src.Core.Swagger;
 using API.src.Domain.Values;
@@ -6,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using API.src.Domain.Monetary;
+using API.src.Domain.RealState.Entities;
 
 namespace API.Domain.RealState.Models
 {

@@ -28,10 +28,13 @@ namespace Tests.Application.Condominium
         {
             //ARRANGE
             var adressSample = new Address(
-                    ID: null,
-                    cep: "123",
-                    numero: "123",
-                complemento: "123");
+                    iD: 1,
+                    zipCode: "123",
+                    number: "123",
+                city: "CTBA",
+                state: "lala",
+                extraInfo: "123"
+                );
 
             var monetarySample = new CondominiumMonetary();
 

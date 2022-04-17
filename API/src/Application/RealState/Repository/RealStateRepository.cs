@@ -4,6 +4,7 @@ using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
@@ -19,16 +20,17 @@ namespace API.src.Application.RealState
         }
 
 
-        public async Task<RealStateObject> Get(int id) => await _context.RealState
+        public async Task<RealStateBase> Get(int id) => await _context.RealState
               .Include(l => l.Adress)
-              .FirstAsync((x) => x.ID == id);
+              .FirstOrDefaultAsync((x) => x.ID == id);
 
 
-        public async Task<List<RealStateObject>> GetallComplete() => await _context.RealState
+        public async Task<List<RealStateBase>> GetallComplete() => await _context.RealState
                      .Include(l => l.Adress)
                      .ToListAsync();
 
-        public async Task<RealStateObject> Create(RealStateObject body)
+
+        public async Task<RealStateBase> Create(RealStateBase body)
         {
             try
             {
@@ -46,8 +48,7 @@ namespace API.src.Application.RealState
 
         }
 
-
-        public async Task<bool> Delete(RealStateObject body)
+        public async Task<bool> Delete(RealStateBase body)
         {
             try
             {
@@ -63,9 +64,7 @@ namespace API.src.Application.RealState
             }
         }
 
-
-
-        public async Task<bool> Update(RealStateObject body)
+        public async Task<bool> Update(RealStateBase body)
         {
             try
             {
@@ -79,7 +78,5 @@ namespace API.src.Application.RealState
                 return false;
             }
         }
-
-      
     }
 }

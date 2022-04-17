@@ -25,7 +25,7 @@ namespace API.Controllers.RealState
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<RealStateObject>> Details(int id)
+        public async Task<ActionResult<RealStateBase>> Details(int id)
         {
             var request = await _service.GetByID(id);
             return request == null ? NotFound() : request;
@@ -34,11 +34,11 @@ namespace API.Controllers.RealState
         [HttpGet]
         [Authorize]
         [Route("list")]
-        public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL() => await _service.GetList();
+        public async Task<ActionResult<IEnumerable<RealStateBase>>> GetALL() => await _service.GetList();
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> Update(int id, RealStateObject body)
+        public async Task<IActionResult> Update(int id, RealStateBase body)
         {
             var _findInDB = await _service.GetByID(id);
             if (_findInDB == null) return NoContent();
@@ -66,7 +66,7 @@ namespace API.Controllers.RealState
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Create(RealStateObject body)
+        public async Task<ActionResult> Create(RealStateBase body)
         {
             if (body.isCondoRequired()) return BadRequest("Esse tipo de imóvel requer um condominio");
             if (body.ID != null) return BadRequest("A ID é gerada automaticamente");

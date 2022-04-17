@@ -12,11 +12,14 @@ namespace API.Domain.Location
 
         private Address() { }
 
-        public Address(int? ID, string cep, string numero, string complemento) {
-            this.ID = ID;
-            this.ZipCode = cep;
-            this.Number = numero;
-            this.ExtraInfo = complemento;
+        public Address(int? iD, string zipCode, string number, string city, string state, string extraInfo)
+        {
+            ID = iD;
+            ZipCode = zipCode;
+            Number = number;
+            City = city;
+            State = state;
+            ExtraInfo = extraInfo;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -30,20 +33,12 @@ namespace API.Domain.Location
         [Required]
         public string Number { get; set; }
 
+        [Required]
+        public string City { get; set; }
+
+        [Required]
+        public string State { get; set; }
+
         public string ExtraInfo { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            if (!(obj is Address)) return false;
-
-            var thisObj = obj as Address;
-            if (this.ID == thisObj.ID) return true;
-
-            return thisObj.ZipCode == this.ZipCode &&
-                thisObj.Number == this.Number &&
-                thisObj.ExtraInfo == this.ExtraInfo;
-        }
-
     }
 }

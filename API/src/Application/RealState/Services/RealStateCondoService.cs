@@ -24,7 +24,7 @@ namespace API.src.Application.RealState
 
         public async Task<RealStateCondo> GetByID(int id) => await _repository.Get(id);
  
-        public async Task<RealStateCondo> Create(RealStateObject body, int condoId)
+        public async Task<RealStateCondo> Create(Domain.RealState.Entities.RealStateBase body, int condoId)
         {
             var condominium = await condominiumService.Get(condoId) ?? throw CondoNotFoundException.Default();
 

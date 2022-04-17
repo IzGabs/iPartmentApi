@@ -13,7 +13,7 @@ namespace Tests.Application
 {
     public class RealStateRepositoryTests : IClassFixture<ContextTestClass>
     {
-        private RealStateObject realStateObjectExample;
+        private RealStateBase realStateObjectExample;
         private IRealStateRepository repository;
 
 
@@ -34,7 +34,7 @@ namespace Tests.Application
 
             //ASSERT
             Assert.NotNull(responseId);
-            Assert.IsType<RealStateObject>(responseId);
+            Assert.IsType<RealStateBase>(responseId);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Tests.Application
             //ASSERT
             Assert.Null(responseUnknowID);
             Assert.NotNull(response);
-            Assert.IsType<RealStateObject>(response);
+            Assert.IsType<RealStateBase>(response);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Tests.Application
 
             //ASSERT
             Assert.NotNull(responseId);
-            Assert.IsType<List<RealStateObject>>(responseId);
+            Assert.IsType<List<RealStateBase>>(responseId);
         }
 
         [Fact]
@@ -89,11 +89,18 @@ namespace Tests.Application
             await repository.Create(getExampleObj());
         }
 
-        private RealStateObject getExampleObj()
+        private RealStateBase getExampleObj()
         {
-            var adress = new Address(ID: null, cep: "23", numero: "2", complemento: "123");
+            var adress = new Address(
+                    iD: 1,
+                    zipCode: "123",
+                    number: "123",
+                city: "CTBA",
+                state: "lala",
+                extraInfo: "123"
+                );
 
-            return new RealStateObject(
+            return new RealStateBase(
                    iD: null, tipo: RealStateTypes.HOUSE,
                      tamanho: "1000x500", numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,

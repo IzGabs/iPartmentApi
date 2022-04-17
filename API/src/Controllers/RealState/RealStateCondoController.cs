@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using API.src.Domain.RealState.Application;
-using API.src.Domain.RealState.Entities;
 using API.src.Controllers.ViewModels;
 using API.src.Domain.Monetary;
+using API.src.Domain.RealState.Entities;
 
 namespace API.Controllers.RealState
 {

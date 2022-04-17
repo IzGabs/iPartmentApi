@@ -3,6 +3,7 @@ using API.Application;
 using API.src.Application.RealState;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
+using API.src.Application.RealState.Repository;
 
 namespace API.dependencyInjection
 {
@@ -17,6 +18,8 @@ namespace API.dependencyInjection
 
             services.AddTransient<IRealStateCondoService, RealStateCondoService>();
             services.AddTransient<IRealStateCondoRepository, RealStateCondoRepository>();
+
+            services.AddTransient<IRealStateGetAdvancedRepository, RealStateGetAdvanced>();
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using API.Domain.RealState.Models;
+﻿using API.src.Domain.RealState.Entities;
+using API.Domain.RealState.Models;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
 using API.src.Infra.EntityFramework;
