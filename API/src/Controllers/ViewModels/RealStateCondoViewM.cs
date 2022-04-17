@@ -14,6 +14,4 @@ namespace API.src.Controllers.ViewModels
 
         public int condoId { get; set; }
     }
-
-   
 }

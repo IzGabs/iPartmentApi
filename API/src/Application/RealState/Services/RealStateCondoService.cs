@@ -22,24 +22,15 @@ namespace API.src.Application.RealState
             this.condominiumService = condominiumService;
         }
 
-        public async Task<List<RealStateObject>> GetList() => await _repository.GetallComplete();
-
-        public async  Task<List<RealStateObject>> GetListSimple() => await _repository.GetAllSimple();
-
-        public async Task<bool> Delete(RealStateObject body) => await _repository.Delete(body);
-
-        public async Task<RealStateObject> GetByID(int id) => await _repository.Get(id);
-
-        public async Task<bool> Update(RealStateObject body) => await _repository.Update(body);
-
-        public async Task<RealStateObject> Create(RealStateObject body, int condoId)
+        public async Task<RealStateCondo> GetByID(int id) => await _repository.Get(id);
+ 
+        public async Task<RealStateCondo> Create(RealStateObject body, int condoId)
         {
             var condominium = await condominiumService.Get(condoId) ?? throw CondoNotFoundException.Default();
 
-            body.Condominium = condominium;
-            body.Adress = condominium.Location;
+            var realStateCondo = new RealStateCondo(body, condo:condominium);
 
-            return await _repository.Create(body);
+            return await _repository.Create(realStateCondo);
         }
 
     }

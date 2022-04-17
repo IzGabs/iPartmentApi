@@ -36,7 +36,6 @@ namespace API.src.Domain.RealState.Entities
         public bool Garage { get; set; }
 
         public UserObject? CurrentResident { get; set; }
-        public CondominiumObject? Condominium { get; set; }
 
         [Required]
         public Address Adress { get; set; }
@@ -56,8 +55,7 @@ namespace API.src.Domain.RealState.Entities
             bool aceitaPets,
             Address localicazao,
             RealStateMonetary valores,
-            UserObject? moradorAtual = null,
-            CondominiumObject? condominium = null
+            UserObject? moradorAtual = null
             )
         {
             this.ID = iD;
@@ -71,30 +69,6 @@ namespace API.src.Domain.RealState.Entities
             this.CurrentResident = moradorAtual;
             this.Adress = localicazao;
             this.Values = valores;
-            this.Condominium = condominium;
-        }
-
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-
-            if (!(obj is RealStateObject)) return false;
-
-            var thisObj = obj as RealStateObject;
-
-            if (ID == thisObj.ID) return true;
-
-            return ID == thisObj.ID &&
-                Type == thisObj.Type &&
-                Size == thisObj.Size &&
-                Rooms == thisObj.Rooms &&
-                Bathrooms == thisObj.Bathrooms &&
-                RoomWithBathroom == thisObj.RoomWithBathroom &&
-                Furnished == thisObj.Furnished &&
-                AllowPets == thisObj.AllowPets &&
-                Garage == thisObj.Garage &&
-                Adress == thisObj.Adress;
         }
 
         public bool isCondoRequired() => Type == RealStateTypes.APARTMENT;

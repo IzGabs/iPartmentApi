@@ -34,7 +34,7 @@ namespace API.src.Controllers
         [Authorize]
         public async Task<ActionResult<CondominiumObject>> Details(int id)
         {
-            var request = await service.Get(id);
+            var request = await service.GetRealStates(id);
             return request == null ? NotFound() : request;
         }
 

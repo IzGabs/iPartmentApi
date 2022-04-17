@@ -22,6 +22,11 @@ namespace API.src.Application.Condominium
         public async Task<CondominiumObject> Get(int id) => await _context.Condominium
             .Include(l => l.Location)
             .Include(l => l.Values)
+            .FirstOrDefaultAsync(x => x.ID == id);
+
+        public async Task<CondominiumObject> GetRealStates(int id) => await _context.Condominium
+            .Include(l => l.Location)
+            .Include(l => l.Values)
             .Include(l => l.realStates)
             .ThenInclude(l => l.Values)
             .FirstOrDefaultAsync(x => x.ID == id);

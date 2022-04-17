@@ -36,7 +36,9 @@ namespace API.src.Application.Condominium
             return request;
         }
 
-        public async Task<CondominiumObject> Get(int id) => await repository.Get(id);
+        public async Task<CondominiumObject> Get(int id) => await repository.Get(id); 
+        
+        public async Task<CondominiumObject> GetRealStates(int id) => await repository.GetRealStates(id);
 
         public async Task<List<CondominiumObject>> GetAll() => await repository.GetAll();
 

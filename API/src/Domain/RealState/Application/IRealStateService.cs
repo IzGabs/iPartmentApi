@@ -17,11 +17,7 @@ namespace API.src.Domain.RealState.Application
 
     public interface IRealStateCondoService
     {
-        Task<RealStateObject> Create(RealStateObject body, int condoId);
-        Task<bool> Update(RealStateObject body);
-        Task<bool> Delete(RealStateObject body);
-        Task<List<RealStateObject>> GetList();
-        Task<List<RealStateObject>> GetListSimple();
-        Task<RealStateObject> GetByID(int id);
+        Task<RealStateCondo> Create(RealStateObject body, int condoId);
+        Task<RealStateCondo> GetByID(int id);
     }
 }

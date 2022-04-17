@@ -41,7 +41,7 @@ namespace Tests.Application.Condominium
                 location: adressSample,
                 academia: false,
                 Valores: monetarySample,
-                realStates: new List<RealStateObject>()
+                realStates: new List<RealStateCondo>()
                 );
 
 

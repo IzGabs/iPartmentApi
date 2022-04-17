@@ -10,6 +10,7 @@ namespace API.src.Domain.Condominium
     {
         Task<CondominiumObject> Create(CondominiumObject obj);
         Task<CondominiumObject> Get(int id);
+        Task<CondominiumObject> GetRealStates(int id);
         Task<List<CondominiumObject>> GetAll();
         Task<bool> Update(CondominiumObject obj);
     }

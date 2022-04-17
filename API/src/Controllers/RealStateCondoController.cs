@@ -11,11 +11,10 @@ using API.src.Domain.Monetary;
 
 namespace API.Controllers.RealState
 {
-    [Route("api/[controller]")]
+    [Route("api/RealState/condo")]
     [ApiController]
     public class RealStateCondoController : ControllerBase
     {
-
         private readonly IRealStateCondoService _service;
 
         public RealStateCondoController(IRealStateCondoService service)
@@ -23,22 +22,12 @@ namespace API.Controllers.RealState
             this._service = service;
         }
 
-
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<RealStateObject>> Details(int id)
+        public async Task<ActionResult<RealStateCondo>> Details(int id)
         {
             var request = await _service.GetByID(id);
             return request == null ? NotFound() : request;
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("list")]
-        public async Task<ActionResult<IEnumerable<RealStateObject>>> GetALL()
-        {
-            return await _service.GetListSimple();
-            
         }
 
         [HttpPost]
@@ -59,9 +48,6 @@ namespace API.Controllers.RealState
             }
             catch (Exception e) { return BadRequest(e.Message); }
         }
-
-
-
     }
 }
 

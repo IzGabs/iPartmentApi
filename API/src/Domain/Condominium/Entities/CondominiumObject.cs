@@ -16,7 +16,7 @@ namespace API.Domain.RealState.Models
 
         private CondominiumObject() { }
 
-        public CondominiumObject(int? iD, string name,  Address location, bool academia, CondominiumMonetary Valores, List<RealStateObject>? realStates )
+        public CondominiumObject(int? iD, string name,  Address location, bool academia, CondominiumMonetary Valores, List<RealStateCondo>? realStates )
         {
             this.ID = iD;
             this.Location = location;
@@ -43,6 +43,6 @@ namespace API.Domain.RealState.Models
         public CondominiumMonetary Values { get; set; }
 
         [SwaggerIgnore]
-        public List<RealStateObject>? realStates { get; set;  }
+        public List<RealStateCondo>? realStates { get; set;  }
     }
 }
