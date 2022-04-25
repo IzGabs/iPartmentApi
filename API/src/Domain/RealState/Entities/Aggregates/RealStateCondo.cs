@@ -7,15 +7,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.src.Domain.RealState.Entities
 {
-    public class RealStateCondo : RealStateValueObject
+    public class RealStateCondo : RealStateBase
     {
         [Required]
         public CondominiumObject Condominium { get; set; }
-        [Required]
-        public Address Adress { get; set; }
-        [Required]
-        public RealStateMonetary Values { get; set; }
-        public UserObject? CurrentResident { get; set; }
+       
 
         public RealStateCondo() { }
 
@@ -24,7 +20,7 @@ namespace API.src.Domain.RealState.Entities
             int numeroSalas, int numeroBanheiros, int suites,
             bool mobiliado, bool aceitaPets, bool garage,
             Address adress, RealStateMonetary values, CondominiumObject condominium, UserObject currentResident = null)
-            : base(iD, tipo, tamanho, numeroSalas, numeroBanheiros, suites, mobiliado, aceitaPets, garage)
+            : base(iD, tipo, tamanho, numeroSalas, numeroBanheiros, suites, mobiliado, aceitaPets, garage, adress, values)
         {
             CurrentResident = currentResident;
             Adress = adress;
@@ -35,7 +31,13 @@ namespace API.src.Domain.RealState.Entities
         public RealStateCondo(RealStateBase realstate, CondominiumObject condo)
             : base(realstate.ID, realstate.Type, realstate.Size,
                   realstate.Rooms, realstate.Bathrooms, realstate.RoomWithBathroom,
-                  realstate.Furnished, realstate.AllowPets, realstate.Garage)
-        { this.Condominium = condo; }
+                  realstate.Furnished, realstate.AllowPets, realstate.Garage, 
+                  realstate.Adress, realstate.Values)
+        {
+            this.Condominium = condo;
+            this.Adress = realstate.Adress;
+            this.Values = realstate.Values;
+
+        }
     }
 }

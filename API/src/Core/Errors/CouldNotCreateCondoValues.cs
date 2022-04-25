@@ -2,11 +2,11 @@
 
 namespace API.src.Core.Errors
 {
-    public class CouldNotCreateCondoValues : Exception
+    public class CouldNotCreateRealStateValues : Exception
     {
-        public CouldNotCreateCondoValues() { }
-        public CouldNotCreateCondoValues(string message) : base(message) { }
-        public CouldNotCreateCondoValues(string message, Exception inner) : base(message, inner) { }
-        public static CouldNotCreateCondoValues Default() => new CouldNotCreateCondoValues("Não foi possível criar essa localização, verifique o objeto enviado!");
+        public CouldNotCreateRealStateValues() { }
+        public CouldNotCreateRealStateValues(string message) : base(message) { }
+        public CouldNotCreateRealStateValues(string message, Exception inner) : base(message, inner) { }
+        public static CouldNotCreateRealStateValues Default() => new CouldNotCreateRealStateValues("Não foi possível criar essa localização, verifique o objeto enviado!");
     }
 }

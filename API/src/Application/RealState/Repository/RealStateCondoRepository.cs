@@ -25,6 +25,7 @@ namespace API.src.Application.RealState
             .Include(l => l.Values)
             .Include(l => l.CurrentResident)
             .Include(l => l.Condominium)
+            .Include(l => l.Condominium.Values)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.ID == id);
 

@@ -3,14 +3,16 @@ using System;
 using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    partial class BuildContextModelSnapshot : ModelSnapshot
+    [Migration("20220425195419_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,10 +126,16 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("AdressID")
+                        .HasColumnType("int");
+
                     b.Property<bool>("AllowPets")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Bathrooms")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CurrentResidentID")
                         .HasColumnType("int");
 
                     b.Property<string>("Discriminator")
@@ -153,7 +161,16 @@ namespace API.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ValuesID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("AdressID");
+
+                    b.HasIndex("CurrentResidentID");
+
+                    b.HasIndex("ValuesID");
 
                     b.ToTable("RealStates");
 
@@ -184,21 +201,6 @@ namespace API.Migrations
                 {
                     b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
 
-                    b.Property<int?>("AdressID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CurrentResidentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ValuesID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AdressID");
-
-                    b.HasIndex("CurrentResidentID");
-
-                    b.HasIndex("ValuesID");
-
                     b.ToTable("RealStates");
 
                     b.HasDiscriminator().HasValue("RealStateBase");
@@ -206,7 +208,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
                 {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.RealStateBase");
+                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
 
                     b.Property<int>("CondominiumID")
                         .HasColumnType("int");
@@ -233,7 +235,7 @@ namespace API.Migrations
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateBase", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject", b =>
                 {
                     b.HasOne("API.Domain.Location.Address", "Adress")
                         .WithMany()

@@ -13,10 +13,8 @@ namespace API.src.Domain.RealState.Entities
     {
         [Required]
         public Address Adress { get; set; }
-
         [Required]
         public RealStateMonetary Values { get; set; }
-
         public UserObject? CurrentResident { get; set; }
 
         public RealStateBase() { }
@@ -29,6 +27,7 @@ namespace API.src.Domain.RealState.Entities
             int suites,
             bool mobiliado,
             bool aceitaPets,
+            bool garage,
             Address localicazao,
             RealStateMonetary valores,
             UserObject? moradorAtual = null
@@ -42,16 +41,17 @@ namespace API.src.Domain.RealState.Entities
             this.RoomWithBathroom = suites;
             this.Furnished = mobiliado;
             this.AllowPets = aceitaPets;
+            this.Garage = garage;
             this.CurrentResident = moradorAtual;
             this.Adress = localicazao;
             this.Values = valores;
         }
 
-        public RealStateBase(UserObject currentResident, Address adress, RealStateMonetary values)
+        public RealStateBase( Address adress, RealStateMonetary values, UserObject? currentResident = null)
         {
-            CurrentResident = currentResident;
-            Adress = adress;
-            Values = values;
+            this.CurrentResident = currentResident;
+            this.Adress = adress;
+            this.Values = values;
         }
 
         public bool isCondoRequired() => Type == RealStateTypes.APARTMENT;

@@ -19,6 +19,7 @@ namespace API.src.Infra.EntityFramework
 
         public DbSet<RealStateBase> RealState { get; set; }
         public DbSet<RealStateCondo> RealStateCondo { get; set; }
+
         public DbSet<RealStateMonetary> RealStateMonetary { get; set; }
 
         public DbSet<CondominiumObject> Condominium { get; set; }

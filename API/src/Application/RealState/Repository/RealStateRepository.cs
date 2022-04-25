@@ -22,6 +22,8 @@ namespace API.src.Application.RealState
 
         public async Task<RealStateBase> Get(int id) => await _context.RealState
               .Include(l => l.Adress)
+              .Include(l => l.Values)
+              .Include(l => l.Adress)
               .FirstOrDefaultAsync((x) => x.ID == id);
 
 

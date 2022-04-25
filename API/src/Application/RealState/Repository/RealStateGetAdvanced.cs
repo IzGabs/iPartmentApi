@@ -22,6 +22,8 @@ namespace API.src.Application.RealState.Repository
         public async Task<List<RealStateBase>> GetFromCityLimited(string city, int page, int pageSize = 0) => await _context.RealState
             .Include(l => l.Adress)
             .Include(l => l.CurrentResident)
+            .Include(l => l.Values)
+           // .Include("Condominium")
             .Where(x => x.CurrentResident == null && x.Adress.City == city)
             .Skip(page * pageSize)
             .Take(pageSize)

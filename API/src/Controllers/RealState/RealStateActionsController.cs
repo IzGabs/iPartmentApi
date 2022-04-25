@@ -23,7 +23,6 @@ namespace API.src.Controllers.RealState
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<List<RealStateBase>>> HomeItens([Required] string city, int page)
         {
             var request = await service.GetListPagineted(city, page: page, pageSize: 20);

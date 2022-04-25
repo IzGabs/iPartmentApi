@@ -105,6 +105,7 @@ namespace Tests.Application
                      tamanho: "1000x500", numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,
                      aceitaPets: true, moradorAtual: null, localicazao: adress, 
+                     garage: true,
                      valores: new RealStateMonetary(valorFixo: 2000)
                     );
         }

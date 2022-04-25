@@ -2,7 +2,9 @@
 using API.src.Controllers.ViewModels;
 using API.src.Core.Errors;
 using API.src.Domain.Condominium;
+using API.src.Domain.Condominium.Application.Values;
 using API.src.Domain.Location;
+using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
 using System.Collections.Generic;
@@ -14,12 +16,15 @@ namespace API.Application
     {
         private readonly IRealStateRepository _repository;
         private readonly ILocationService locationService;
+        private readonly IMonetaryService<RealStateMonetary> monetaryService;
+
         private readonly IRealStateGetAdvancedRepository _advancedRepo;
 
-        public RealStateService(IRealStateRepository repository, ILocationService locationService, IRealStateGetAdvancedRepository advancedRepo)
+        public RealStateService(IRealStateRepository repository, ILocationService locationService, IMonetaryService<RealStateMonetary> monetaryService, IRealStateGetAdvancedRepository advancedRepo)
         {
             _repository = repository;
             this.locationService = locationService;
+            this.monetaryService = monetaryService;
             _advancedRepo = advancedRepo;
         }
 
@@ -34,7 +39,7 @@ namespace API.Application
         public async Task<RealStateBase> Create(RealStateBase body)
         {
             body.Adress = await locationService.Create(body.Adress) ?? throw CouldNotCreateLocationException.Default();
-           // body.Values = await 
+            body.Values = await monetaryService.Create(body.Values) ?? throw CouldNotCreateRealStateValues.Default();
             return await _repository.Create(body);
         }
 

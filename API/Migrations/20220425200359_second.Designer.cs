@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220417065716_eitarap")]
-    partial class eitarap
+    [Migration("20220425200359_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -187,16 +187,13 @@ namespace API.Migrations
                     b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
 
                     b.Property<int?>("AdressID")
-                        .HasColumnType("int")
-                        .HasColumnName("RealStateBase_AdressID");
+                        .HasColumnType("int");
 
                     b.Property<int?>("CurrentResidentID")
-                        .HasColumnType("int")
-                        .HasColumnName("RealStateBase_CurrentResidentID");
+                        .HasColumnType("int");
 
                     b.Property<int?>("ValuesID")
-                        .HasColumnType("int")
-                        .HasColumnName("RealStateBase_ValuesID");
+                        .HasColumnType("int");
 
                     b.HasIndex("AdressID");
 
@@ -211,27 +208,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
                 {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
-
-                    b.Property<int?>("AdressID")
-                        .HasColumnType("int");
+                    b.HasBaseType("API.src.Domain.RealState.Entities.RealStateBase");
 
                     b.Property<int>("CondominiumID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrentResidentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ValuesID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AdressID");
-
                     b.HasIndex("CondominiumID");
-
-                    b.HasIndex("CurrentResidentID");
-
-                    b.HasIndex("ValuesID");
 
                     b.ToTable("RealStates");
 
@@ -276,31 +258,13 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
                 {
-                    b.HasOne("API.Domain.Location.Address", "Adress")
-                        .WithMany()
-                        .HasForeignKey("AdressID");
-
                     b.HasOne("API.Domain.RealState.Models.CondominiumObject", "Condominium")
                         .WithMany("realStates")
                         .HasForeignKey("CondominiumID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Domain.User.UserObject", "CurrentResident")
-                        .WithMany()
-                        .HasForeignKey("CurrentResidentID");
-
-                    b.HasOne("API.src.Domain.Monetary.Entities.RealStateMonetary", "Values")
-                        .WithMany()
-                        .HasForeignKey("ValuesID");
-
-                    b.Navigation("Adress");
-
                     b.Navigation("Condominium");
-
-                    b.Navigation("CurrentResident");
-
-                    b.Navigation("Values");
                 });
 
             modelBuilder.Entity("API.Domain.RealState.Models.CondominiumObject", b =>

@@ -1,4 +1,7 @@
-﻿using API.src.Core.Swagger;
+﻿using API.Domain.Location;
+using API.Domain.User;
+using API.src.Core.Swagger;
+using API.src.Domain.Monetary.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
