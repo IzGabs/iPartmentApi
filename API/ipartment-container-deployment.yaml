@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ipartment-container
+  name: ipartment-container
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ipartment-container
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project_network: "true"
+        io.kompose.service: ipartment-container
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              value: 172.17.0.1
+          image: api
+          name: ipartment-container
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/api
+              name: iPartmentVolume
+      restartPolicy: Always
+      volumes:
+        - name: iPartmentVolume
+          persistentVolumeClaim:
+            claimName: iPartmentVolume
+status: {}
