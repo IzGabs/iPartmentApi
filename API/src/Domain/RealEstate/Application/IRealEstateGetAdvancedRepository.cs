@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.RealState.Application
 {
-    public interface IRealStateGetAdvancedRepository
+    public interface IRealEstateGetAdvancedRepository
     {
-        Task<List<RealStateBase>> GetFromCityLimited(string city, int page, int pageSize = 0);
+        Task<List<RealEstateBase>> GetFromCityLimited(string city, int page, int pageSize = 0);
     }
 }

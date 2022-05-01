@@ -15,16 +15,16 @@ namespace API.Controllers.RealState
     [ApiController]
     public class RealStateCondoController : ControllerBase
     {
-        private readonly IRealStateCondoService _service;
+        private readonly IRealEstateCondoService _service;
 
-        public RealStateCondoController(IRealStateCondoService service)
+        public RealStateCondoController(IRealEstateCondoService service)
         {
             this._service = service;
         }
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<RealStateCondo>> Details(int id)
+        public async Task<ActionResult<RealEstateCondo>> Details(int id)
         {
             var request = await _service.GetByID(id);
             return request == null ? NotFound() : request;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
 {
-    public class RealStateCondoRepository : IRealStateCondoRepository
+    public class RealStateCondoRepository : IRealEstateCondoRepository
     {
         private readonly BuildContext _context;
 
@@ -20,7 +20,7 @@ namespace API.src.Application.RealState
             _context = context;
         }
 
-        public async Task<RealStateCondo> Get(int id) => await _context.RealStateCondo
+        public async Task<RealEstateCondo> Get(int id) => await _context.RealEstateCondo
             .Include(l => l.Adress)
             .Include(l => l.Values)
             .Include(l => l.CurrentResident)
@@ -30,11 +30,11 @@ namespace API.src.Application.RealState
             .FirstOrDefaultAsync(x => x.ID == id);
 
 
-        public async Task<RealStateCondo> Create(RealStateCondo body)
+        public async Task<RealEstateCondo> Create(RealEstateCondo body)
         {
             try
             {
-                var request = await _context.RealStateCondo.AddAsync(body);
+                var request = await _context.RealEstateCondo.AddAsync(body);
                 await _context.SaveChangesAsync();
 
                 return request.Entity;

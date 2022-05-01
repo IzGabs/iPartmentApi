@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.src.Application.RealState.Repository
 {
-    public class RealStateGetAdvanced : IRealStateGetAdvancedRepository
+    public class RealStateGetAdvanced : IRealEstateGetAdvancedRepository
     {
 
         private readonly BuildContext _context;
@@ -19,7 +19,7 @@ namespace API.src.Application.RealState.Repository
             _context = context;
         }
 
-        public async Task<List<RealStateBase>> GetFromCityLimited(string city, int page, int pageSize = 0) => await _context.RealState
+        public async Task<List<RealEstateBase>> GetFromCityLimited(string city, int page, int pageSize = 0) => await _context.RealEstate
             .Include(l => l.Adress)
             .Include(l => l.CurrentResident)
             .Include(l => l.Values)

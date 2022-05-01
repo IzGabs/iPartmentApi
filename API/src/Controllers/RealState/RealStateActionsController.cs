@@ -15,15 +15,15 @@ namespace API.src.Controllers.RealState
     [ApiController]
     public class RealStateActionsController : ControllerBase
     {
-        private readonly IRealStateService service;
+        private readonly IRealEstateService service;
 
-        public RealStateActionsController(IRealStateService service)
+        public RealStateActionsController(IRealEstateService service)
         {
             this.service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<RealStateBase>>> HomeItens([Required] string city, int page)
+        public async Task<ActionResult<List<RealEstateBase>>> HomeItens([Required] string city, int page)
         {
             var request = await service.GetListPagineted(city, page: page, pageSize: 20);
             return request != null ? request : new EmptyResult();

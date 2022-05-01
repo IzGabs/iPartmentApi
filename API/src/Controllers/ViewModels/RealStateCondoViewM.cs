@@ -10,7 +10,7 @@ namespace API.src.Controllers.ViewModels
     public class RealStateCondoRequest
     {
         [Required]
-        public RealStateBase realState { get; set; }
+        public RealEstateBase realState { get; set; }
 
         public int condoId { get; set; }
     }

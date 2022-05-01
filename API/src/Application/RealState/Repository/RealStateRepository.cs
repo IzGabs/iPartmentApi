@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
 {
-    public class RealStateRepository : IRealStateRepository
+    public class RealStateRepository : IRealEstateRepository
     {
 
         private readonly BuildContext _context;
@@ -20,23 +20,23 @@ namespace API.src.Application.RealState
         }
 
 
-        public async Task<RealStateBase> Get(int id) => await _context.RealState
+        public async Task<RealEstateBase> Get(int id) => await _context.RealEstate
               .Include(l => l.Adress)
               .Include(l => l.Values)
               .Include(l => l.Adress)
               .FirstOrDefaultAsync((x) => x.ID == id);
 
 
-        public async Task<List<RealStateBase>> GetallComplete() => await _context.RealState
+        public async Task<List<RealEstateBase>> GetallComplete() => await _context.RealEstate
                      .Include(l => l.Adress)
                      .ToListAsync();
 
 
-        public async Task<RealStateBase> Create(RealStateBase body)
+        public async Task<RealEstateBase> Create(RealEstateBase body)
         {
             try
             {
-                var request = await _context.RealState.AddAsync(body);
+                var request = await _context.RealEstate.AddAsync(body);
                 await _context.SaveChangesAsync();
 
                 return request.Entity;
@@ -50,11 +50,11 @@ namespace API.src.Application.RealState
 
         }
 
-        public async Task<bool> Delete(RealStateBase body)
+        public async Task<bool> Delete(RealEstateBase body)
         {
             try
             {
-                var returnRemove = _context.RealState.Remove(body);
+                var returnRemove = _context.RealEstate.Remove(body);
                 await _context.SaveChangesAsync();
 
                 return returnRemove.State == EntityState.Deleted;
@@ -66,11 +66,11 @@ namespace API.src.Application.RealState
             }
         }
 
-        public async Task<bool> Update(RealStateBase body)
+        public async Task<bool> Update(RealEstateBase body)
         {
             try
             {
-                var updateReturn = _context.RealState.Update(body);
+                var updateReturn = _context.RealEstate.Update(body);
                 await _context.SaveChangesAsync();
 
                 return updateReturn.State == EntityState.Modified;

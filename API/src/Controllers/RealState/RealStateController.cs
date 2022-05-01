@@ -15,9 +15,9 @@ namespace API.Controllers.RealState
     public class RealStateController : ControllerBase
     {
 
-        private readonly IRealStateService _service;
+        private readonly IRealEstateService _service;
 
-        public RealStateController(IRealStateService service)
+        public RealStateController(IRealEstateService service)
         {
             this._service = service;
         }
@@ -25,7 +25,7 @@ namespace API.Controllers.RealState
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<RealStateBase>> Details(int id)
+        public async Task<ActionResult<RealEstateBase>> Details(int id)
         {
             var request = await _service.GetByID(id);
             return request == null ? NotFound() : request;
@@ -34,11 +34,11 @@ namespace API.Controllers.RealState
         [HttpGet]
         [Authorize]
         [Route("list")]
-        public async Task<ActionResult<IEnumerable<RealStateBase>>> GetALL() => await _service.GetList();
+        public async Task<ActionResult<IEnumerable<RealEstateBase>>> GetALL() => await _service.GetList();
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> Update(int id, RealStateBase body)
+        public async Task<IActionResult> Update(int id, RealEstateBase body)
         {
             var _findInDB = await _service.GetByID(id);
             if (_findInDB == null) return NoContent();
@@ -66,7 +66,7 @@ namespace API.Controllers.RealState
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Create(RealStateBase body)
+        public async Task<ActionResult> Create(RealEstateBase body)
         {
             if (body.isCondoRequired()) return BadRequest("Esse tipo de imóvel requer um condominio");
             if (body.ID != null) return BadRequest("A ID é gerada automaticamente");

@@ -13,15 +13,13 @@ namespace API.src.Domain.RealState.Entities.ValueObject
 {
 
     [Table("RealStates")]
-    public abstract class RealStateValueObject
+    public abstract class RealEstateValueObject
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [SwaggerIgnore]
         [Key]
         public int? ID { get; set; }
 
-        [Required]
-        public RealStateTypes Type { get; set; }
         [Required]
         public string Size { get; set; }
         [Required]
@@ -36,12 +34,11 @@ namespace API.src.Domain.RealState.Entities.ValueObject
         [Required]
         public bool Garage { get; set; }
 
-        public RealStateValueObject() { }
+        public RealEstateValueObject() { }
 
-        protected RealStateValueObject(int? iD, RealStateTypes type, string size, int rooms, int bathrooms, int roomWithBathroom, bool furnished, bool allowPets, bool garage)
+        protected RealEstateValueObject(int? iD, string size, int rooms, int bathrooms, int roomWithBathroom, bool furnished, bool allowPets, bool garage)
         {
             ID = iD;
-            Type = type;
             Size = size;
             Rooms = rooms;
             Bathrooms = bathrooms;

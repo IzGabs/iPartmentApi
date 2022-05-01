@@ -8,19 +8,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.src.Domain.RealState.Entities
 {
-    [Table("RealStates")]
-    public class RealStateBase : RealStateValueObject
+    [Table("RealEstates")]
+    public class RealEstateBase : RealEstateValueObject
     {
-        [Required]
-        public Address Adress { get; set; }
-        [Required]
-        public RealStateMonetary Values { get; set; }
         public UserObject? CurrentResident { get; set; }
 
-        public RealStateBase() { }
-        public RealStateBase(
+
+        [Required]
+        public Address Adress { get; set; }
+        
+        [Required]
+        public RealStateMonetary Values { get; set; }
+
+        [Required]
+        public TypeRealEstate Type { get; set; }
+
+        public RealEstateBase() { }
+        public RealEstateBase(
             int? iD,
-            RealStateTypes tipo,
+            TypeRealEstate tipo,
             string tamanho,
             int numeroSalas,
             int numeroBanheiros,
@@ -47,13 +53,14 @@ namespace API.src.Domain.RealState.Entities
             this.Values = valores;
         }
 
-        public RealStateBase( Address adress, RealStateMonetary values, UserObject? currentResident = null)
+        public RealEstateBase( Address adress, TypeRealEstate Type,  RealStateMonetary values, UserObject? currentResident = null)
         {
             this.CurrentResident = currentResident;
             this.Adress = adress;
             this.Values = values;
+            this.Type = Type;
         }
 
-        public bool isCondoRequired() => Type == RealStateTypes.APARTMENT;
+        public bool isCondoRequired() => Type == RealEstateTypesEnum.APARTMENT;
     }
 }

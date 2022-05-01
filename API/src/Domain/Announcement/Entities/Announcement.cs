@@ -1,0 +1,40 @@
+﻿using API.Domain.User;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace API.src.Domain.Announcement.Entities
+{
+    public class Announcement
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int? ID { get; set; }
+
+        public DateTime createdAt { get; set; }
+
+        [Required]
+        public string title { get; set; }
+        [Required]
+        public string description { get; set; }
+        [Required]
+        public bool immediatelyAvailable { get; set; }
+        [Required]
+        public UserObject advertiser { get; set; }
+
+        
+
+        protected Announcement() { }
+        public Announcement( string title, string description, bool immediatelyAvailable, UserObject advertiser)
+        {   
+            this.createdAt = DateTime.Now;
+            this.title = title;
+            this.description = description;
+            this.immediatelyAvailable = immediatelyAvailable;
+            this.advertiser = advertiser;
+        }
+    }
+}

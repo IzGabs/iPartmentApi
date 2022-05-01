@@ -13,27 +13,27 @@ using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
 {
-    public class RealStateCondoService : IRealStateCondoService
+    public class RealStateCondoService : IRealEstateCondoService
     {
-        private readonly IRealStateCondoRepository _repository;
+        private readonly IRealEstateCondoRepository _repository;
         private readonly ICondominiumService condominiumService;
         private readonly IMonetaryService<RealStateMonetary> monetaryService;
 
-        public RealStateCondoService(IRealStateCondoRepository repository, ICondominiumService condominiumService, IMonetaryService<RealStateMonetary> monetaryService)
+        public RealStateCondoService(IRealEstateCondoRepository repository, ICondominiumService condominiumService, IMonetaryService<RealStateMonetary> monetaryService)
         {
             _repository = repository;
             this.condominiumService = condominiumService;
             this.monetaryService = monetaryService;
         }
 
-        public async Task<RealStateCondo> GetByID(int id) => await _repository.Get(id);
+        public async Task<RealEstateCondo> GetByID(int id) => await _repository.Get(id);
  
-        public async Task<RealStateCondo> Create(Domain.RealState.Entities.RealStateBase body, int condoId)
+        public async Task<RealEstateCondo> Create(Domain.RealState.Entities.RealEstateBase body, int condoId)
         {
             var condominium = await condominiumService.Get(condoId) ?? throw CondoNotFoundException.Default();
             body.Values = await monetaryService.Create(body.Values) ?? throw CouldNotCreateRealStateValues.Default();
 
-            var realStateCondo = new RealStateCondo(body, condo:condominium);
+            var realStateCondo = new RealEstateCondo(body, condo:condominium);
 
             return await _repository.Create(realStateCondo);
         }

@@ -101,6 +101,80 @@ namespace API.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.Announcement", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("advertiserID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("immediatelyAvailable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("advertiserID");
+
+                    b.ToTable("Announcements");
+                });
+
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("IPTU")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("announcementID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("montlyValue")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("announcementID");
+
+                    b.ToTable("AnnouncementsToRent");
+                });
+
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementSellType", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("IPTU")
+                        .HasColumnType("float");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("announcementID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("announcementID");
+
+                    b.ToTable("AnnouncementsToSell");
+                });
+
             modelBuilder.Entity("API.src.Domain.Monetary.Entities.RealStateMonetary", b =>
                 {
                     b.Property<int?>("ID")
@@ -118,7 +192,52 @@ namespace API.Migrations
                     b.ToTable("RealStateMonetary");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.TypeRealEstate", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RealEstateTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 0,
+                            Description = "",
+                            Name = "APARTMENT"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Description = "",
+                            Name = "HOUSE"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "",
+                            Name = "KITNET"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "",
+                            Name = "STUDIO"
+                        });
+                });
+
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.ValueObject.RealEstateValueObject", b =>
                 {
                     b.Property<int?>("ID")
                         .ValueGeneratedOnAdd()
@@ -150,14 +269,11 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
-                    b.ToTable("RealStates");
+                    b.ToTable("RealEstates");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("RealStateValueObject");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("RealEstateValueObject");
                 });
 
             modelBuilder.Entity("API.src.Domain.Values.CondominiumMonetary", b =>
@@ -180,14 +296,41 @@ namespace API.Migrations
                     b.ToTable("CondominiumMonetary");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateBase", b =>
+            modelBuilder.Entity("API.src.Domain.Visit.ScheduledVisit", b =>
                 {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealStateValueObject");
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("realStateID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("visitorID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("realStateID");
+
+                    b.HasIndex("visitorID");
+
+                    b.ToTable("ScheduledVisits");
+                });
+
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealEstateBase", b =>
+                {
+                    b.HasBaseType("API.src.Domain.RealState.Entities.ValueObject.RealEstateValueObject");
 
                     b.Property<int?>("AdressID")
                         .HasColumnType("int");
 
                     b.Property<int?>("CurrentResidentID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ValuesID")
@@ -197,25 +340,27 @@ namespace API.Migrations
 
                     b.HasIndex("CurrentResidentID");
 
+                    b.HasIndex("TypeId");
+
                     b.HasIndex("ValuesID");
 
-                    b.ToTable("RealStates");
+                    b.ToTable("RealEstates");
 
-                    b.HasDiscriminator().HasValue("RealStateBase");
+                    b.HasDiscriminator().HasValue("RealEstateBase");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealEstateCondo", b =>
                 {
-                    b.HasBaseType("API.src.Domain.RealState.Entities.RealStateBase");
+                    b.HasBaseType("API.src.Domain.RealState.Entities.RealEstateBase");
 
                     b.Property<int>("CondominiumID")
                         .HasColumnType("int");
 
                     b.HasIndex("CondominiumID");
 
-                    b.ToTable("RealStates");
+                    b.ToTable("RealEstates");
 
-                    b.HasDiscriminator().HasValue("RealStateCondo");
+                    b.HasDiscriminator().HasValue("RealEstateCondo");
                 });
 
             modelBuilder.Entity("API.Domain.RealState.Models.CondominiumObject", b =>
@@ -233,7 +378,49 @@ namespace API.Migrations
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateBase", b =>
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.Announcement", b =>
+                {
+                    b.HasOne("API.Domain.User.UserObject", "advertiser")
+                        .WithMany()
+                        .HasForeignKey("advertiserID");
+
+                    b.Navigation("advertiser");
+                });
+
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
+                {
+                    b.HasOne("API.src.Domain.Announcement.Entities.Announcement", "announcement")
+                        .WithMany()
+                        .HasForeignKey("announcementID");
+
+                    b.Navigation("announcement");
+                });
+
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementSellType", b =>
+                {
+                    b.HasOne("API.src.Domain.Announcement.Entities.Announcement", "announcement")
+                        .WithMany()
+                        .HasForeignKey("announcementID");
+
+                    b.Navigation("announcement");
+                });
+
+            modelBuilder.Entity("API.src.Domain.Visit.ScheduledVisit", b =>
+                {
+                    b.HasOne("API.src.Domain.RealState.Entities.RealEstateBase", "realState")
+                        .WithMany()
+                        .HasForeignKey("realStateID");
+
+                    b.HasOne("API.Domain.User.UserObject", "visitor")
+                        .WithMany()
+                        .HasForeignKey("visitorID");
+
+                    b.Navigation("realState");
+
+                    b.Navigation("visitor");
+                });
+
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealEstateBase", b =>
                 {
                     b.HasOne("API.Domain.Location.Address", "Adress")
                         .WithMany()
@@ -243,6 +430,10 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("CurrentResidentID");
 
+                    b.HasOne("API.src.Domain.RealState.Entities.TypeRealEstate", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
                     b.HasOne("API.src.Domain.Monetary.Entities.RealStateMonetary", "Values")
                         .WithMany()
                         .HasForeignKey("ValuesID");
@@ -251,10 +442,12 @@ namespace API.Migrations
 
                     b.Navigation("CurrentResident");
 
+                    b.Navigation("Type");
+
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealStateCondo", b =>
+            modelBuilder.Entity("API.src.Domain.RealState.Entities.RealEstateCondo", b =>
                 {
                     b.HasOne("API.Domain.RealState.Models.CondominiumObject", "Condominium")
                         .WithMany("realStates")

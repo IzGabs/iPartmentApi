@@ -13,13 +13,13 @@ namespace API.dependencyInjection
 
         public void Inject(IServiceCollection services)
         {
-            services.AddTransient<IRealStateRepository, RealStateRepository>();
-            services.AddTransient<IRealStateService, RealStateService>();
+            services.AddTransient<IRealEstateRepository, RealStateRepository>();
+            services.AddTransient<IRealEstateService, RealStateService>();
 
-            services.AddTransient<IRealStateCondoService, RealStateCondoService>();
-            services.AddTransient<IRealStateCondoRepository, RealStateCondoRepository>();
+            services.AddTransient<IRealEstateCondoService, RealStateCondoService>();
+            services.AddTransient<IRealEstateCondoRepository, RealStateCondoRepository>();
 
-            services.AddTransient<IRealStateGetAdvancedRepository, RealStateGetAdvanced>();
+            services.AddTransient<IRealEstateGetAdvancedRepository, RealStateGetAdvanced>();
 
         }
     }

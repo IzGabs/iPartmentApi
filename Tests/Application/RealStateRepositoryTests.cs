@@ -13,8 +13,8 @@ namespace Tests.Application
 {
     public class RealStateRepositoryTests : IClassFixture<ContextTestClass>
     {
-        private RealStateBase realStateObjectExample;
-        private IRealStateRepository repository;
+        private RealEstateBase realStateObjectExample;
+        private IRealEstateRepository repository;
 
 
         public RealStateRepositoryTests(ContextTestClass seed)
@@ -34,7 +34,7 @@ namespace Tests.Application
 
             //ASSERT
             Assert.NotNull(responseId);
-            Assert.IsType<RealStateBase>(responseId);
+            Assert.IsType<RealEstateBase>(responseId);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Tests.Application
             //ASSERT
             Assert.Null(responseUnknowID);
             Assert.NotNull(response);
-            Assert.IsType<RealStateBase>(response);
+            Assert.IsType<RealEstateBase>(response);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Tests.Application
 
             //ASSERT
             Assert.NotNull(responseId);
-            Assert.IsType<List<RealStateBase>>(responseId);
+            Assert.IsType<List<RealEstateBase>>(responseId);
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace Tests.Application
             await repository.Create(getExampleObj());
         }
 
-        private RealStateBase getExampleObj()
+        private RealEstateBase getExampleObj()
         {
             var adress = new Address(
                     iD: 1,
@@ -100,8 +100,8 @@ namespace Tests.Application
                 extraInfo: "123"
                 );
 
-            return new RealStateBase(
-                   iD: null, tipo: RealStateTypes.HOUSE,
+            return new RealEstateBase(
+                   iD: null, tipo: RealEstateTypesEnum.HOUSE,
                      tamanho: "1000x500", numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,
                      aceitaPets: true, moradorAtual: null, localicazao: adress, 
