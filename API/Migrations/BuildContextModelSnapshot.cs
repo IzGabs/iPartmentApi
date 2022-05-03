@@ -107,7 +107,10 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("advertiserID")
+                    b.Property<int?>("AdvertiserID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RealEstateID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
@@ -126,7 +129,9 @@ namespace API.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("advertiserID");
+                    b.HasIndex("AdvertiserID");
+
+                    b.HasIndex("RealEstateID");
 
                     b.ToTable("Announcements");
                 });
@@ -190,6 +195,46 @@ namespace API.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("RealStateMonetary");
+                });
+
+            modelBuilder.Entity("API.src.Domain.RealEstate.Entities.Aggregates.RealEstateImages", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RealEstateID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("createdAt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("pathToFile")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("size")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RealEstateID");
+
+                    b.ToTable("RealEstateImages");
                 });
 
             modelBuilder.Entity("API.src.Domain.RealState.Entities.TypeRealEstate", b =>
@@ -274,6 +319,46 @@ namespace API.Migrations
                     b.ToTable("RealEstates");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("RealEstateValueObject");
+                });
+
+            modelBuilder.Entity("API.src.Domain.User.UsersImages", b =>
+                {
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("createdAt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("pathToFile")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("size")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UsersImages");
                 });
 
             modelBuilder.Entity("API.src.Domain.Values.CondominiumMonetary", b =>
@@ -380,11 +465,17 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.Announcement.Entities.Announcement", b =>
                 {
-                    b.HasOne("API.Domain.User.UserObject", "advertiser")
+                    b.HasOne("API.Domain.User.UserObject", "Advertiser")
                         .WithMany()
-                        .HasForeignKey("advertiserID");
+                        .HasForeignKey("AdvertiserID");
 
-                    b.Navigation("advertiser");
+                    b.HasOne("API.src.Domain.RealState.Entities.RealEstateBase", "RealEstate")
+                        .WithMany()
+                        .HasForeignKey("RealEstateID");
+
+                    b.Navigation("Advertiser");
+
+                    b.Navigation("RealEstate");
                 });
 
             modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
@@ -403,6 +494,24 @@ namespace API.Migrations
                         .HasForeignKey("announcementID");
 
                     b.Navigation("announcement");
+                });
+
+            modelBuilder.Entity("API.src.Domain.RealEstate.Entities.Aggregates.RealEstateImages", b =>
+                {
+                    b.HasOne("API.src.Domain.RealState.Entities.RealEstateBase", "RealEstate")
+                        .WithMany()
+                        .HasForeignKey("RealEstateID");
+
+                    b.Navigation("RealEstate");
+                });
+
+            modelBuilder.Entity("API.src.Domain.User.UsersImages", b =>
+                {
+                    b.HasOne("API.Domain.User.UserObject", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.src.Domain.Visit.ScheduledVisit", b =>

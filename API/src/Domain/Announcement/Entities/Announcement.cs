@@ -1,4 +1,5 @@
 ﻿using API.Domain.User;
+using API.src.Domain.RealState.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,18 +24,19 @@ namespace API.src.Domain.Announcement.Entities
         [Required]
         public bool immediatelyAvailable { get; set; }
         [Required]
-        public UserObject advertiser { get; set; }
-
-        
+        public UserObject Advertiser { get; set; }
+        [Required]
+        public RealEstateBase RealEstate { get; set; }
 
         protected Announcement() { }
-        public Announcement( string title, string description, bool immediatelyAvailable, UserObject advertiser)
+        public Announcement( string title, string description, bool immediatelyAvailable, UserObject advertiser, RealEstateBase RealEstate)
         {   
             this.createdAt = DateTime.Now;
             this.title = title;
             this.description = description;
             this.immediatelyAvailable = immediatelyAvailable;
-            this.advertiser = advertiser;
+            this.Advertiser = advertiser;
+            this.RealEstate = RealEstate;
         }
     }
 }
