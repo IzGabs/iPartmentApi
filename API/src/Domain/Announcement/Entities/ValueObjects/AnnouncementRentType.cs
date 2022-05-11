@@ -13,7 +13,7 @@ namespace API.src.Domain.Announcement.Entities
 
         protected AnnouncementRentType() { }
 
-        public AnnouncementRentType(float montlyValue, float iPTU, Announcement announcement)
+        public AnnouncementRentType(float montlyValue, float iPTU, AnnouncementAggregate announcement)
         {
             this.montlyValue = montlyValue;
             IPTU = iPTU;

@@ -17,7 +17,7 @@ namespace API.dependencyInjection
             listInjectors.Add(new CondominiumInjector());
             listInjectors.Add(new MonetaryInjector());
             listInjectors.Add(new UserInjector());
-
+            listInjectors.Add(new AnnouncementInjector());
         }
 
         public void InjectModules(IServiceCollection services)

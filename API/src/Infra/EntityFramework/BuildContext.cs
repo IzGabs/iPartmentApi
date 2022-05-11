@@ -34,7 +34,7 @@ namespace API.src.Infra.EntityFramework
         public DbSet<CondominiumMonetary> CondominiumValues { get; set; }
 
         //Operation
-        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<AnnouncementAggregate> Announcements { get; set; }
         public DbSet<AnnouncementRentType> AnnouncementsToRent { get; set; }
         public DbSet<AnnouncementSellType> AnnouncementsToSell { get; set; }
 

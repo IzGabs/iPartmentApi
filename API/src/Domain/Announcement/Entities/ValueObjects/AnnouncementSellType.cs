@@ -12,7 +12,7 @@ namespace API.src.Domain.Announcement.Entities
     {
         protected AnnouncementSellType() { }
 
-        public AnnouncementSellType(float value, float iPTU, Announcement announcement) 
+        public AnnouncementSellType(float value, float iPTU, AnnouncementAggregate announcement) 
         {
             Value = value;
             IPTU = iPTU;

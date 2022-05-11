@@ -1,6 +1,4 @@
-﻿using API.Domain.User;
-using API.src.Domain.RealState.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.Announcement.Entities
 {
-    public class Announcement
+    public class AnnouncementValueObject
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -23,20 +21,16 @@ namespace API.src.Domain.Announcement.Entities
         public string description { get; set; }
         [Required]
         public bool immediatelyAvailable { get; set; }
-        [Required]
-        public UserObject Advertiser { get; set; }
-        [Required]
-        public RealEstateBase RealEstate { get; set; }
 
-        protected Announcement() { }
-        public Announcement( string title, string description, bool immediatelyAvailable, UserObject advertiser, RealEstateBase RealEstate)
-        {   
-            this.createdAt = DateTime.Now;
+        protected AnnouncementValueObject() { }
+
+        public AnnouncementValueObject(int? iD, DateTime createdAt, string title, string description, bool immediatelyAvailable)
+        {
+            ID = iD;
+            this.createdAt = createdAt;
             this.title = title;
             this.description = description;
             this.immediatelyAvailable = immediatelyAvailable;
-            this.Advertiser = advertiser;
-            this.RealEstate = RealEstate;
         }
     }
 }

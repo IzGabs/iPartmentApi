@@ -22,6 +22,6 @@ namespace API.src.Domain.Announcement.Entities
         public AnnouncementTypeEnum type;
 
         [Required]
-        public Announcement announcement { get; set; }
+        public AnnouncementAggregate announcement { get; set; }
     }
 }
