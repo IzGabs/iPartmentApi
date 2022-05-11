@@ -1,4 +1,6 @@
 ﻿
+using API.src.Domain.User;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,8 +32,11 @@ namespace API.Domain.User
         [Required]
         public string Password { get; set; }
 
+        [Required]
         public string Phone { get; set; }
 
+        [Required]
+        public UserTypeEnum UserType { get; set; }    
 
         public UserResponsesEnum? IsEqual(UserObject other)
         {

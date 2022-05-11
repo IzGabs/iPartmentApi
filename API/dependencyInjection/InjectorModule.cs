@@ -16,6 +16,7 @@ namespace API.dependencyInjection
             listInjectors.Add(new LocationInjector());
             listInjectors.Add(new CondominiumInjector());
             listInjectors.Add(new MonetaryInjector());
+            listInjectors.Add(new UserInjector());
 
         }
 
