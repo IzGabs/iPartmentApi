@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220503034430_newMigration")]
-    partial class newMigration
+    [Migration("20220511043853_Migrations")]
+    partial class Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,7 +96,11 @@ namespace API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 

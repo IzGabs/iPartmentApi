@@ -9,6 +9,7 @@ using API.Application;
 using API.Domain.User;
 using API.src.Infra.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using API.src.Domain.User.Application;
 
 namespace API.Controllers
 {
@@ -17,9 +18,11 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly BuildContext _context;
+        private readonly IUserService service;
 
-        public UserController(BuildContext context)
+        public UserController(BuildContext context, IUserService service)
         {
+            this.service = service;
             _context = context;
         }
 
@@ -46,24 +49,15 @@ namespace API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<UserObject>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<UserObject>>> GetUsers() => await service.GetAll();
 
 
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<UserObject>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
+            var request = await service.Get(id);
+            return request == null ? NotFound() : request;
         }
 
         [HttpPost]
@@ -76,70 +70,46 @@ namespace API.Controllers
 
             if (validateRegister != null)
             {
+                
                 return Conflict(validateRegister.ToString());
 
             }
+            var createdUser = service.Create(user);
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            if (createdUser == null) return BadRequest();
 
-            return CreatedAtAction("GetUser", new { id = user.ID }, user);
+            return CreatedAtAction("GetUser", new { id = createdUser.Id });
         }
 
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> PutUser(int id, UserObject user)
         {
-            if (id != user.ID)
-            {
-                return BadRequest();
-            }
+            var userObject = await service.Get(id);
+            if (userObject == null) return NoContent();
 
-            _context.Entry(user).State = EntityState.Modified;
+            var request = await service.Update(user);
+            if (request) return Ok();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(user))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return StatusCode(500);
         }
 
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await service.Get(id);
             if (user == null)
             {
                 return NotFound();
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            var removeRequest = await service.Delete(user);
+            if (removeRequest) return Ok();
 
             return NoContent();
         }
 
-        private bool UserExists(UserObject user)
-        {
-            return _context.Users.Any(e =>
-             e.ID == user.ID ||
-             e.Email == user.Email ||
-             e.Phone == user.Phone
-             );
-        }
+       
 
         private async Task<UserResponsesEnum?> validateUser(UserObject user)
         {

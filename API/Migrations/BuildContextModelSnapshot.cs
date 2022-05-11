@@ -94,7 +94,11 @@ namespace API.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
