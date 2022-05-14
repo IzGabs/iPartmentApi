@@ -10,7 +10,7 @@ namespace API.Domain.User
     public class UserObject
     {
 
-        public UserObject(int? iD, string name, string email, string? password, string phone)
+        public UserObject(int iD, string name, string email, string? password, string phone)
         {
             ID = iD;
             Name = name;
@@ -21,7 +21,7 @@ namespace API.Domain.User
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int? ID { get; set; }
+        public int ID { get; set; }
 
          [Required]
         public string Name { get; set; }

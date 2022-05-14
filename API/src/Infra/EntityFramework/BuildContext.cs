@@ -13,6 +13,7 @@ using API.src.Domain.Visit;
 using API.src.Domain.Images;
 using API.src.Domain.RealEstate.Entities.Aggregates;
 using API.src.Domain.User;
+using API.src.Domain.ScheduledVisits.Entities.ValueObject;
 
 namespace API.src.Infra.EntityFramework
 {
@@ -37,8 +38,7 @@ namespace API.src.Infra.EntityFramework
         public DbSet<AnnouncementAggregate> Announcements { get; set; }
         public DbSet<AnnouncementRentType> AnnouncementsToRent { get; set; }
         public DbSet<AnnouncementSellType> AnnouncementsToSell { get; set; }
-
-        public DbSet<ScheduledVisit> ScheduledVisits { get; set; }
+        public DbSet<ScheduledVisitsObject> ScheduledVisits { get; set; }
 
         //Images
         public DbSet<UsersImages> UsersImages { get; set; }

@@ -49,81 +49,68 @@ namespace API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<UserObject>>> GetUsers() => await service.GetAll();
+        public ActionResult<IEnumerable<string>> GetUsers()
+        {
+            return Ok(service.GetAll());
+        }
 
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<UserObject>> GetUser(int id)
+        public ActionResult<string> GetUser(int id)
         {
-            var request = await service.Get(id);
-            return request == null ? NotFound() : request;
+            return Ok(service.Get(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserObject>> PostUser(UserObject user)
+        public ActionResult PostUser([FromBody] UserObject user)
         {
-            //Do Not provide a ID
-            if (user.ID != null) return BadRequest("A ID é gerada automaticamente");
-
-            var validateRegister = await validateUser(user);
-
-            if (validateRegister != null)
+            try
             {
-                
-                return Conflict(validateRegister.ToString());
-
+                service.Create(user);
+                return Ok("Cliente Cadastrado!");
             }
-            var createdUser = service.Create(user);
-
-            if (createdUser == null) return BadRequest();
-
-            return CreatedAtAction("GetUser", new { id = createdUser.Id });
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutUser(int id, UserObject user)
+        public  ActionResult PutUser([FromBody] UserObject user)
         {
-            var userObject = await service.Get(id);
-            if (userObject == null) return NoContent();
-
-            var request = await service.Update(user);
-            if (request) return Ok();
-
-            return StatusCode(500);
+            if(user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            try {
+                service.Update(user);
+                return Ok("Cliente Atualizado!");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+                
         }
 
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteUser(int id)
+        public ActionResult DeleteUser(int id)
         {
-            var user = await service.Get(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var userobj = service.Get(id);
+
+                service.Delete(userobj);
+                return Ok("Cliente Removido!");
             }
-            var removeRequest = await service.Delete(user);
-            if (removeRequest) return Ok();
-
-            return NoContent();
+            catch (Exception)
+            {
+                throw;
+            } 
         }
-
-       
-
-        private async Task<UserResponsesEnum?> validateUser(UserObject user)
-        {
-            var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
-             e.ID == user.ID ||
-             e.Email == user.Email ||
-             e.Phone == user.Phone
-             );
-
-            var returns = user.IsEqual(searchUser);
-
-            return returns;
-        }
-
     }
 
     public class LoginViewModel
@@ -132,7 +119,6 @@ namespace API.Controllers
             this.email = email;
             this.password = password;
         }
-
         [Required]
         public String email { get; set; }
         [Required]

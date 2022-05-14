@@ -29,12 +29,13 @@ namespace API.src.Application.Announcement
         public async Task<AnnouncementAggregate> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement)
         {
 
-            var findRealEstate = await realStateService.GetByID(idRealEstate) ?? throw new TypeNotFound("Imóvel não encontrado!!");
-            var findUser = await userService.Get(idAdvertiser) ?? throw new TypeNotFound("User não encontrado!!");
+            //var findRealEstate = await realStateService.GetByID(idRealEstate) ?? throw new TypeNotFound("Imóvel não encontrado!!");
+            //var findUser = await userService.Get(idAdvertiser) ?? throw new TypeNotFound("User não encontrado!!");
 
-            var announcementToCreate = new AnnouncementAggregate(announcement, findUser, findRealEstate);
+            //var announcementToCreate = new AnnouncementAggregate(announcement, findUser, findRealEstate);
 
-            return await repository.Create(announcementToCreate);
+            //return await repository.Create(announcementToCreate);
+            return null;
         }
     }
 }

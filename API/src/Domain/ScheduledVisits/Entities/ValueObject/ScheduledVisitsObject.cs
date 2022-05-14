@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.src.Domain.Visit
+namespace API.src.Domain.ScheduledVisits.Entities.ValueObject
 {
-    public class ScheduledVisit
+    public class ScheduledVisitsObject
     {
         [Required]
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,5 +23,6 @@ namespace API.src.Domain.Visit
 
         [Required]
         public UserObject visitor { get; set; }
+
     }
 }

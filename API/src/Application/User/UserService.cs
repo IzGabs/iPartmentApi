@@ -11,27 +11,35 @@ namespace API.src.Application.User
 
     public class UserService : IUserService
     {
-        private readonly BuildContext _context;
         private readonly IUserRepository repository;
 
-        public UserService(BuildContext context, IUserRepository repository)
+        public UserService(IUserRepository repository)
         {
-            _context = context;
             this.repository = repository;
         }
 
-        public async Task<UserObject> Create(UserObject obj) 
+        public void Create(UserObject obj) 
         {
             obj.UserType = UserTypeEnum.CUSTOMER;
-            return await repository.Create(obj); 
+            repository.Create(obj);
         }
 
-        public async Task<bool> Delete(UserObject body) => await repository.Delete(body);
+        public UserObject Get(int id) 
+        { 
+           return repository.Get(id);
+        }
 
-        public async Task<UserObject> Get(int id) => await repository.Get(id);
-
-        public async Task<List<UserObject>> GetAll() => await repository.GetAll();
-
-        public async Task<bool> Update(UserObject obj) => await repository.Update(obj);   
+        public IEnumerable<UserObject> GetAll()
+        {
+            return repository.GetAll();
+        }
+        public void Update(UserObject obj)
+        {
+            repository.Update(obj); 
+        }
+        public void Delete(UserObject body)
+        {
+            repository.Delete(body);
+        }
     }
 }

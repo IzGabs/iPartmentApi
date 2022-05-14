@@ -19,60 +19,68 @@ namespace API.src.Application.User
             _context = context;
         }
 
-        public async Task<UserObject> Create(UserObject obj)
+
+        public UserObject Get(int id)
+        {
+            return _context.Users.Find(id);
+        }
+
+        public IEnumerable<UserObject> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
+        public void Create(UserObject obj)
         {
             try
             {
-                var request = await _context.Users.AddAsync(obj);
-                await _context.SaveChangesAsync();
-
-                return request.Entity;
+                _context.Users.Add(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-
-            return null;
-
         }
 
-        public async Task<bool> Delete(UserObject body)
+        public void Update(UserObject obj)
         {
             try
             {
-                var removed = _context.Users.Remove(body);
-                await _context.SaveChangesAsync();
-                return removed.State == EntityState.Deleted;
+               _context.Entry(obj).State = EntityState.Modified;
+               _context.SaveChanges();
+            
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                throw new Exception(e.Message); 
+                throw new Exception(e.Message);
             }
         }
 
-        public async Task<UserObject> Get(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-
-            return user??throw null;
-        }
-
-        public async Task<List<UserObject>> GetAll() => await _context.Users.ToListAsync();
-
-        public async Task<bool> Update(UserObject obj)
+        public void Delete(UserObject body)
         {
             try
             {
-                var updatedUser = _context.Users.Update(obj);
-                await _context.SaveChangesAsync();
-                return true;
-               
+                _context.Users.Remove(body);
+                _context.SaveChanges();
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                throw new Exception(e.Message);
             }
+        }
+
+        private async Task<UserResponsesEnum?> validateUser(UserObject user)
+        {
+            var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
+             e.ID == user.ID ||
+             e.Email == user.Email ||
+             e.Phone == user.Phone
+             );
+
+            var returns = user.IsEqual(searchUser);
+
+            return returns;
         }
 
         private bool UserExists(UserObject user)
