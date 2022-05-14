@@ -34,7 +34,7 @@ namespace API.src.Application.Announcement
         {
 
             var findRealEstate = await realStateService.GetByID(idRealEstate) ?? throw new TypeNotFound("Imóvel não encontrado!!");
-            var findUser = await userService.Get(idAdvertiser) ?? throw new TypeNotFound("User não encontrado!!");
+            var findUser =  userService.Get(idAdvertiser) ?? throw new TypeNotFound("User não encontrado!!");
 
             IMonetaryEntity values;
 

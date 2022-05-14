@@ -6,9 +6,9 @@ using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealEstate.Entities.Aggregates;
 using API.src.Domain.RealState.Entities;
 using API.src.Domain.RealState.Entities.ValueObject;
+using API.src.Domain.ScheduledVisits.Entities.ValueObject;
 using API.src.Domain.User;
 using API.src.Domain.Values;
-using API.src.Domain.Visit;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.src.Infra.EntityFramework
@@ -35,7 +35,7 @@ namespace API.src.Infra.EntityFramework
         public DbSet<AnnouncementRentMonetary> AnnouncementRentMonetary { get; set; }
         public DbSet<AnnouncementSellMonetary> AnnouncementSellMonetary { get; set; }
 
-        public DbSet<ScheduledVisit> ScheduledVisits { get; set; }
+        public DbSet<ScheduledVisitsObject> ScheduledVisits { get; set; }
 
         //Images
         public DbSet<UsersImages> UsersImages { get; set; }

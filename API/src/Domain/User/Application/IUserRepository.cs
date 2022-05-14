@@ -6,11 +6,11 @@ namespace API.src.Domain.User.Application
 {
     public interface IUserRepository
     {
-        Task<UserObject> Create(UserObject obj);
-        Task<UserObject> Get(int id);
-        Task<bool> Delete(UserObject id);
-        Task<bool> Update(UserObject obj);
-        Task<List<UserObject>> GetAll();
+        IEnumerable<UserObject> GetAll();
+        UserObject Get(int id);
+        void Create(UserObject obj);
+        void Update(UserObject obj);
+        void Delete(UserObject id);
 
     }
 }
