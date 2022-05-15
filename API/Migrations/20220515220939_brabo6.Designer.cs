@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220511043853_Migrations")]
-    partial class Migrations
+    [Migration("20220515220939_brabo6")]
+    partial class brabo6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,7 @@ namespace API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.Announcement", b =>
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementAggregate", b =>
                 {
                     b.Property<int?>("ID")
                         .ValueGeneratedOnAdd()
@@ -216,19 +216,11 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("pathToFile")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("size")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -340,19 +332,11 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("pathToFile")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("size")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -469,7 +453,7 @@ namespace API.Migrations
                     b.Navigation("Values");
                 });
 
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.Announcement", b =>
+            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementAggregate", b =>
                 {
                     b.HasOne("API.Domain.User.UserObject", "Advertiser")
                         .WithMany()
@@ -486,7 +470,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
                 {
-                    b.HasOne("API.src.Domain.Announcement.Entities.Announcement", "announcement")
+                    b.HasOne("API.src.Domain.Announcement.Entities.AnnouncementAggregate", "announcement")
                         .WithMany()
                         .HasForeignKey("announcementID");
 
@@ -495,7 +479,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementSellType", b =>
                 {
-                    b.HasOne("API.src.Domain.Announcement.Entities.Announcement", "announcement")
+                    b.HasOne("API.src.Domain.Announcement.Entities.AnnouncementAggregate", "announcement")
                         .WithMany()
                         .HasForeignKey("announcementID");
 

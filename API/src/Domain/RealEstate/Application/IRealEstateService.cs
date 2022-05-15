@@ -3,6 +3,10 @@ using API.src.Domain.RealState.Entities;
 using API.src.Controllers.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.src.Domain.RealEstate.Entities.Aggregates;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
+using API.src.Domain.Images;
 
 namespace API.src.Domain.RealState.Application
 {
@@ -14,8 +18,14 @@ namespace API.src.Domain.RealState.Application
 
         Task<RealEstateBase> GetByID(int id);
         Task<List<RealEstateBase>> GetList();
-        Task<List<RealEstateBase>> GetListPagineted(string city, int page, int pageSize = 0);
     }
+
+    public interface IRealEstateImagesService
+    {
+        Task<List<ImageReference>> AddImages(List<ImageFile> images, int iDRealEstate);
+    }
+
+
 
     public interface IRealEstateCondoService
     {

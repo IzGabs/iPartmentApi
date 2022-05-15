@@ -18,7 +18,11 @@
       "launchBrowser": true,
       "launchUrl": "http://localhost:49489/api",
       "environmentVariables": {
-        "DB_HOST": "127.0.0.1"
+        "private_key_id": "1623ce01e782967f6e7674f5a61e5c6783b65191",
+        "client_id": "109357205861372257247",
+        "DB_HOST": "127.0.0.1",
+        "private_key": "-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDcBx93zYpKKDCZ\\nZcV+9bwBAqk0PhO5bIYwC3fh70CChJTyXLeCdO+76SUe1MVjfStooNGDeB+T8I44\\nSeO5Ko3G5vM6hqYoOu8uMLhlNDmIDp6OyONtYouSEisnJNm0yTLmt2RxoPoAqqq2\\nBYqq0LTn2gCdYUyOuJGJO6KaKIb7G7VdhMxReGF/qqAwqp5bTaWH/FsZD5sawSn3\\nLuHyuiD4ERpbxe6uZOG9xj7OTA0YK4jv26d8hsR9NOboYBuNobGypkXatDNJkvcw\\nDGbldSkyDTP0YBGTyUrHUKqODTor751o6Avaad6sPg6ujG3r+jNcyf0QWVrn9pnP\\nGf4Ri+ATAgMBAAECggEABOUlrGWGwWtVBusxT4HVbysMNuzU/2qsXQu60TJPJIPb\\na+wKayLqPNn14yPwPY8rqTMcjuXnw2aZLlKXmv6ZDViQ2KZCsopXqi4X8TgZue7e\\nDwPOga9bn6fpu2jNhGnUPWWHv8YmYnb1M/YiyGovRZ3IJompIMfrbVfdFLxKLZVU\\nJ3SpJWFzPn/3j4reO2cvWWdv/BIJpiKMkxn07Y9+ghJDZQO1nv8UP9UwzXxpP9l+\\n1ArrtNgZr6lNDCV5nbLamqBve7TeZxkzk5F8yxLzkjJONnLF2k97LSwgaDJHp/Iz\\n1xsIhDLtnAJxAqNZ1XMwurmTJP2DjDNAeNqBKOxgYQKBgQD6gp9XDYLzdOPQ3aa/\\nDFDI4C5706AGlTt+DvVI2yPSpv9FnB5ewI5Heued5ah70k3lXn+nLEzu7ZlAdIUj\\n/j1UIw9YRruKdEjT67O8EJjIG3rqsnxl3m7tSiTTRc1u697lFEIRsEc/HXTqanjZ\\nJHp+AvFiINNWxtV8M0TenauNoQKBgQDg2X4GabT6nduGfWfY8K1igHLMg9Vyy9yu\\nZxMBdkLSnmlrFP+101zeReenrWhnhwisDX0mTah5gy0afJMLwMIwwIt45dUYBwHz\\n4rCp93yJTSZalkXYcziqIi1HjiLZfPvO1pkRGbyI3w48ZNSBgjqy6m29yMnxJ0UW\\nN0lcXeQJMwKBgFGisaRfzdXiuL7/DHDj5YugquVFcLfUd/+7himI6GKkcznPB4Kf\\nQ359ye8FwWMghKwDoJvs7uFJ4pBDqIOzPW8mwcBlxIX5ISaWgAsAaZmEgwjqw2k7\\nFHEVoWyMKcdE7G1Arcsv4/fodIpTyjARGC3qbZkp01VLFJUV7BKT1S0hAoGBAM21\\nbV0EnLSkc1DJrpaFKrtxdJWzDzblV9KfLn4p6dyzXRLAtWluJAqevd9kAJ6mpcJy\\n3MqMRdRVtJAE5KreAUuE/JTxAFHpJ1ovTR1S9LbQxIQf82qhj3fnqLFMUonTlLSZ\\nFJTWjOxT1bxfKyQJNxa07w2wg0CDguteTVmZ9KSNAoGAc3wF0fIUouBfs9RBu/FP\\n7MBWRZJpx2yrkvOA7Hf4AxYS2D6OUpqZEMVa1CxlnE+L9DhYcBBmFXxOde5XDzB2\\nyrawlk8BgONfbraJNve3cAbidrY1GEImLRdKy9943rs134g+fY/ImF7WI7+1IinQ\\n/2rp5hbzip+6ndk4yXLU/k8=\\n-----END PRIVATE KEY-----\\n",
+        "client_email": "serviceaccounttotal@ipartmenttcc.iam.gserviceaccount.com"
       }
     },
     "Docker Compose": {

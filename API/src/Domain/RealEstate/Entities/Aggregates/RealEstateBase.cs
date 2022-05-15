@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Entities.ValueObject;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using API.src.Infra;
 
 namespace API.src.Domain.RealState.Entities
 {
@@ -21,6 +23,8 @@ namespace API.src.Domain.RealState.Entities
         public RealStateMonetary Values { get; set; }
 
         [Required]
+        [JsonConverter(typeof(ConverterTypeRealEstate))]
+       // [ForeignKey()]
         public TypeRealEstate Type { get; set; }
 
         public RealEstateBase() { }

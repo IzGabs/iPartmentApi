@@ -1,10 +1,5 @@
-﻿using API.src.Core.Swagger;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Domain.Images
 {
@@ -15,12 +10,9 @@ namespace API.src.Domain.Images
 
         [Required]
         public string createdAt { get; set; }
-        [Required]
-        public string description { get; set; }
+
         [Required]
         public string name { get; set; }
-        [Required]
-        public string size { get; set; }
         [Required]
         public string pathToFile { get; set; }
         [Required]
@@ -28,13 +20,25 @@ namespace API.src.Domain.Images
 
         protected ImageReference() { }
 
-        public ImageReference( string createdAt, string description, string name, string size, string pathToFile, string type)
+
+        protected ImageReference(ImageReference copy) {
+            this.name = copy.name;
+            this.type = copy.type;
+            this.createdAt = copy.createdAt;
+            this.pathToFile = copy.pathToFile;
+        }
+
+        public ImageReference(string createdAt,  string name, string pathToFile, string type)
         {
             this.createdAt = createdAt;
-            this.description = description;
             this.name = name;
-            this.size = size;
             this.pathToFile = pathToFile;
+            this.type = type;
+        }
+
+        public ImageReference( string name, string type)
+        {
+            this.name = name;
             this.type = type;
         }
     }

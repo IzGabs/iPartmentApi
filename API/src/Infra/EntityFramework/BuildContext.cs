@@ -54,6 +54,10 @@ namespace API.src.Infra.EntityFramework
 
             modelBuilder.Entity<RealEstateValueObject>().ToTable("RealEstates");
 
+            modelBuilder.Entity<TypeRealEstate>()
+                .HasMany<RealEstateBase>()
+                .WithOne(x => x.Type);
+
             Seed(modelBuilder);
         }
 

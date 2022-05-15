@@ -15,7 +15,7 @@ namespace API.src.Domain.RealState.Entities
     public class TypeRealEstate {
         protected TypeRealEstate() { }
 
-        private TypeRealEstate(RealEstateTypesEnum @enum) {
+        public TypeRealEstate(RealEstateTypesEnum @enum) {
             this.Id = (int)@enum;
             this.Name = @enum.ToString();
             this.Description = @enum.GetEnumDescription();

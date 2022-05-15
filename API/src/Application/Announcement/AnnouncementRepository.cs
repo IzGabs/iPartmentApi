@@ -21,5 +21,10 @@ namespace API.src.Application.Announcement
         {
             return (await context.Announcements.AddAsync(@object)).Entity;
         }
+
+        public Task<List<AnnouncementAggregate>> GetFromCityLimited(string city, int page, int pageSize = 0)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

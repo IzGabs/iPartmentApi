@@ -18,14 +18,12 @@ namespace API.Application
         private readonly ILocationService locationService;
         private readonly IMonetaryService<RealStateMonetary> monetaryService;
 
-        private readonly IRealEstateGetAdvancedRepository _advancedRepo;
 
-        public RealStateService(IRealEstateRepository repository, ILocationService locationService, IMonetaryService<RealStateMonetary> monetaryService, IRealEstateGetAdvancedRepository advancedRepo)
+        public RealStateService(IRealEstateRepository repository, ILocationService locationService, IMonetaryService<RealStateMonetary> monetaryService)
         {
             _repository = repository;
             this.locationService = locationService;
             this.monetaryService = monetaryService;
-            _advancedRepo = advancedRepo;
         }
 
         public async Task<bool> Delete(RealEstateBase body) => await _repository.Delete(body);
@@ -40,9 +38,9 @@ namespace API.Application
         {
             body.Adress = await locationService.Create(body.Adress) ?? throw CouldNotCreateLocationException.Default();
             body.Values = await monetaryService.Create(body.Values) ?? throw CouldNotCreateRealStateValues.Default();
+            
+
             return await _repository.Create(body);
         }
-
-        public async Task<List<RealEstateBase>> GetListPagineted(string city, int page, int pageSize = 0) => await _advancedRepo.GetFromCityLimited(city, page, pageSize);
     }
 }

@@ -36,5 +36,10 @@ namespace API.src.Application.Announcement
 
             return await repository.Create(announcementToCreate);
         }
+
+        public Task<List<AnnouncementAggregate>> GetListPagineted(string city, int page, int pageSize = 0)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

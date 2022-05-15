@@ -38,5 +38,12 @@ namespace API.src.Controllers.Announcement
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<int>> Create()
+        {
+          
+        }
     }
 }

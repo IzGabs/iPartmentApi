@@ -36,7 +36,10 @@ namespace API.src.Application.RealState
         {
             try
             {
-                var request = await _context.RealEstate.AddAsync(body);
+                body.Type = _context.RealEstateTypes.FirstOrDefault(x => x.Id == body.Type.Id);
+
+                var request = await _context.RealEstate.
+                    AddAsync(body);
                 await _context.SaveChangesAsync();
 
                 return request.Entity;
