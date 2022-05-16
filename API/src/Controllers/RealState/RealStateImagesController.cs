@@ -2,16 +2,11 @@
 using API.src.Domain.Images;
 using API.src.Domain.RealEstate.Entities.Aggregates;
 using API.src.Domain.RealState.Application;
-using API.src.Domain.RealState.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace API.src.Controllers.RealState
@@ -48,7 +43,7 @@ namespace API.src.Controllers.RealState
                     openStream.Dispose();
 
                     var meusBytes = memoryStream.ToArray();
-                    
+
 
                     files.Add(new ImageFile(imageReference, meusBytes));
                 }

@@ -21,14 +21,15 @@ namespace API.src.Domain.Images
         protected ImageReference() { }
 
 
-        protected ImageReference(ImageReference copy) {
+        protected ImageReference(ImageReference copy)
+        {
             this.name = copy.name;
             this.type = copy.type;
             this.createdAt = copy.createdAt;
             this.pathToFile = copy.pathToFile;
         }
 
-        public ImageReference(string createdAt,  string name, string pathToFile, string type)
+        public ImageReference(string createdAt, string name, string pathToFile, string type)
         {
             this.createdAt = createdAt;
             this.name = name;
@@ -36,7 +37,7 @@ namespace API.src.Domain.Images
             this.type = type;
         }
 
-        public ImageReference( string name, string type)
+        public ImageReference(string name, string type)
         {
             this.name = name;
             this.type = type;

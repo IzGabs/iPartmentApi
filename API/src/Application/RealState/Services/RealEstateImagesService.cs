@@ -1,8 +1,8 @@
-﻿using API.src.Domain.Images;
+﻿using API.src.Core.Errors;
+using API.src.Domain.Images;
 using API.src.Domain.RealState.Application;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.src.Core.Errors;
 
 namespace API.src.Application.RealState.Services
 {

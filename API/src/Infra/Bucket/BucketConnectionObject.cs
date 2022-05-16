@@ -1,8 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Infra.Bucket
 {
@@ -33,12 +29,13 @@ namespace API.src.Infra.Bucket
             this.client_x509_cert_url = client_x509_cert_url;
         }
 
-        public void InsertEnvValues(IConfiguration conf) {
+        public void InsertEnvValues(IConfiguration conf)
+        {
             this.private_key_id = conf["private_key_id"];
             this.client_email = conf["client_email"];
             this.private_key = conf["private_key"];
             this.client_id = conf["client_id"];
         }
-           
+
     }
 }

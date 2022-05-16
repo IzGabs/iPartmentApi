@@ -2,7 +2,6 @@
 using API.src.Domain.User.Application;
 using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +44,9 @@ namespace API.src.Application.User
                 await _context.SaveChangesAsync();
                 return removed.State == EntityState.Deleted;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                throw new Exception(e.Message); 
+                throw new Exception(e.Message);
             }
         }
 
@@ -55,7 +54,7 @@ namespace API.src.Application.User
         {
             var user = await _context.Users.FindAsync(id);
 
-            return user??throw null;
+            return user ?? throw null;
         }
 
         public async Task<List<UserObject>> GetAll() => await _context.Users.ToListAsync();
@@ -67,7 +66,7 @@ namespace API.src.Application.User
                 var updatedUser = _context.Users.Update(obj);
                 await _context.SaveChangesAsync();
                 return true;
-               
+
             }
             catch
             {

@@ -5,10 +5,6 @@ using API.src.Domain.Condominium.Application.Monetary;
 using API.src.Domain.Condominium.Application.Values;
 using API.src.Domain.Values;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.dependencyInjection.LayerInjectors
 {

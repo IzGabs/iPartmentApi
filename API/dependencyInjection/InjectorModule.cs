@@ -19,7 +19,7 @@ namespace API.dependencyInjection
             listInjectors.Add(new UserInjector());
             listInjectors.Add(new AnnouncementInjector());
             listInjectors.Add(new BucketInjector());
-            
+
         }
 
         public void InjectModules(IServiceCollection services)

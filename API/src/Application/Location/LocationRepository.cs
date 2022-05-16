@@ -1,10 +1,7 @@
-﻿using API.src.Infra.EntityFramework;
-using API.Domain.Location;
+﻿using API.Domain.Location;
 using API.src.Domain.Location;
-using Microsoft.EntityFrameworkCore;
+using API.src.Infra.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.Location

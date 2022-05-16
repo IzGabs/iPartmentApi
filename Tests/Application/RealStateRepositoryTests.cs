@@ -1,10 +1,7 @@
 ﻿using API.Domain.Location;
-using API.Domain.RealState.Models;
 using API.src.Application.RealState;
-using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -30,7 +27,6 @@ namespace Tests.Application
 
             //ACT
             var responseId = await repository.Create(realStateObjectExample);
-            var getAgain = await  repository.GetallComplete();
 
             //ASSERT
             Assert.NotNull(responseId);
@@ -53,35 +49,8 @@ namespace Tests.Application
             Assert.IsType<RealEstateBase>(response);
         }
 
-        [Fact]
-        public async void GetAll()
-        {
-            //ARRANGE
-            await Seed();
 
-            //ACT
-            var responseId = await repository.GetallComplete();
 
-            //ASSERT
-            Assert.NotNull(responseId);
-            Assert.IsType<List<RealEstateBase>>(responseId);
-        }
-
-        [Fact]
-        public async void Delete()
-        {
-            //ARRANGE
-            await Seed();
-            var responseId = await repository.GetallComplete();
-            var exampleObj = realStateObjectExample;
-            exampleObj.ID = 1;
-
-            //ACT
-            var response = await repository.Delete(exampleObj);
-
-            //ASSERT
-            Assert.IsType<bool>(response);
-        }
 
         private async Task Seed()
         {
@@ -102,11 +71,10 @@ namespace Tests.Application
 
             return new RealEstateBase(
                    iD: null, tipo: RealEstateTypesEnum.HOUSE,
-                     tamanho: "1000x500", numeroSalas: 4,
+                     tamanho: 1000, numeroSalas: 4,
                      numeroBanheiros: 3, suites: 2, mobiliado: true,
-                     aceitaPets: true, moradorAtual: null, localicazao: adress, 
-                     garage: true,
-                     valores: new RealStateMonetary(valorFixo: 2000)
+                     aceitaPets: true, moradorAtual: null, localicazao: adress,
+                     garage: true
                     );
         }
     }

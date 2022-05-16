@@ -2,7 +2,6 @@
 using API.src.Domain.Monetary;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace API.src.Domain.Values
 {
@@ -11,7 +10,8 @@ namespace API.src.Domain.Values
     {
 
         public CondominiumMonetary() { }
-        public CondominiumMonetary(double fixValue, double? fireInsurance, double? serviceCharge) {
+        public CondominiumMonetary(float fixValue, float? fireInsurance, float? serviceCharge)
+        {
             this.montlyValue = fixValue;
             this.fireInsurence = fireInsurance;
             this.serviceCharge = serviceCharge;
@@ -22,11 +22,11 @@ namespace API.src.Domain.Values
         [Key]
         public int? ID { get; set; }
 
-        public double montlyValue { get; set; }
+        public float montlyValue { get; set; }
 
-        public double? fireInsurence { get; set; }
-        public double? serviceCharge { get; set; }
+        public float? fireInsurence { get; set; }
+        public float? serviceCharge { get; set; }
 
-        public double valorTotal() => montlyValue + fireInsurence ?? 0 + serviceCharge ?? 0;
+        public float valorTotal() => montlyValue + fireInsurence ?? 0 + serviceCharge ?? 0;
     }
 }

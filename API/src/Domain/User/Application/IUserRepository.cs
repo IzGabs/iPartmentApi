@@ -11,6 +11,6 @@ namespace API.src.Domain.User.Application
         Task<bool> Delete(UserObject id);
         Task<bool> Update(UserObject obj);
         Task<List<UserObject>> GetAll();
-    
+
     }
 }

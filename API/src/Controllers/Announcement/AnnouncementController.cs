@@ -2,6 +2,7 @@
 using API.src.Core.Errors;
 using API.src.Domain.Announcement.Application;
 using API.src.Domain.Announcement.Entities;
+using API.src.Domain.Monetary.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -22,11 +23,11 @@ namespace API.src.Controllers.Announcement
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<int>> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement)
+        public async Task<ActionResult<int>> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement, AnnouncementSellMonetary monetary)
         {
             try
             {
-                var create = await service.Create(idRealEstate, idAdvertiser, announcement);
+                var create = await service.Create(idRealEstate, idAdvertiser, announcement, monetary);
 
                 return CreatedAtAction("Created", new { id = create.ID });
             }
@@ -34,16 +35,19 @@ namespace API.src.Controllers.Announcement
             {
                 return NotFound(nf.Message);
             }
-            catch {
+            catch
+            {
                 return BadRequest();
             }
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<int>> Create()
+        public async Task<ActionResult> SearchFromFilter()
         {
-          
+
+            return null;
+
         }
     }
 }

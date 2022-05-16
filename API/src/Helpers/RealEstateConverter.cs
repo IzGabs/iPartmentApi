@@ -1,9 +1,6 @@
 ﻿using API.src.Domain.RealState.Entities;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Infra
 {
@@ -11,7 +8,7 @@ namespace API.src.Infra
     {
         public override TypeRealEstate ReadJson(JsonReader reader, Type objectType, TypeRealEstate existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            var @enum = (RealEstateTypesEnum)Enum.ToObject(typeof(RealEstateTypesEnum), reader.Value);  
+            var @enum = (RealEstateTypesEnum)Enum.ToObject(typeof(RealEstateTypesEnum), reader.Value);
 
             return new TypeRealEstate(@enum);
         }

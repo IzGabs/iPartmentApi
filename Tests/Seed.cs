@@ -1,13 +1,6 @@
-﻿using API.dependencyInjection;
-using API.src.Infra.EntityFramework;
+﻿using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -26,7 +19,7 @@ namespace Tests
             buildContext = new BuildContext(options);
 
 
-           
+
         }
 
 

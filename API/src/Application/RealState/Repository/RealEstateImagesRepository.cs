@@ -4,10 +4,7 @@ using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
 using API.src.Infra.Bucket;
 using API.src.Infra.EntityFramework;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.RealState.Repository
@@ -30,15 +27,16 @@ namespace API.src.Application.RealState.Repository
 
             foreach (var image in files)
             {
-                var link =bucketOperations.UploadImage(image);
+                var link = bucketOperations.UploadImage(image);
 
-                if (link != null) {
+                if (link != null)
+                {
                     image.data.pathToFile = link;
 
                     var realEstateImage = new RealEstateImages(image.data, realEstate);
                     var added = await context.RealEstateImages.AddAsync(realEstateImage);
 
-                    if(added.State == Microsoft.EntityFrameworkCore.EntityState.Added) returnList.Add(image.data);
+                    if (added.State == Microsoft.EntityFrameworkCore.EntityState.Added) returnList.Add(image.data);
                 }
             }
 

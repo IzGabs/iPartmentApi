@@ -1,14 +1,14 @@
-﻿using API.src.Domain.Announcement.Entities;
-using System;
+﻿using API.src.Core.Filters;
+using API.src.Domain.Announcement.Entities;
+using API.src.Domain.Monetary.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Domain.Announcement.Application
 {
-   public interface IAnnouncementService
+    public interface IAnnouncementService
     {
-        Task<AnnouncementAggregate> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement);
-        Task<List<AnnouncementAggregate>> GetListPagineted(string city, int page, int pageSize = 0);
+        Task<AnnouncementAggregate> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement, AnnouncementSellMonetary monetary);
+        Task<List<AnnouncementAggregate>> GetListPagineted(string city, int page, AnnouncementsFilter filter, int pageSize = 0);
     }
 }

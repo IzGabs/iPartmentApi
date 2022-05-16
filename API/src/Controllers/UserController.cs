@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using API.Application;
+using API.Domain.User;
+using API.src.Domain.User.Application;
+using API.src.Infra.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using API.Application;
-using API.Domain.User;
-using API.src.Infra.EntityFramework;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using API.src.Domain.User.Application;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -70,7 +69,7 @@ namespace API.Controllers
 
             if (validateRegister != null)
             {
-                
+
                 return Conflict(validateRegister.ToString());
 
             }
@@ -109,7 +108,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-       
+
 
         private async Task<UserResponsesEnum?> validateUser(UserObject user)
         {
@@ -128,7 +127,8 @@ namespace API.Controllers
 
     public class LoginViewModel
     {
-        public LoginViewModel(string email, string password) {
+        public LoginViewModel(string email, string password)
+        {
             this.email = email;
             this.password = password;
         }

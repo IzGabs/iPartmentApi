@@ -1,7 +1,6 @@
 ﻿using API.src.Domain.Condominium.Application.Monetary;
 using API.src.Domain.Values;
 using API.src.Infra.EntityFramework;
-using System;
 using System.Threading.Tasks;
 
 namespace API.src.Application.Condominium.Monetary
@@ -10,7 +9,8 @@ namespace API.src.Application.Condominium.Monetary
     {
         private readonly BuildContext context;
 
-        public CondoMonetaryRepository(BuildContext context) {
+        public CondoMonetaryRepository(BuildContext context)
+        {
             this.context = context;
         }
 

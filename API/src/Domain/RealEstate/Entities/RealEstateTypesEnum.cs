@@ -6,16 +6,18 @@ namespace API.src.Domain.RealState.Entities
 {
     public enum RealEstateTypesEnum
     {
-        APARTMENT= 0,
-        HOUSE = 1, 
-        KITNET = 2, 
+        APARTMENT = 0,
+        HOUSE = 1,
+        KITNET = 2,
         STUDIO = 3,
     }
 
-    public class TypeRealEstate {
+    public class TypeRealEstate
+    {
         protected TypeRealEstate() { }
 
-        public TypeRealEstate(RealEstateTypesEnum @enum) {
+        public TypeRealEstate(RealEstateTypesEnum @enum)
+        {
             this.Id = (int)@enum;
             this.Name = @enum.ToString();
             this.Description = @enum.GetEnumDescription();
@@ -33,4 +35,4 @@ namespace API.src.Domain.RealState.Entities
         public static implicit operator TypeRealEstate(RealEstateTypesEnum @enum) => new TypeRealEstate(@enum);
         public static implicit operator RealEstateTypesEnum(TypeRealEstate estateType) => (RealEstateTypesEnum)estateType.Id;
     }
-} 
+}

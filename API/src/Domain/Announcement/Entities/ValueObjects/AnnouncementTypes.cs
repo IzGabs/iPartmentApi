@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using API.src.Domain.Monetary;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Domain.Announcement.Entities
 {
-    public enum AnnouncementTypeEnum
-    {
-        Sell = 0,
-        Rent = 1
-    }
-
     public abstract class AnnouncementType
     {
         [Required]
         public int? ID { get; set; }
 
         [Required]
-        public AnnouncementTypeEnum type;
+        public IMonetaryEntity typeMonetary;
 
         [Required]
-        public AnnouncementAggregate announcement { get; set; }
+        public AnnouncementAggregate Aggregate { get; set; }
     }
 }

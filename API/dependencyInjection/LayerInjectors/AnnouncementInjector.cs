@@ -1,10 +1,6 @@
 ﻿using API.src.Application.Announcement;
 using API.src.Domain.Announcement.Application;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.dependencyInjection.LayerInjectors
 {
@@ -17,6 +13,6 @@ namespace API.dependencyInjection.LayerInjectors
             services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
         }
 
-        
+
     }
 }

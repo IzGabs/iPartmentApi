@@ -1,11 +1,11 @@
 ﻿using API.Domain.User;
+using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Entities;
+using API.src.Helpers;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Domain.Announcement.Entities
 {
@@ -13,19 +13,26 @@ namespace API.src.Domain.Announcement.Entities
     {
         [Required]
         public UserObject Advertiser { get; set; }
+
         [Required]
         public RealEstateBase RealEstate { get; set; }
 
+        [Required]
+        public AnnouncementSellMonetary RealEstateValues { get; set; }
+
+        public int AnnouncementSellId { get; set; }
+        public virtual AnnouncementSellType AnnouncementSell { get; set; }
+        public int AnnouncementRentId { get; set; }
+        public virtual AnnouncementRentType AnnouncementRent { get; set; }
+
         protected AnnouncementAggregate() : base() { }
 
-        public AnnouncementAggregate(
-            AnnouncementValueObject vo,
-            UserObject advertiser,
-            RealEstateBase realEstate) : base(vo.ID, vo.createdAt, vo.title, vo.description, vo.immediatelyAvailable)
+        public AnnouncementAggregate(AnnouncementValueObject vo, UserObject advertiser, RealEstateBase realEstate, AnnouncementSellMonetary realEstateValues)
+            : base(vo.ID, vo.createdAt, vo.title, vo.description, vo.immediatelyAvailable)
         {
-
-            Advertiser = advertiser;
-            RealEstate = realEstate;
+            this.RealEstateValues = realEstateValues;
+            this.Advertiser = advertiser;
+            this.RealEstate = realEstate;
         }
 
         public AnnouncementAggregate(

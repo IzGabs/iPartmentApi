@@ -1,7 +1,5 @@
 ﻿using API.Application;
 using API.Domain.User;
-
-using iPartmentApi;
 using Xunit;
 
 namespace Tests.Service
@@ -22,7 +20,7 @@ namespace Tests.Service
         {
             var result = TokenService.GenerateToken(_thisUser);
 
-           
+
 
             Assert.IsType<string>(result);
         }

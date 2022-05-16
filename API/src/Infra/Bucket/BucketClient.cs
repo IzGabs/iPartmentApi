@@ -1,6 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -10,7 +9,8 @@ namespace API.src.Infra.Bucket
     {
         public StorageClient Client { get; }
 
-        public BucketClient(){
+        public BucketClient()
+        {
             StreamReader r = new StreamReader("./ipartmenttcc-1623ce01e782.json");
             string json = r.ReadToEnd();
 
@@ -18,7 +18,7 @@ namespace API.src.Infra.Bucket
             var serialized = JsonConvert.SerializeObject(bucketConnection);
 
             var credential = GoogleCredential.FromJson(serialized);
-            Client =  StorageClient.Create(credential);
+            Client = StorageClient.Create(credential);
         }
     }
 }

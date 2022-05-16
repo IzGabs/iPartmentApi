@@ -2,9 +2,7 @@
 using API.src.Domain.Condominium;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Controllers
@@ -15,7 +13,7 @@ namespace API.src.Controllers
     {
         private readonly ICondominiumService service;
 
-        public CondominiumController(ICondominiumService thisService){ this.service = thisService;}
+        public CondominiumController(ICondominiumService thisService) { this.service = thisService; }
 
 
         [HttpPost]
@@ -26,7 +24,7 @@ namespace API.src.Controllers
 
             var request = await service.Create(body);
 
-            return !(request is CondominiumObject)? BadRequest() : Ok();
+            return !(request is CondominiumObject) ? BadRequest() : Ok();
         }
 
 

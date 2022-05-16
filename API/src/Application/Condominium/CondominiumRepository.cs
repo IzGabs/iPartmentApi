@@ -1,10 +1,9 @@
-﻿using API.src.Infra.EntityFramework;
-using API.Domain.RealState.Models;
+﻿using API.Domain.RealState.Models;
 using API.src.Domain.Condominium;
+using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.Condominium
@@ -28,7 +27,6 @@ namespace API.src.Application.Condominium
             .Include(l => l.Location)
             .Include(l => l.Values)
             .Include(l => l.realStates)
-            .ThenInclude(l => l.Values)
             .FirstOrDefaultAsync(x => x.ID == id);
 
         public async Task<CondominiumObject> Create(CondominiumObject obj)
@@ -53,18 +51,21 @@ namespace API.src.Application.Condominium
 
         public async Task<bool> Update(CondominiumObject obj)
         {
-            try {
-                var requestDB =  _context.Condominium.Update(obj);
+            try
+            {
+                var requestDB = _context.Condominium.Update(obj);
 
-                if (requestDB.State == EntityState.Modified) {
+                if (requestDB.State == EntityState.Modified)
+                {
 
                     await _context.SaveChangesAsync();
                     return true;
                 }
-            
-            } catch (Exception e) { }
 
-            return false; 
+            }
+            catch (Exception e) { }
+
+            return false;
         }
     }
 }

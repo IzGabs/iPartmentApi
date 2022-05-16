@@ -1,10 +1,5 @@
 ﻿using API.src.Infra.Bucket;
-using Google.Cloud.Storage.V1;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.dependencyInjection.LayerInjectors
 {
@@ -14,7 +9,7 @@ namespace API.dependencyInjection.LayerInjectors
         {
             services.AddSingleton<BucketClient, BucketClient>();
             services.AddTransient<BucketOperations, BucketOperations>();
-            
+
         }
     }
 }

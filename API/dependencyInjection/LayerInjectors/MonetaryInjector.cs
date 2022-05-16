@@ -1,14 +1,11 @@
 ﻿using API.src.Application.Condominium.Monetary;
-using API.src.Application.Monetary.RealState;
+using API.src.Application.Monetary.Announcement.Rent;
+using API.src.Application.Monetary.Announcement.Sell;
 using API.src.Domain.Condominium.Application.Monetary;
 using API.src.Domain.Condominium.Application.Values;
 using API.src.Domain.Monetary.Entities;
 using API.src.Domain.Values;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.dependencyInjection.LayerInjectors
 {
@@ -19,8 +16,11 @@ namespace API.dependencyInjection.LayerInjectors
             services.AddTransient<IMonetaryService<CondominiumMonetary>, CondoMonetaryService>();
             services.AddTransient<IMonetaryRepository<CondominiumMonetary>, CondoMonetaryRepository>();
 
-            services.AddTransient<IMonetaryService<RealStateMonetary>, RealStateMonetaryService>();
-            services.AddTransient<IMonetaryRepository<RealStateMonetary>, RealStateMonetaryRepository>();
+            services.AddTransient<IMonetaryService<AnnouncementSellMonetary>, AnnouncementSellMonetaryService>();
+            services.AddTransient<IMonetaryRepository<AnnouncementSellMonetary>, AnnouncementSellMonetaryRepository>();
+
+            services.AddTransient<IMonetaryService<AnnouncementRentMonetary>, AnnouncementRentMonetaryService>();
+            services.AddTransient<IMonetaryRepository<AnnouncementRentMonetary>, AnnouncementRentMonetaryRepository>();
         }
     }
 }

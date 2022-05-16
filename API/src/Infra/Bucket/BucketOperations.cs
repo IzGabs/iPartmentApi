@@ -1,9 +1,6 @@
 ﻿using API.src.Domain.Images;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Infra.Bucket
 {
@@ -19,7 +16,8 @@ namespace API.src.Infra.Bucket
             this.bucketName = bucketName;
         }
 
-        public string UploadImage(ImageFile image) {
+        public string UploadImage(ImageFile image)
+        {
 
             try
             {

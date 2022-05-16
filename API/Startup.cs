@@ -1,29 +1,25 @@
-using System.Text;
 using API.dependencyInjection;
+using API.src.Core.Swagger;
+using API.src.Infra.EntityFramework;
 using iPartmentApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
-
-using API.src.Core.Swagger;
 using Newtonsoft.Json.Serialization;
-using API.src.Infra.EntityFramework;
-using API.src.Infra.Bucket;
+using System.Text;
 
 namespace DockerAPIEntity
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-       
-        
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -39,7 +35,8 @@ namespace DockerAPIEntity
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
             services.AddControllers().AddNewtonsoftJson(
-                options => {
+                options =>
+                {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });

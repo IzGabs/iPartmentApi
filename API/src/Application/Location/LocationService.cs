@@ -1,8 +1,6 @@
 ﻿using API.Domain.Location;
 using API.src.Domain.Location;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.Location
@@ -12,7 +10,8 @@ namespace API.src.Application.Location
 
         private readonly ILocationRepository repository;
 
-        public LocationService(ILocationRepository _repository) {
+        public LocationService(ILocationRepository _repository)
+        {
             repository = _repository;
         }
 
