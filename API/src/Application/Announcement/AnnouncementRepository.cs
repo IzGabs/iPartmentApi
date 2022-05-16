@@ -42,13 +42,10 @@ namespace API.src.Application.Announcement
                     query.RealEstate.Bathrooms == filter.bathrooms &&
                     query.RealEstate.Garage == filter.garage &&
                     query.RealEstate.AllowPets == filter.pets &&
-                    query.RealEstate.Furnished == filter.furnished
+                    query.RealEstate.Furnished == filter.furnished &&
 
-                // (query.RealEstate.Values.valorTotal() >= filter.ValueFilter.minValue &&
-                // query.RealEstate.Values.valorTotal() <= filter.ValueFilter.maxValue) 
-
-
-
+                 (query.RentValues.valorTotal() >= filter.ValueFilter.minValue &&
+                 query.RentValues.valorTotal() <= filter.ValueFilter.maxValue) 
                 )
                 .Take(20);
 
