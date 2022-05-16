@@ -32,9 +32,6 @@ namespace API.src.Infra.EntityFramework
 
         //Operation
         public DbSet<AnnouncementAggregate> Announcements { get; set; }
-
-        public DbSet<AnnouncementRentType> AnnouncementsToRent { get; set; }
-        public DbSet<AnnouncementSellType> AnnouncementsToSell { get; set; }
         public DbSet<AnnouncementRentMonetary> AnnouncementRentMonetary { get; set; }
         public DbSet<AnnouncementSellMonetary> AnnouncementSellMonetary { get; set; }
 
@@ -57,6 +54,16 @@ namespace API.src.Infra.EntityFramework
             modelBuilder.Entity<TypeRealEstate>()
                 .HasMany<RealEstateBase>()
                 .WithOne(x => x.Type);
+
+            modelBuilder.Entity<AnnouncementAggregate>()
+               .HasOne(s => s.RentValues)
+               .WithOne(e => e.aggregate)
+               .HasForeignKey<AnnouncementAggregate>(x => x.AnnouncementRentId);
+
+            modelBuilder.Entity<AnnouncementAggregate>()
+              .HasOne(s => s.SellValues)
+              .WithOne(e => e.aggregate)
+              .HasForeignKey<AnnouncementAggregate>(x => x.AnnouncementSellId);
 
 
             Seed(modelBuilder);

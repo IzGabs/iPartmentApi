@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BuildContext))]
-    [Migration("20220516044326_aMaisBraba2")]
-    partial class aMaisBraba2
+    [Migration("20220516053713_aMaisBraba")]
+    partial class aMaisBraba
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,16 +116,15 @@ namespace API.Migrations
                     b.Property<int?>("AdvertiserID")
                         .HasColumnType("int");
 
-                    b.Property<int>("AnnouncementRentId")
+                    b.Property<int?>("AnnouncementRentId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("AnnouncementSellId")
+                    b.Property<int?>("AnnouncementSellId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("RealEstateID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RealEstateValuesID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("createdAt")
@@ -142,6 +141,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("type")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("AdvertiserID");
@@ -154,31 +156,7 @@ namespace API.Migrations
 
                     b.HasIndex("RealEstateID");
 
-                    b.HasIndex("RealEstateValuesID");
-
                     b.ToTable("Announcements");
-                });
-
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AnnouncementsToRent");
-                });
-
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementSellType", b =>
-                {
-                    b.Property<int?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AnnouncementsToSell");
                 });
 
             modelBuilder.Entity("API.src.Domain.Monetary.Entities.AnnouncementRentMonetary", b =>
@@ -462,14 +440,14 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("AdvertiserID");
 
-                    b.HasOne("API.src.Domain.Announcement.Entities.AnnouncementRentType", "AnnouncementRent")
-                        .WithOne("Aggregate")
+                    b.HasOne("API.src.Domain.Monetary.Entities.AnnouncementRentMonetary", "RentValues")
+                        .WithOne("aggregate")
                         .HasForeignKey("API.src.Domain.Announcement.Entities.AnnouncementAggregate", "AnnouncementRentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.src.Domain.Announcement.Entities.AnnouncementSellType", "AnnouncementSell")
-                        .WithOne("Aggregate")
+                    b.HasOne("API.src.Domain.Monetary.Entities.AnnouncementSellMonetary", "SellValues")
+                        .WithOne("aggregate")
                         .HasForeignKey("API.src.Domain.Announcement.Entities.AnnouncementAggregate", "AnnouncementSellId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -478,19 +456,13 @@ namespace API.Migrations
                         .WithMany()
                         .HasForeignKey("RealEstateID");
 
-                    b.HasOne("API.src.Domain.Monetary.Entities.AnnouncementSellMonetary", "RealEstateValues")
-                        .WithMany()
-                        .HasForeignKey("RealEstateValuesID");
-
                     b.Navigation("Advertiser");
-
-                    b.Navigation("AnnouncementRent");
-
-                    b.Navigation("AnnouncementSell");
 
                     b.Navigation("RealEstate");
 
-                    b.Navigation("RealEstateValues");
+                    b.Navigation("RentValues");
+
+                    b.Navigation("SellValues");
                 });
 
             modelBuilder.Entity("API.src.Domain.RealEstate.Entities.Aggregates.RealEstateImages", b =>
@@ -565,16 +537,14 @@ namespace API.Migrations
                     b.Navigation("realStates");
                 });
 
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementRentType", b =>
+            modelBuilder.Entity("API.src.Domain.Monetary.Entities.AnnouncementRentMonetary", b =>
                 {
-                    b.Navigation("Aggregate")
-                        .IsRequired();
+                    b.Navigation("aggregate");
                 });
 
-            modelBuilder.Entity("API.src.Domain.Announcement.Entities.AnnouncementSellType", b =>
+            modelBuilder.Entity("API.src.Domain.Monetary.Entities.AnnouncementSellMonetary", b =>
                 {
-                    b.Navigation("Aggregate")
-                        .IsRequired();
+                    b.Navigation("aggregate");
                 });
 #pragma warning restore 612, 618
         }

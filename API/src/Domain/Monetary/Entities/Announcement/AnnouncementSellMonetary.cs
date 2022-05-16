@@ -1,4 +1,5 @@
 ﻿using API.src.Core.Swagger;
+using API.src.Domain.Announcement.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,6 +26,8 @@ namespace API.src.Domain.Monetary.Entities
 
         [Required]
         public float value { get; set; }
+
+        public AnnouncementAggregate aggregate;
 
         public float valorTotal() => value;
     }

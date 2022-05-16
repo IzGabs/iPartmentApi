@@ -5,7 +5,7 @@ namespace API.src.Core.Filters
 {
     public class AnnouncementsFilter
     {
-        public AnnouncementType AnnouncementType { get; set; }
+        public AnnouncementTypeEnum AnnouncementType { get; set; }
 
         public FilterInterval<float> ValueFilter { get; set; }
         public FilterInterval<int> AreaFilter { get; set; }
@@ -18,7 +18,7 @@ namespace API.src.Core.Filters
         public bool pets { get; set; }
         public bool furnished { get; set; }
 
-        public AnnouncementsFilter(AnnouncementType announcementType, FilterInterval<float> valueFilter, FilterInterval<int> areaFilter, int dorms, int bathrooms, bool garage, RealEstateTypesEnum type, bool pets, bool furnished)
+        public AnnouncementsFilter(AnnouncementTypeEnum announcementType, FilterInterval<float> valueFilter, FilterInterval<int> areaFilter, int dorms, int bathrooms, bool garage, RealEstateTypesEnum type, bool pets, bool furnished)
         {
             AnnouncementType = announcementType;
             ValueFilter = valueFilter;

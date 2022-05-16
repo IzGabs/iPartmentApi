@@ -1,4 +1,5 @@
 ﻿
+using API.src.Controllers.ViewModels;
 using API.src.Core.Errors;
 using API.src.Domain.Announcement.Application;
 using API.src.Domain.Announcement.Entities;
@@ -23,11 +24,12 @@ namespace API.src.Controllers.Announcement
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<int>> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement, AnnouncementSellMonetary monetary)
+        [Route("Sell")]
+        public async Task<ActionResult<int>> CreateSell(AnnouncementViewModel<AnnouncementSellMonetary> vm)
         {
             try
             {
-                var create = await service.Create(idRealEstate, idAdvertiser, announcement, monetary);
+                var create = await service.Create(vm.idRealEstate, vm.idAdvertiser, vm.announcement, vm.monetary, AnnouncementTypeEnum.Sell);
 
                 return CreatedAtAction("Created", new { id = create.ID });
             }
@@ -40,6 +42,28 @@ namespace API.src.Controllers.Announcement
                 return BadRequest();
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Rent")]
+        public async Task<ActionResult<int>> CreateRent(AnnouncementViewModel<AnnouncementRentMonetary> vm)
+        {
+            try
+            {
+                var create = await service.Create(vm.idRealEstate, vm.idAdvertiser, vm.announcement, vm.monetary, AnnouncementTypeEnum.Rent);
+
+                return CreatedAtAction("Created", new { id = create.ID });
+            }
+            catch (TypeNotFound nf)
+            {
+                return NotFound(nf.Message);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
 
         [HttpGet]
         [Authorize]

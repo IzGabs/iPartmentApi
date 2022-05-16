@@ -64,32 +64,6 @@ namespace API.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AnnouncementsToRent",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnnouncementsToRent", x => x.ID);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "AnnouncementsToSell",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnnouncementsToSell", x => x.ID);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "CondominiumMonetary",
                 columns: table => new
                 {
@@ -259,7 +233,7 @@ namespace API.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AdvertiserID = table.Column<int>(type: "int", nullable: true),
                     RealEstateID = table.Column<int>(type: "int", nullable: true),
-                    RealEstateValuesID = table.Column<int>(type: "int", nullable: true),
+                    type = table.Column<int>(type: "int", nullable: false),
                     AnnouncementSellId = table.Column<int>(type: "int", nullable: false),
                     AnnouncementRentId = table.Column<int>(type: "int", nullable: false),
                     createdAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -273,21 +247,15 @@ namespace API.Migrations
                 {
                     table.PrimaryKey("PK_Announcements", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Announcements_AnnouncementSellMonetary_RealEstateValuesID",
-                        column: x => x.RealEstateValuesID,
-                        principalTable: "AnnouncementSellMonetary",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Announcements_AnnouncementsToRent_AnnouncementRentId",
+                        name: "FK_Announcements_AnnouncementRentMonetary_AnnouncementRentId",
                         column: x => x.AnnouncementRentId,
-                        principalTable: "AnnouncementsToRent",
+                        principalTable: "AnnouncementRentMonetary",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Announcements_AnnouncementsToSell_AnnouncementSellId",
+                        name: "FK_Announcements_AnnouncementSellMonetary_AnnouncementSellId",
                         column: x => x.AnnouncementSellId,
-                        principalTable: "AnnouncementsToSell",
+                        principalTable: "AnnouncementSellMonetary",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -395,11 +363,6 @@ namespace API.Migrations
                 column: "RealEstateID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcements_RealEstateValuesID",
-                table: "Announcements",
-                column: "RealEstateValuesID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Condominiums_LocationID",
                 table: "Condominiums",
                 column: "LocationID");
@@ -453,9 +416,6 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AnnouncementRentMonetary");
-
-            migrationBuilder.DropTable(
                 name: "Announcements");
 
             migrationBuilder.DropTable(
@@ -468,13 +428,10 @@ namespace API.Migrations
                 name: "UsersImages");
 
             migrationBuilder.DropTable(
+                name: "AnnouncementRentMonetary");
+
+            migrationBuilder.DropTable(
                 name: "AnnouncementSellMonetary");
-
-            migrationBuilder.DropTable(
-                name: "AnnouncementsToRent");
-
-            migrationBuilder.DropTable(
-                name: "AnnouncementsToSell");
 
             migrationBuilder.DropTable(
                 name: "RealEstates");

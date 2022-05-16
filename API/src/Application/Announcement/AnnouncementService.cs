@@ -3,6 +3,7 @@ using API.src.Core.Filters;
 using API.src.Domain.Announcement.Application;
 using API.src.Domain.Announcement.Entities;
 using API.src.Domain.Condominium.Application.Values;
+using API.src.Domain.Monetary;
 using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.User.Application;
@@ -17,26 +18,39 @@ namespace API.src.Application.Announcement
         protected IRealEstateService realStateService;
         protected IUserService userService;
 
-        private readonly IMonetaryService<AnnouncementSellMonetary> monetaryService;
+        private readonly IMonetaryService<AnnouncementSellMonetary> SellService;
+        private readonly IMonetaryService<AnnouncementRentMonetary> RentService;
 
-        public AnnouncementService(IAnnouncementRepository repository, IRealEstateService realStateService, IUserService userService, IMonetaryService<AnnouncementSellMonetary> monetaryService)
+        public AnnouncementService(IAnnouncementRepository repository, IRealEstateService realStateService, IUserService userService, IMonetaryService<AnnouncementSellMonetary> sellService, IMonetaryService<AnnouncementRentMonetary> rentService)
         {
             this.repository = repository;
             this.realStateService = realStateService;
             this.userService = userService;
-            this.monetaryService = monetaryService;
+            SellService = sellService;
+            RentService = rentService;
         }
 
-        public async Task<AnnouncementAggregate> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement, AnnouncementSellMonetary monetary)
+        public async Task<AnnouncementAggregate> Create(int idRealEstate, int idAdvertiser, AnnouncementValueObject announcement, IMonetaryEntity monetary, AnnouncementTypeEnum type)
         {
 
             var findRealEstate = await realStateService.GetByID(idRealEstate) ?? throw new TypeNotFound("Imóvel não encontrado!!");
             var findUser = await userService.Get(idAdvertiser) ?? throw new TypeNotFound("User não encontrado!!");
-            var values = await monetaryService.Create(monetary) ?? throw CouldNotCreateRealStateValues.Default();
 
-            var announcementToCreate = new AnnouncementAggregate(announcement, findUser, findRealEstate, values);
+            IMonetaryEntity values;
 
-            return await repository.Create(announcementToCreate);
+            if (type == AnnouncementTypeEnum.Sell)
+            {
+                values = await SellService.Create((AnnouncementSellMonetary)monetary) ?? throw CouldNotCreateRealStateValues.Default();
+            }
+            else
+            {
+                values = await RentService.Create((AnnouncementRentMonetary)monetary) ?? throw CouldNotCreateRealStateValues.Default();
+            }
+
+            var announcementToCreate = new AnnouncementAggregate(announcement, findUser, findRealEstate, type, values);
+            var request = await repository.Create(announcementToCreate);
+
+            return request;
         }
 
         public async Task<List<AnnouncementAggregate>> GetListPagineted(string city, int page, AnnouncementsFilter filter, int pageSize = 0)

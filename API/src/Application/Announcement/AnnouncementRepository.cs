@@ -20,10 +20,10 @@ namespace API.src.Application.Announcement
 
         public async Task<AnnouncementAggregate> Create(AnnouncementAggregate @object)
         {
-            var add = (await context.Announcements.AddAsync(@object)).Entity;
-            context.SaveChanges();
+            var add = await context.Announcements.AddAsync(@object);
+            await context.SaveChangesAsync();
 
-            return add;
+            return add.Entity;
         }
 
         public Task<List<AnnouncementAggregate>> GetListPagineted(string city, int page, AnnouncementsFilter filter, int pageSize = 0)
@@ -31,7 +31,8 @@ namespace API.src.Application.Announcement
             var request = context.Announcements
                 .Include(l => l.RealEstate)
                 .Include(l => l.RealEstate.Adress)
-                .Include(l => l.RealEstateValues)
+                .Include(l => l.SellValues)
+                .Include(l => l.RentValues)
                 .Include(l => l.RealEstate.Type)
                 .Where(
                     query =>
