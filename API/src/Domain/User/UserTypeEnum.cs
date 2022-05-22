@@ -1,6 +1,6 @@
 ﻿namespace API.src.Domain.User
 {
-    public enum UserTypeEnum 
+    public enum UserTypeEnum
     {
         ADMIN = 0,
         CUSTOMER = 1,

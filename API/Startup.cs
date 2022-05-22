@@ -1,35 +1,31 @@
-using System.Text;
 using API.dependencyInjection;
+using API.src.Core.Swagger;
+using API.src.Infra.EntityFramework;
 using iPartmentApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
-
-using API.src.Core.Swagger;
 using Newtonsoft.Json.Serialization;
-using API.src.Infra.EntityFramework;
+using System.Text;
 
 namespace DockerAPIEntity
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
-
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -39,7 +35,8 @@ namespace DockerAPIEntity
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
             services.AddControllers().AddNewtonsoftJson(
-                options => {
+                options =>
+                {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
@@ -62,6 +59,7 @@ namespace DockerAPIEntity
                     };
                 });
 
+
             string server = Configuration["DB_HOST"];
             string mySqlConnection = $"server={server}; {Configuration.GetConnectionString("db")}";
 
@@ -75,7 +73,6 @@ namespace DockerAPIEntity
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IPartmentrAPi", Version = "v1" });
                 c.SchemaFilter<SwaggerSkipPropertyFilter>();
             });
-
 
             InjectorModule injection = new InjectorModule();
             injection.InjectModules(services);

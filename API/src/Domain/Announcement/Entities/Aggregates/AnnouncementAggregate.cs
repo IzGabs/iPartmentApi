@@ -1,11 +1,12 @@
 ﻿using API.Domain.User;
+using API.src.Domain.Monetary;
+using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealState.Entities;
+using API.src.Helpers;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Domain.Announcement.Entities
 {
@@ -13,37 +14,38 @@ namespace API.src.Domain.Announcement.Entities
     {
         [Required]
         public UserObject Advertiser { get; set; }
+
         [Required]
         public RealEstateBase RealEstate { get; set; }
 
+        [Required]
+        public AnnouncementTypeEnum type { get; set; }
+
+       
+        public virtual AnnouncementSellMonetary? SellValues { get; set; }
+        public virtual AnnouncementRentMonetary? RentValues { get; set; }
+
+        public int? AnnouncementSellId { get; set; }
+        public int? AnnouncementRentId { get; set; }
+
         protected AnnouncementAggregate() : base() { }
 
-        public AnnouncementAggregate(
-            AnnouncementValueObject vo,
-            UserObject advertiser,
-            RealEstateBase realEstate) : base(vo.ID, vo.createdAt, vo.title, vo.description, vo.immediatelyAvailable)
+        public AnnouncementAggregate(AnnouncementValueObject vo, UserObject advertiser, RealEstateBase realEstate, AnnouncementTypeEnum type,  IMonetaryEntity values)
+            : base(vo.ID, vo.createdAt, vo.title, vo.description, vo.immediatelyAvailable)
         {
+            this.Advertiser = advertiser;
+            this.RealEstate = realEstate;
 
-            Advertiser = advertiser;
-            RealEstate = realEstate;
+            if (type == AnnouncementTypeEnum.Rent) {
+                RentValues = (AnnouncementRentMonetary)values; 
+            } else {
+                SellValues = (AnnouncementSellMonetary)values;
+            }
+
+            this.type = type; 
+
         }
 
-        public AnnouncementAggregate(
-            int? iD, DateTime createdAt,
-            string title,
-            string description,
-            bool immediatelyAvailable,
-            UserObject advertiser,
-            RealEstateBase realEstate
-            )
-        {
-            this.ID = ID;
-            this.createdAt = createdAt;
-            this.title = description;
-            this.immediatelyAvailable = immediatelyAvailable;
-
-            Advertiser = advertiser;
-            RealEstate = realEstate;
-        }
+        
     }
 }

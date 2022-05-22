@@ -1,12 +1,10 @@
 ﻿
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
 using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
-using API.src.Controllers.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace API.Controllers.RealState
 {
@@ -14,13 +12,8 @@ namespace API.Controllers.RealState
     [ApiController]
     public class RealStateController : ControllerBase
     {
-
         private readonly IRealEstateService _service;
-
-        public RealStateController(IRealEstateService service)
-        {
-            this._service = service;
-        }
+        public RealStateController(IRealEstateService service) { this._service = service; }
 
 
         [HttpGet("{id}")]
@@ -31,38 +24,6 @@ namespace API.Controllers.RealState
             return request == null ? NotFound() : request;
         }
 
-        [HttpGet]
-        [Authorize]
-        [Route("list")]
-        public async Task<ActionResult<IEnumerable<RealEstateBase>>> GetALL() => await _service.GetList();
-
-        [HttpPut("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Update(int id, RealEstateBase body)
-        {
-            var _findInDB = await _service.GetByID(id);
-            if (_findInDB == null) return NoContent();
-
-            var _request = await _service.Update(body);
-            if (_request) return Ok();
-
-            return StatusCode(500);
-        }
-
-
-
-        [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var _findInDB = await _service.GetByID(id);
-            if (_findInDB == null) return NoContent();
-
-            var _request = await _service.Delete(_findInDB);
-            if (_request) return Ok();
-
-            return StatusCode(500);
-        }
 
         [HttpPost]
         [Authorize]

@@ -1,12 +1,8 @@
-﻿using API.src.Domain.RealState.Entities;
-using API.Domain.RealState.Models;
-using API.src.Domain.RealState.Application;
+﻿using API.src.Domain.RealState.Application;
 using API.src.Domain.RealState.Entities;
 using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.src.Application.RealState
@@ -22,10 +18,9 @@ namespace API.src.Application.RealState
 
         public async Task<RealEstateCondo> Get(int id) => await _context.RealEstateCondo
             .Include(l => l.Adress)
-            .Include(l => l.Values)
             .Include(l => l.CurrentResident)
             .Include(l => l.Condominium)
-            .Include(l => l.Condominium.Values)
+            .ThenInclude(l => l.Values)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.ID == id);
 
@@ -46,6 +41,6 @@ namespace API.src.Application.RealState
 
             return null;
 
-        }       
+        }
     }
 }

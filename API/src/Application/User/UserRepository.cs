@@ -2,7 +2,6 @@
 using API.src.Domain.User.Application;
 using API.src.Infra.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,39 +29,29 @@ namespace API.src.Application.User
             return _context.Users.ToList();
         }
 
-        public void Create(UserObject obj)
+        public UserObject Create(UserObject obj)
         {
             try
             {
-                _context.Users.Add(obj);
+              var saved = _context.Users.Add(obj);
                 _context.SaveChanges();
+                return saved.State == EntityState.Added ? obj : null;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+
+            return null;
         }
 
         public void Update(UserObject obj)
         {
             try
             {
-               _context.Entry(obj).State = EntityState.Modified;
-               _context.SaveChanges();
-            
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public void Delete(UserObject body)
-        {
-            try
-            {
-                _context.Users.Remove(body);
+                _context.Entry(obj).State = EntityState.Modified;
                 _context.SaveChanges();
+
             }
             catch (Exception e)
             {
@@ -70,26 +59,10 @@ namespace API.src.Application.User
             }
         }
 
-        private async Task<UserResponsesEnum?> validateUser(UserObject user)
+
+        public void Delete(UserObject id)
         {
-            var searchUser = await _context.Users.FirstOrDefaultAsync(e =>
-             e.ID == user.ID ||
-             e.Email == user.Email ||
-             e.Phone == user.Phone
-             );
-
-            var returns = user.IsEqual(searchUser);
-
-            return returns;
-        }
-
-        private bool UserExists(UserObject user)
-        {
-            return _context.Users.Any(e =>
-             e.ID == user.ID ||
-             e.Email == user.Email ||
-             e.Phone == user.Phone
-             );
+            throw new NotImplementedException();
         }
     }
 }

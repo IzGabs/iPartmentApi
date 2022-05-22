@@ -8,7 +8,7 @@ namespace API.src.Domain.User.Application
     {
         IEnumerable<UserObject> GetAll();
         UserObject Get(int id);
-        void Create(UserObject obj);
+        UserObject Create(UserObject obj);
         void Update(UserObject obj);
         void Delete(UserObject id);
     }

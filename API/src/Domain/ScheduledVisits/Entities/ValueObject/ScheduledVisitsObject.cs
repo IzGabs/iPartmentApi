@@ -1,11 +1,8 @@
 ﻿using API.Domain.User;
 using API.src.Domain.RealState.Entities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.src.Domain.ScheduledVisits.Entities.ValueObject
 {

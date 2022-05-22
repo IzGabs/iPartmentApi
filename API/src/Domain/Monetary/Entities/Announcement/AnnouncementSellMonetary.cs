@@ -1,4 +1,5 @@
 ﻿using API.src.Core.Swagger;
+using API.src.Domain.Announcement.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace API.src.Domain.Monetary.Entities
 {
-    [Table("RealStateMonetary")]
-    public class RealStateMonetary : IMonetaryEntity
+    [Table("AnnouncementSellMonetary")]
+    public class AnnouncementSellMonetary : IMonetaryEntity
     {
-        public RealStateMonetary() { }
+        public AnnouncementSellMonetary() { }
 
-        public RealStateMonetary(double valorFixo, double iptu = 0) {
-            this.montlyValue = valorFixo;
-            this.IPTU = iptu;
+        public AnnouncementSellMonetary(float valorFixo)
+        {
+            this.value = valorFixo;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,10 +25,10 @@ namespace API.src.Domain.Monetary.Entities
         public int? ID { get; set; }
 
         [Required]
-        public double montlyValue { get ; set ; }
+        public float value { get; set; }
 
-        public double? IPTU { get; set; }
+        public AnnouncementAggregate aggregate;
 
-        public double valorTotal() => montlyValue + IPTU ?? 0;
+        public float valorTotal() => value;
     }
 }

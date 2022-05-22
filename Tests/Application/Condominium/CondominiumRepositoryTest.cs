@@ -1,16 +1,11 @@
-﻿using API.src.Domain.Condominium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using API.src.Application.Condominium;
-using Xunit;
-using API.Domain.Location;
+﻿using API.Domain.Location;
 using API.Domain.RealState.Models;
-using API.src.Domain.Values;
+using API.src.Application.Condominium;
+using API.src.Domain.Condominium;
 using API.src.Domain.RealState.Entities;
-using Microsoft.Extensions.DependencyInjection; 
+using API.src.Domain.Values;
+using System.Collections.Generic;
+using Xunit;
 
 namespace Tests.Application.Condominium
 {
@@ -52,10 +47,10 @@ namespace Tests.Application.Condominium
             var create = await repo.Create(objectSimple);
             if (!(create is CondominiumObject)) throw null;
 
-            var updateObject = create; 
+            var updateObject = create;
             updateObject.Gym = true;
 
-             var updateRequest = await repo.Update(updateObject);
+            var updateRequest = await repo.Update(updateObject);
 
             //ASSERT
             Assert.True(updateRequest);

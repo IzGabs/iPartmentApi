@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using API.Application;
+﻿using API.Application;
 using API.src.Application.RealState;
-using API.src.Domain.RealState.Application;
-using API.src.Domain.RealState.Entities;
 using API.src.Application.RealState.Repository;
+using API.src.Application.RealState.Services;
+using API.src.Domain.RealState.Application;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace API.dependencyInjection
 {
@@ -19,7 +19,10 @@ namespace API.dependencyInjection
             services.AddTransient<IRealEstateCondoService, RealStateCondoService>();
             services.AddTransient<IRealEstateCondoRepository, RealStateCondoRepository>();
 
-            services.AddTransient<IRealEstateGetAdvancedRepository, RealStateGetAdvanced>();
+
+            services.AddTransient<IRealEstateImagesService, RealEstateImagesService>();
+            services.AddTransient<IRealEstateImagesRepository, RealEstateImagesRepository>();
+
 
         }
     }

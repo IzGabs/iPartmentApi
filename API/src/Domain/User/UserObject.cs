@@ -1,6 +1,5 @@
 ﻿
 using API.src.Domain.User;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,7 +22,7 @@ namespace API.Domain.User
         [Key]
         public int ID { get; set; }
 
-         [Required]
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -36,7 +35,7 @@ namespace API.Domain.User
         public string Phone { get; set; }
 
         [Required]
-        public UserTypeEnum UserType { get; set; }    
+        public UserTypeEnum UserType { get; set; }
 
         public UserResponsesEnum? IsEqual(UserObject other)
         {

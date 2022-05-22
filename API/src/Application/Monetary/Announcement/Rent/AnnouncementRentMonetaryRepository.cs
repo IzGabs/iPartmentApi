@@ -1,29 +1,27 @@
 ﻿using API.src.Core.Errors;
 using API.src.Domain.Condominium.Application.Monetary;
-using API.src.Domain.Condominium.Application.Values;
 using API.src.Domain.Monetary.Entities;
 using API.src.Infra.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.src.Application.Monetary.RealState
+namespace API.src.Application.Monetary.Announcement.Rent
 {
-    public class RealStateMonetaryRepository : IMonetaryRepository<RealStateMonetary>
+    public class AnnouncementRentMonetaryRepository : IMonetaryRepository<AnnouncementRentMonetary>
     {
         private readonly BuildContext context;
 
-        public RealStateMonetaryRepository(BuildContext context)
+        public AnnouncementRentMonetaryRepository(BuildContext context)
         {
             this.context = context;
         }
 
 
-        public async Task<RealStateMonetary> Create(RealStateMonetary obj)
+        public async Task<AnnouncementRentMonetary> Create(AnnouncementRentMonetary obj)
         {
-            try {
-                var addObj = await context.RealStateMonetary.AddAsync(obj);
+            try
+            {
+                var addObj = await context.AnnouncementRentMonetary.AddAsync(obj);
 
                 if (addObj.State == Microsoft.EntityFrameworkCore.EntityState.Added)
                 {

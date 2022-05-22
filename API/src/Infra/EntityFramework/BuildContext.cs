@@ -1,19 +1,15 @@
-﻿using API.Domain.User;
-using API.Domain.Location;
+﻿using API.Domain.Location;
 using API.Domain.RealState.Models;
-using Microsoft.EntityFrameworkCore;
-using API.src.Domain.Values;
-using API.src.Domain.RealState.Entities;
-using API.src.Domain.Monetary.Entities;
-using API.src.Domain.RealState.Entities.ValueObject;
-using System;
-using System.Linq;
+using API.Domain.User;
 using API.src.Domain.Announcement.Entities;
-using API.src.Domain.Visit;
-using API.src.Domain.Images;
+using API.src.Domain.Monetary.Entities;
 using API.src.Domain.RealEstate.Entities.Aggregates;
-using API.src.Domain.User;
+using API.src.Domain.RealState.Entities;
+using API.src.Domain.RealState.Entities.ValueObject;
 using API.src.Domain.ScheduledVisits.Entities.ValueObject;
+using API.src.Domain.User;
+using API.src.Domain.Values;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.src.Infra.EntityFramework
 {
@@ -29,21 +25,20 @@ namespace API.src.Infra.EntityFramework
         public DbSet<RealEstateBase> RealEstate { get; set; }
         public DbSet<RealEstateCondo> RealEstateCondo { get; set; }
         public DbSet<TypeRealEstate> RealEstateTypes { get; set; }
-        public DbSet<RealStateMonetary> RealStateMonetary { get; set; }
 
         public DbSet<CondominiumObject> Condominium { get; set; }
         public DbSet<CondominiumMonetary> CondominiumValues { get; set; }
 
         //Operation
         public DbSet<AnnouncementAggregate> Announcements { get; set; }
-        public DbSet<AnnouncementRentType> AnnouncementsToRent { get; set; }
-        public DbSet<AnnouncementSellType> AnnouncementsToSell { get; set; }
         public DbSet<ScheduledVisitsObject> ScheduledVisits { get; set; }
+        public DbSet<AnnouncementRentMonetary> AnnouncementRentMonetary { get; set; }
+        public DbSet<AnnouncementSellMonetary> AnnouncementSellMonetary { get; set; }
 
         //Images
         public DbSet<UsersImages> UsersImages { get; set; }
         public DbSet<RealEstateImages> RealEstateImages { get; set; }
-        
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +48,21 @@ namespace API.src.Infra.EntityFramework
                 .WithOne(e => e.Condominium);
 
             modelBuilder.Entity<RealEstateValueObject>().ToTable("RealEstates");
+
+            modelBuilder.Entity<TypeRealEstate>()
+                .HasMany<RealEstateBase>()
+                .WithOne(x => x.Type);
+
+            modelBuilder.Entity<AnnouncementAggregate>()
+               .HasOne(s => s.RentValues)
+               .WithOne(e => e.aggregate)
+               .HasForeignKey<AnnouncementAggregate>(x => x.AnnouncementRentId);
+
+            modelBuilder.Entity<AnnouncementAggregate>()
+              .HasOne(s => s.SellValues)
+              .WithOne(e => e.aggregate)
+              .HasForeignKey<AnnouncementAggregate>(x => x.AnnouncementSellId);
+
 
             Seed(modelBuilder);
         }

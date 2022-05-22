@@ -34,9 +34,9 @@ namespace API.src.Application.ScheduledVisits
             try
             {
                 var users = _context.ScheduledVisits.Find(id);
-                _context.ScheduledVisits.ToList(x => x.id = users.id);
-                _context.SaveChanges();
-                //Pegar o visitors Id
+                //_context.ScheduledVisits.ToList(x => x.id = users.id);
+              
+              
             }
             catch (Exception e)
             {

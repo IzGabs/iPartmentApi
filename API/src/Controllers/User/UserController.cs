@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using API.Application;
+using API.Domain.User;
+using API.src.Domain.User.Application;
+using API.src.Infra.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using API.Application;
-using API.Domain.User;
-using API.src.Infra.EntityFramework;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using API.src.Domain.User.Application;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -78,13 +77,14 @@ namespace API.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public  ActionResult PutUser([FromBody] UserObject user)
+        public ActionResult PutUser([FromBody] UserObject user)
         {
-            if(user == null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            try {
+            try
+            {
                 service.Update(user);
                 return Ok("Cliente Atualizado!");
             }
@@ -92,7 +92,7 @@ namespace API.Controllers
             {
                 throw;
             }
-                
+
         }
 
         [HttpDelete("{id}")]
@@ -109,13 +109,14 @@ namespace API.Controllers
             catch (Exception)
             {
                 throw;
-            } 
+            }
         }
     }
 
     public class LoginViewModel
     {
-        public LoginViewModel(string email, string password) {
+        public LoginViewModel(string email, string password)
+        {
             this.email = email;
             this.password = password;
         }

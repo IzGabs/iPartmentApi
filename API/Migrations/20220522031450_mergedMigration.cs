@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class Migrations : Migration
+    public partial class mergedMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,14 +35,43 @@ namespace API.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "AnnouncementRentMonetary",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    montlyValue = table.Column<float>(type: "float", nullable: false),
+                    IPTU = table.Column<float>(type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnnouncementRentMonetary", x => x.ID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AnnouncementSellMonetary",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    value = table.Column<float>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnnouncementSellMonetary", x => x.ID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "CondominiumMonetary",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    montlyValue = table.Column<double>(type: "double", nullable: false),
-                    fireInsurence = table.Column<double>(type: "double", nullable: true),
-                    serviceCharge = table.Column<double>(type: "double", nullable: true)
+                    montlyValue = table.Column<float>(type: "float", nullable: false),
+                    fireInsurence = table.Column<float>(type: "float", nullable: true),
+                    serviceCharge = table.Column<float>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,21 +92,6 @@ namespace API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RealEstateTypes", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "RealStateMonetary",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    montlyValue = table.Column<double>(type: "double", nullable: false),
-                    IPTU = table.Column<double>(type: "double", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RealStateMonetary", x => x.ID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -142,11 +156,7 @@ namespace API.Migrations
                     UserID = table.Column<int>(type: "int", nullable: true),
                     createdAt = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    description = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    size = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     pathToFile = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -171,8 +181,7 @@ namespace API.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Size = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    squareMeters = table.Column<int>(type: "int", nullable: false),
                     Rooms = table.Column<int>(type: "int", nullable: false),
                     Bathrooms = table.Column<int>(type: "int", nullable: false),
                     RoomWithBathroom = table.Column<int>(type: "int", nullable: false),
@@ -181,10 +190,9 @@ namespace API.Migrations
                     Garage = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CurrentResidentID = table.Column<int>(type: "int", nullable: true),
                     AdressID = table.Column<int>(type: "int", nullable: true),
-                    ValuesID = table.Column<int>(type: "int", nullable: true),
                     TypeId = table.Column<int>(type: "int", nullable: true),
+                    CurrentResidentID = table.Column<int>(type: "int", nullable: true),
                     CondominiumID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -207,13 +215,7 @@ namespace API.Migrations
                         column: x => x.TypeId,
                         principalTable: "RealEstateTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_RealEstates_RealStateMonetary_ValuesID",
-                        column: x => x.ValuesID,
-                        principalTable: "RealStateMonetary",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RealEstates_Users_CurrentResidentID",
                         column: x => x.CurrentResidentID,
@@ -229,18 +231,33 @@ namespace API.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AdvertiserID = table.Column<int>(type: "int", nullable: true),
+                    RealEstateID = table.Column<int>(type: "int", nullable: true),
+                    type = table.Column<int>(type: "int", nullable: false),
+                    AnnouncementSellId = table.Column<int>(type: "int", nullable: true),
+                    AnnouncementRentId = table.Column<int>(type: "int", nullable: true),
                     createdAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     title = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    immediatelyAvailable = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AdvertiserID = table.Column<int>(type: "int", nullable: true),
-                    RealEstateID = table.Column<int>(type: "int", nullable: true)
+                    immediatelyAvailable = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Announcements", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Announcements_AnnouncementRentMonetary_AnnouncementRentId",
+                        column: x => x.AnnouncementRentId,
+                        principalTable: "AnnouncementRentMonetary",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Announcements_AnnouncementSellMonetary_AnnouncementSellId",
+                        column: x => x.AnnouncementSellId,
+                        principalTable: "AnnouncementSellMonetary",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Announcements_RealEstates_RealEstateID",
                         column: x => x.RealEstateID,
@@ -265,11 +282,7 @@ namespace API.Migrations
                     RealEstateID = table.Column<int>(type: "int", nullable: true),
                     createdAt = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    description = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    size = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     pathToFile = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -316,50 +329,6 @@ namespace API.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "AnnouncementsToRent",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    montlyValue = table.Column<float>(type: "float", nullable: false),
-                    IPTU = table.Column<float>(type: "float", nullable: false),
-                    announcementID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnnouncementsToRent", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_AnnouncementsToRent_Announcements_announcementID",
-                        column: x => x.announcementID,
-                        principalTable: "Announcements",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "AnnouncementsToSell",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<float>(type: "float", nullable: false),
-                    IPTU = table.Column<float>(type: "float", nullable: false),
-                    announcementID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnnouncementsToSell", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_AnnouncementsToSell_Announcements_announcementID",
-                        column: x => x.announcementID,
-                        principalTable: "Announcements",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.InsertData(
                 table: "RealEstateTypes",
                 columns: new[] { "Id", "Description", "Name" },
@@ -377,19 +346,21 @@ namespace API.Migrations
                 column: "AdvertiserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Announcements_AnnouncementRentId",
+                table: "Announcements",
+                column: "AnnouncementRentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Announcements_AnnouncementSellId",
+                table: "Announcements",
+                column: "AnnouncementSellId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Announcements_RealEstateID",
                 table: "Announcements",
                 column: "RealEstateID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AnnouncementsToRent_announcementID",
-                table: "AnnouncementsToRent",
-                column: "announcementID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AnnouncementsToSell_announcementID",
-                table: "AnnouncementsToSell",
-                column: "announcementID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Condominiums_LocationID",
@@ -427,11 +398,6 @@ namespace API.Migrations
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RealEstates_ValuesID",
-                table: "RealEstates",
-                column: "ValuesID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ScheduledVisits_realStateID",
                 table: "ScheduledVisits",
                 column: "realStateID");
@@ -450,10 +416,7 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AnnouncementsToRent");
-
-            migrationBuilder.DropTable(
-                name: "AnnouncementsToSell");
+                name: "Announcements");
 
             migrationBuilder.DropTable(
                 name: "RealEstateImages");
@@ -465,7 +428,10 @@ namespace API.Migrations
                 name: "UsersImages");
 
             migrationBuilder.DropTable(
-                name: "Announcements");
+                name: "AnnouncementRentMonetary");
+
+            migrationBuilder.DropTable(
+                name: "AnnouncementSellMonetary");
 
             migrationBuilder.DropTable(
                 name: "RealEstates");
@@ -475,9 +441,6 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "RealEstateTypes");
-
-            migrationBuilder.DropTable(
-                name: "RealStateMonetary");
 
             migrationBuilder.DropTable(
                 name: "Users");

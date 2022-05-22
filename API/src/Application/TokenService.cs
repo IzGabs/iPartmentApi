@@ -1,12 +1,12 @@
 
 
+using API.Domain.User;
+using iPartmentApi;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using API.Domain.User;
-using iPartmentApi;
 
 namespace API.Application
 {

@@ -1,7 +1,7 @@
 using API.src.Core.Swagger;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
- 
+
 
 namespace API.Domain.Location
 {

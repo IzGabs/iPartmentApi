@@ -2,7 +2,6 @@
 using API.src.Domain.User;
 using API.src.Domain.User.Application;
 using API.src.Infra.EntityFramework;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,15 +17,15 @@ namespace API.src.Application.User
             this.repository = repository;
         }
 
-        public void Create(UserObject obj) 
+        public void Create(UserObject obj)
         {
             obj.UserType = UserTypeEnum.CUSTOMER;
-            repository.Create(obj);
+              repository.Create(obj);
         }
 
-        public UserObject Get(int id) 
-        { 
-           return repository.Get(id);
+        public UserObject Get(int id)
+        {
+            return repository.Get(id);
         }
 
         public IEnumerable<UserObject> GetAll()
@@ -35,7 +34,7 @@ namespace API.src.Application.User
         }
         public void Update(UserObject obj)
         {
-            repository.Update(obj); 
+            repository.Update(obj);
         }
         public void Delete(UserObject body)
         {
