@@ -440,3 +440,16 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+## API/Migrations/*
+
+#Docker related
+API/docker-compose.dcproj.user
+API/docker-compose.dcproj
+API/docker-compose.yml
+#API/Dockerfile
+API/.dockerignore
+API/launchSettings.json
+API/DockerAPIEntity.sln
+API/Dockerfile.original
