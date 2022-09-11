@@ -1,0 +1,41 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/API",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:49489/",
+      "sslPort": 0
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "iPartmentDocker": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:49489/api",
+      "environmentVariables": {
+        "private_key_id": "",
+        "client_id": "",
+        "DB_HOST": "127.0.0.1",
+        "private_key": "",
+        "client_email": "",
+        "Chave": "Valor"
+      }
+    },
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchServiceName": "ipartment_container",
+      "serviceActions": {
+        "db": "StartWithoutDebugging",
+        "ipartment_container": "StartDebugging"
+      },
+      "composeLaunchAction": "LaunchBrowser",
+      "commandVersion": "1.0",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/api"
+    }
+  }
+}

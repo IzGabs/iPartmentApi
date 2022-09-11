@@ -1,0 +1,56 @@
+version: '3.4'
+
+volumes:
+  iPartmentVolume:
+
+networks: 
+ project_network:
+    driver: bridge
+
+
+services:
+  db:
+    image: mysql
+    container_name: mysql-container
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - iPartmentVolume:/var/lib/mysql 
+    ports:
+      -  "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "ipartment_db"
+      bind_address: 0.0.0
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 2
+    networks:
+     - project_network
+
+  ipartment_container:
+    image: ${DOCKER_REGISTRY-}api
+    container_name: ipartment_container
+    volumes:
+      - iPartmentVolume:/var/lib/api 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80" 
+    links:
+      - db
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+        DB_HOST: "172.17.0.1"
+    networks:
+     - project_network
+
+        
+
+ 
+ 
